@@ -1,0 +1,99 @@
+import { useLocation } from 'preact-iso';
+import mainLogo from '/assets/img/em3k.svg';
+
+export function Menubar() {
+	
+	// not currently used 
+	const { url } = useLocation();
+
+	function closeApp() {
+		if (confirm("Are you sure you want to quit em3k?") == true) {
+			alert('You clicked OK!\n\nThis feature is not implemented yet.');
+		} else {
+			return false;
+		}
+	}
+
+	return (
+        <header>
+            <nav className="navbar fixed-top navbar-expand bg-body-secondary border-bottom border-1 border-dark py-0" style="height: 50px;">
+                <div className="container-fluid px-2">
+
+                    <a className="navbar-brand m-0 p-0 me-3 d-flex align-items-center" href="/home" title="Home">
+                        <img src={mainLogo} height="38" alt="logo" /> 
+                    </a>
+
+                    <ul className="navbar-nav flex-row align-items-center me-auto">
+                        <li className="nav-item dropdown">
+                            <a className="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                File
+                            </a>
+                            <ul className="dropdown-menu">
+                                <li><a className="dropdown-item" href="#">Import Lesson...</a></li>
+                                <li><a className="dropdown-item" href="#">Work Offline</a></li>
+                                <li><a className="dropdown-item" href="#">Share Lesson</a></li>
+                            </ul>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Edit
+                            </a>
+                            <ul className="dropdown-menu">
+                                <li><a className="dropdown-item" href="#">Settings</a></li>
+                            </ul>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Go
+                            </a>
+                            <ul className="dropdown-menu">
+                                <li><a className="dropdown-item" href="/">Root</a></li>
+                                <li><a className="dropdown-item" href="/home">Home</a></li>
+                                <li><a className="dropdown-item" href="/welcome">Welcome</a></li>
+                                <li><a className="dropdown-item" href="/library">Library</a></li>
+                                <li><a className="dropdown-item" href="https://catalog.em3k.org" target="_blank">Course Catalog<i class="bi bi-box-arrow-up-right ms-2"></i></a></li>
+                                <li><a className="dropdown-item" href="/lessons">Lesson Index</a></li>
+                            </ul>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Help
+                            </a>
+                            <ul className="dropdown-menu">
+                                <li><a className="dropdown-item" href="#">Em3k Tutorial</a></li>
+                                <li><a className="dropdown-item" href="#">Online Documentation</a></li>
+                                <li><a className="dropdown-item" href="#">Contact Support</a></li>
+                                <li><a className="dropdown-item" href="#">About Em3k</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <form method="GET" className="d-flex ms-auto me-3 me-md-4" role="search">
+                        <div className="input-group text-nowrap">
+                            <input name="query" className="form-control form-control-sm searchquery" type="search" placeholder="Search" aria-label="Search" required/>
+                            <button className="btn btn-outline-secondary btn-sm" type="submit">Go</button>
+                        </div>
+                    </form>
+
+                    <button type="button" className="btn-close me-1" aria-label="Close" onClick={closeApp}></button>
+                </div>
+            </nav>
+        </header>		
+	);
+}

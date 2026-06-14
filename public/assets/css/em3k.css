@@ -1,0 +1,180 @@
+/* em3k.css - stylesheet for Edumatic 3K */
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16pt;
+    background-color: white;
+    color: black;
+    padding: 0;
+    margin: 0;
+}
+
+/* fonts */
+
+@font-face {
+    font-family: Oswald;
+    src: url('/assets/fonts/Oswald-Regular.ttf');
+}
+
+/* Script font for student name on Certificate */
+@font-face {
+    font-family: Barbershop;
+    src: url('/assets/fonts/Barbershop.ttf');
+}
+
+/* Signature font for teacher signature on Certificate */
+@font-face {
+    font-family: Signature;
+    src: url('/assets/fonts/Signature.ttf');
+}
+
+/* main heading title on index page */
+.welcometext {
+    font-family: Oswald;
+    font-size: 3rem;
+    text-shadow: 2px 2px 4px #b6b2b2;
+} 
+
+/* main call to action on index page */
+.cta {
+    font-family: Oswald;
+    font-size: 2rem;
+}
+
+/* used to change font on specific elements */
+.oswald-text {
+    font-family: Oswald;
+}
+
+.ss-text {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Intro page responsive layout: image stacks on small screens, floats right on md+ */
+.intro-figure {
+    margin: 1rem 0;
+}
+
+.intro-figure img {
+    border-radius: 12px;
+    max-width: 75%;
+    height: auto;
+}
+
+.cta-large {
+    display: inline-block;
+    min-width: 260px;
+}
+
+/* scale images to be slightly larger on hover */
+.imggrow {
+    display: block;
+}
+.imggrow:hover {
+    transform: scale(1.2);
+}
+
+/* used by large buttons */
+.btntext {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.6rem;
+}
+
+.lessontitle {
+    font-family: Oswald;
+    font-size: 48px;
+    margin-top: 50px;
+}
+
+/* used on images and slideshows */
+.sizeadjuster {
+    width: 40vw;
+    min-width: 400px;
+    max-width: 800px;
+}
+
+/* used on lesson pages to make links appear inactive */
+.disabled-link {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+    color: black;
+}
+
+/* used on breadcrumb trail to make current page bold */
+.bct-active {
+    font-weight: bold;
+}
+
+/* used on lesson pages to size carousel buttons */
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  width: 8vw;
+  height: 8vw;
+}
+
+/* used on quiz questions & answers */
+.number-icon {
+    width: 2.1rem;
+    height: 2.1rem;
+    background-color: black;
+    color: #fff;
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+    user-select: none;
+}
+
+/* used on intro page caption */
+.text-light-gray {
+    color: #adb5bd !important;
+}
+
+/* animation effect to fade in pages */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* powered by text */
+.poweredby {
+    font-size: 12pt;
+    font-family: Oswald;
+    color: var(--bs-secondary-color);
+    user-select: none;
+    margin-top: 150px;
+}
+.poweredby:hover {
+    text-shadow: 1px 1px 5px rgba(182, 178, 178, 0.70);
+}
+
+/* designed to work with IPFS text */
+.designedto {
+    font-family: Oswald; 
+    font-size: 16px;
+    color: var(--bs-secondary-color);
+    user-select: none;
+    margin-top: 12px;
+}
+
+/* OffCanvas Menu Link Hover */
+.hover-bg-light:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transition: background-color 150ms ease;
+}
+
+/* Small screen */
+@media (min-width: 768px) {
+    .intro-figure {
+        float: right;
+        width: 40%;
+        margin-left: 2rem;
+        margin-bottom: 1rem;
+    }
+}

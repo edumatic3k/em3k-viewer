@@ -19,7 +19,7 @@ export function Menubar() {
             <nav className="navbar fixed-top navbar-expand bg-body-secondary border-bottom border-1 border-dark py-0" style="height: 50px;">
                 <div className="container-fluid px-2">
 
-                    <a className="navbar-brand m-0 p-0 me-3 d-flex align-items-center" href="/home" title="Home">
+                    <a className="navbar-brand m-0 p-0 me-3 d-flex align-items-center" href="/home" title="Em3k Home">
                         <img src={mainLogo} height="38" alt="logo" /> 
                     </a>
 
@@ -34,8 +34,13 @@ export function Menubar() {
                             </a>
                             <ul className="dropdown-menu">
                                 <li><a className="dropdown-item" href="#">Import Lesson...</a></li>
-                                <li><a className="dropdown-item" href="#">Work Offline</a></li>
                                 <li><a className="dropdown-item" href="#">Share Lesson</a></li>
+                                <li><a className="dropdown-item" href="#">Backup Library</a></li>
+                                <hr/>
+                                <li><a className="dropdown-item" href="#">🔴 Go Online</a></li>
+                                <li><a className="dropdown-item" href="#">🟢 Work Offline</a></li>
+                                <hr/>
+                                <li><a className="dropdown-item" href="#">Exit</a></li>
                             </ul>
                         </li>
                         <li className="nav-item dropdown">
@@ -47,7 +52,7 @@ export function Menubar() {
                                 Edit
                             </a>
                             <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Settings</a></li>
+                                <li><a className="dropdown-item" href="/settings">Settings</a></li>
                             </ul>
                         </li>
                         <li className="nav-item dropdown">
@@ -77,9 +82,13 @@ export function Menubar() {
                             </a>
                             <ul className="dropdown-menu">
                                 <li><a className="dropdown-item" href="#">Em3k Tutorial</a></li>
-                                <li><a className="dropdown-item" href="#">Online Documentation</a></li>
-                                <li><a className="dropdown-item" href="#">Contact Support</a></li>
-                                <li><a className="dropdown-item" href="#">About Em3k</a></li>
+                                <li><a className="dropdown-item" href="/help">Em3k Help</a></li>
+                                <hr/>
+                                <li><a className="dropdown-item" href="/report">Report A Problem</a></li>
+                                <li><a className="dropdown-item" href="/share">Share</a></li>
+                                <li><a className="dropdown-item" href="/donate">Donate</a></li>
+                                <hr/>
+                                <li><a className="dropdown-item" href="/about">About Em3k</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -87,7 +96,7 @@ export function Menubar() {
                     <form method="GET" className="d-flex ms-auto me-3 me-md-4" role="search">
                         <div className="input-group text-nowrap">
                             <input name="query" className="form-control form-control-sm searchquery" type="search" placeholder="Search" aria-label="Search" required/>
-                            <button className="btn btn-outline-secondary btn-sm" type="submit">Go</button>
+                            <button className="btn btn-outline-secondary btn-sm" type="submit" title="Search"><i class="bi bi-search"></i></button>
                         </div>
                     </form>
 

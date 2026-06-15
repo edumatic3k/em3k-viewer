@@ -1,7 +1,7 @@
 import { render } from 'preact';
 import { LocationProvider, Router, Route } from 'preact-iso';
-import { Menubar } from './components/Menubar.jsx';
-import { Statusbar } from './components/Statusbar.jsx';
+import { Menubar } from './components/ui/Menubar.jsx';
+import { Statusbar } from './components/ui/Statusbar.jsx';
 import { Welcome } from './pages/welcome.jsx';
 import { Home } from './pages/home.jsx';
 import { Library } from './pages/library.jsx';

@@ -1,0 +1,35 @@
+{
+  "app": {
+    "title": "em3k - Edumatic 3000",
+    "version": "1.0.0",
+    "defaultTeacher": "em3k-system",
+    "defaultCourse": "sample-france",
+    "locale": "en-US",
+    "theme": "default"
+  },
+
+  "features": {
+    "quizzing": true,
+    "certificates": true,
+    "progressTracking": true,
+    "offlineMode": true,
+    "ipfsEnabled": false
+  },
+
+  "ui": {
+    "showToolbar": true,
+    "toolbarPosition": "top",
+    "allowHidingToolbar": true,
+    "showSystemLessonsByDefault": false,
+    "firstRunCompleted": false
+  },
+
+  "navigation": {
+    "enableOffscreenModal": true,
+    "enablePersistentToolbar": true
+  },
+
+  "defaults": {
+    "lessonTransition": "linear"
+  }
+}

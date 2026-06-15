@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EM3K Config Schema",
+  "type": "object",
+  "properties": {
+    "title": { "type": "string" },
+    "version": { "type": "string" },
+    "defaultLesson": { "type": "string" },
+    "siteUrl": { "type": "string", "format": "uri" },
+
+    "branding": {
+      "type": "object",
+      "properties": {
+        "mainDesc": { "type": "string" },
+        "mainImg": { "type": "string" },
+        "cta": { "type": "string" },
+        "quote": { "type": "string" },
+        "citation": { "type": "string" },
+        "optText": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+
+    "intropage": {
+      "type": "object",
+      "properties": {
+        "pagetitle": { "type": "string" },
+        "paragraphs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "pageimage": { "type": "string" },
+        "imgcaption": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+
+    "features": {
+      "type": "object",
+      "properties": {
+        "siteIntro": { "type": "boolean" },
+        "quizzing": { "type": "boolean" },
+        "unlockAll": { "type": "boolean" },
+        "certificate": { "type": "boolean" },
+        "logging": { "type": "boolean" },
+        "loggingUrl": { "type": "string", "format": "uri" },
+        "studentInfo": { "type": "boolean" },
+        "ipfsEnabled": { "type": "boolean" },
+        "loggingUrl": {
+          "type": "string",
+          "anyOf": [
+            { "format": "uri" },
+            { "const": "" }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "certificate": {
+      "type": "object",
+      "properties": {
+        "teacher": {
+          "type": "object",
+          "properties": {
+            "signature": { "type": "string" },
+            "title": { "type": "string" }
+          }
+        },
+        "organization": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "url": { "type": "string", "format": "uri" }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "author": { "type": "string" },
+    "email": { "type": "string", "format": "email" },
+    "organization": { "type": "string" },
+    "published": { "type": "string", "format": "date-time" },
+    "lastUpdated": { "type": "string", "format": "date-time" }
+  },
+  "required": ["title", "version", "defaultLesson"],
+  "additionalProperties": true
+}

@@ -1,0 +1,208 @@
+import { createContext } from 'preact';
+import { useContext, useState, useEffect } from 'preact/hooks';
+import { loadJSON, saveData, getSaved } from '@utils/storage.js';
+
+const CONFIG_CACHE_NAME = 'em3k-config-v1';
+
+// Check if localStorage is available
+function isStorageAvailable() {
+  const testKey = '__em3k_test__';
+  try {
+    localStorage.setItem(testKey, '1');
+    localStorage.removeItem(testKey);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+// Create the context
+const ConfigContext = createContext();
+
+/**
+ * Hook to consume configuration state from ConfigContext.
+ * @returns {{ config: Object|null, loading: boolean, error: string|null, reload: function }}
+ */
+export function useConfig() {
+  const context = useContext(ConfigContext);
+  if (!context) {
+    throw new Error('useConfig must be used within a ConfigProvider');
+  }
+  return context;
+}
+
+/**
+ * Provider component that loads app configuration and exposes it via context.
+ * @param {Object} props
+ * @param {import('preact').ComponentChildren} props.children
+ */
+export function ConfigProvider({ children }) {
+  const [config, setConfig] = useState(null);
+  const [app, setApp] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    loadConfig();
+  }, []);
+
+  const APP_CACHE_NAME = 'em3k-app-metadata-v1';
+
+  const defaultAppConfig = {
+    title: 'Edumatic 3000 (em3k)',
+    version: '0.0.0',
+    engineUrl: '',
+    updateUrl: '',
+    publicKey: '',
+    author: '',
+    email: '',
+    organization: '',
+    published: '',
+    lastUpdated: ''
+  };
+
+  const runAppVersionCheck = async (appCfg) => {
+    // Placeholder for future app version check logic.
+    // In later updates, this can be expanded to compare the loaded app
+    // metadata with a remote update feed and prompt the user before
+    // continuing if a newer engine version is available.
+    // A future step may also verify the remote update payload using
+    // the app's embedded publicKey to prevent forged updates.
+    return true;
+  };
+
+  const loadJsonResource = async (path, cacheName, storageKey) => {
+    let json = null;
+    try {
+      const res = await fetch(path, { cache: 'no-store' });
+      if (res && res.ok) {
+        json = await res.clone().json();
+        if ('caches' in window) {
+          try {
+            const cache = await caches.open(cacheName);
+            await cache.put(path, res.clone());
+          } catch (e) {
+            // ignore cache errors
+          }
+        }
+      }
+    } catch (e) {
+      // network failed, try cache/localStorage below
+    }
+
+    if (!json && 'caches' in window) {
+      try {
+        const cached = await caches.match(path);
+        if (cached) json = await cached.json();
+      } catch (e) {
+        // ignore
+      }
+    }
+
+    if (!json) {
+      json = getSaved(storageKey);
+    }
+
+    return json;
+  };
+
+  /**
+   * Attempt to load the application configuration.
+   * Strategy: load app metadata first, then load course config.
+   * Both files are network-first, with CacheStorage and localStorage as fallbacks.
+   * @returns {Promise<void>}
+   */
+  const loadConfig = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      if (!isStorageAvailable()) {
+        throw new Error('localStorage is not available');
+      }
+
+      let appCfg = await loadJsonResource('/app.json', APP_CACHE_NAME, 'app');
+      if (appCfg && appCfg.app) {
+        appCfg = appCfg.app;
+      }
+      if (!appCfg || typeof appCfg !== 'object') {
+        appCfg = defaultAppConfig;
+      }
+
+      await runAppVersionCheck(appCfg);
+
+      let cfg = await loadJsonResource('/config.json', CONFIG_CACHE_NAME, 'config');
+      if (!cfg) {
+        throw new Error('Failed to load config.json from network, cache, or storage');
+      }
+
+      try {
+        saveData('app', appCfg);
+      } catch (e) {
+        // ignore
+      }
+      try {
+        saveData('config', cfg);
+      } catch (e) {
+        // ignore
+      }
+
+      setApp(appCfg);
+      setConfig(cfg);
+    } catch (err) {
+      console.error('Config loading error:', err);
+      setError(err.message || 'Failed to load configuration');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const contextValue = {
+    config,
+    app,
+    loading,
+    error,
+    reload: loadConfig
+  };
+
+  return (
+    <ConfigContext.Provider value={contextValue}>
+      {children}
+    </ConfigContext.Provider>
+  );
+}
+
+/**
+ * Component wrapper that delays rendering until config has loaded.
+ * @param {Object} props
+ * @param {import('preact').ComponentChildren} props.children
+ * @param {import('preact').ComponentChildren} props.fallback
+ */
+export function ConfigLoader({ children, fallback }) {
+  const { config, loading, error } = useConfig();
+
+  if (loading) {
+    return fallback;
+  }
+
+  if (error) {
+    return (
+      <div className="p-4 alert alert-danger">
+        <h4>Configuration Error</h4>
+        <p>{error}</p>
+        <p>Please check that <code>config.json</code> is available and valid.</p>
+      </div>
+    );
+  }
+
+  if (!config) {
+    return (
+      <div className="p-4 alert alert-warning">
+        <h4>No Configuration</h4>
+        <p>Configuration data is not available.</p>
+      </div>
+    );
+  }
+
+  return children;
+}

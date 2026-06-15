@@ -99,8 +99,8 @@ export function Menubar() {
                             <button className="btn btn-outline-secondary btn-sm" type="submit" title="Search"><i class="bi bi-search"></i></button>
                         </div>
                     </form>
-
-                    <button type="button" className="btn-close me-1" aria-label="Close" onClick={closeApp}></button>
+                    <button className="btn me-2" aria-label="Full Screen" title="Full Screen"><i class="bi bi-fullscreen"></i></button>
+                    <button type="button" className="btn-close me-1" title="Close" aria-label="Close" onClick={closeApp}></button>
                 </div>
             </nav>
         </header>		

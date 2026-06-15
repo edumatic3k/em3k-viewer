@@ -1,0 +1,30 @@
+{
+  "slug": "Ken-Dawson",
+  "name": "EM3K System",
+  "email": "support@em3k.org",
+  "avatar": "/assets/teachers/em3k-system/avatar.png",
+
+  "branding": {
+    "mainDesc": "...",
+    "mainImg": "/assets/img/...",
+    "colors": {
+      "primary": "#3b82f6"
+    }
+  },
+
+  "certificate": {
+    "teacher": {
+      "signature": "EM3K Team",
+      "title": "Course Instructor"
+    },
+    "organization": {
+      "name": "EM3K",
+      "url": "https://em3k.org"
+    }
+  },
+
+  "defaults": {
+    "linearProgression": true,
+    "allowReview": true
+  }
+}

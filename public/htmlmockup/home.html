@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Edumatic 3000 (em3k)</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="graduate-cap.svg" type="image/svg+xml">
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/bootstrap/icons/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="em3k.css">
+    </head>
+    <body>
+
+        <!-- top menubar -->
+        <header>
+            <nav class="navbar fixed-top navbar-expand bg-body-secondary border-bottom border-1 border-dark py-0" style="height: 50px;">
+                <div class="container-fluid px-2">
+
+                    <!-- branding -->
+                    <a class="navbar-brand m-0 p-0 me-3 d-flex align-items-center" href="#" title="Home">
+                        <img src="graduate-cap.svg" height="38" alt="logo"> 
+                    </a>
+
+                    <!-- Menu items -->
+                    <ul class="navbar-nav flex-row align-items-center me-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                File
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Import Lesson...</a></li>
+                                <li><a class="dropdown-item" href="#">Work Offline</a></li>
+                                <li><a class="dropdown-item" href="#">Share Lesson</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Edit
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                            </ul>
+                        </li>                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Go
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Home</a></li>
+                                <li><a class="dropdown-item" href="#">Library</a></li>
+                                <li><a class="dropdown-item" href="#">Lesson Menu</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Help
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Em3k Tutorial</a></li>
+                                <li><a class="dropdown-item" href="#">Online Documentation</a></li>
+                                <li><a class="dropdown-item" href="#">Contact Support</a></li>
+                                <li><a class="dropdown-item" href="#">About Em3k</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- Search -->
+                    <form method="GET" class="d-flex ms-auto me-3 me-md-4" role="search">
+                        <div class="input-group text-nowrap">
+                            <input name="query" class="form-control form-control-sm searchquery" type="search" placeholder="Search" aria-label="Search" required/>
+                            <button class="btn btn-outline-secondary btn-sm" type="submit">Go</button>
+                        </div>
+                    </form>
+
+                    <!-- close button -->
+                    <button type="button" class="btn-close me-1" aria-label="Close" onclick="closeApp()"></button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- main content area -->
+        <main class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="display-5 mb-4">Home</h1>
+                    <p>This would be the main page that users normally see when using the app. The welcome.html page would only appear on the first run to give users an overview and help them get started. But, on subsequent loads, the user would land on this page. We would have links to their installed content, maybe show their history, provide news, or curated content recommendations from the catalog.</p>
+                </div>
+            </div>
+            <!-- home buttons -->
+            <div class="row">
+                <div class="col-sm-3 mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Item 1</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet.</p>
+                            <a href="#" class="btn btn-primary">Button</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Item 2</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet.</p>
+                            <a href="#" class="btn btn-primary">Button</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Item 3</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet.</p>
+                            <a href="#" class="btn btn-primary">Button</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Item 4</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet.</p>
+                            <a href="#" class="btn btn-primary">Button</a>
+                        </div>
+                    </div>
+                </div>              
+            </div>
+            <div class="row">
+                <div class="col-12 mt-4 mb-5">
+                    <p>Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.</p>
+                    <p>Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.</p>
+                </div>
+            </div>
+            <br/><br/>
+        </main>
+
+        <!-- bottom status bar -->
+        <footer>
+            <nav class="navbar fixed-bottom bg-body-secondary border-top border-1 border-dark m-0 p-0" style="height: 40px;">
+
+                <!-- status message -->
+                <span id="statusmsg" class="navbar-text m-0 p-0 ms-2 small font-monospace"></span>
+
+                <!-- progress bar -->
+                <div id="progressbar" class="d-none progress progbar ms-2 border border-1 border-dark">
+                    <div id="bar" class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width:46%" aria-value aria-valuemax="100">46%</div>
+                </div>
+
+                <!-- online status icons -->
+                <div class="ms-auto m-0 p-0 me-1">
+                    <button id="greenbtn" type="button" class="d-none btn btn-sm" title="Status: Online">🟢</button>
+                    <button id="redbtn" type="button" class="btn btn-sm" title="Status: Offline">🔴</button>
+                </div>
+
+            </nav>
+        </footer>
+
+        <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="confirmQuit.js"></script>
+        <script src="statusMsgController.js"></script>
+
+        <script>
+            // show some simulated status bar activity
+            setTimeout(function(){setStatus('👋 Welcome to the Home page!');}, 5000);
+            setTimeout(function(){clearStatus();}, 10000);
+            setTimeout(function(){setStatus('⬇️ Downloading lesson files...');}, 11000);
+            setTimeout(function(){showProgress('0%');}, 11001);
+            setTimeout(function(){showProgress('1%');}, 12000);
+            setTimeout(function(){showProgress('2%');}, 13000);
+            setTimeout(function(){showProgress('3%');}, 14000);
+            setTimeout(function(){showProgress('4%');}, 15000);
+            setTimeout(function(){showProgress('5%');}, 16000);
+            setTimeout(function(){showProgress('10%');}, 17000);
+            setTimeout(function(){showProgress('20%');}, 18000);
+            setTimeout(function(){showProgress('30%');}, 19000);
+            setTimeout(function(){showProgress('40%');}, 20000);
+            setTimeout(function(){showProgress('50%');}, 21000);
+            setTimeout(function(){showProgress('60%');}, 22000);
+            setTimeout(function(){showProgress('70%');}, 23000);
+            setTimeout(function(){showProgress('80%');}, 24000);
+            setTimeout(function(){showProgress('90%');}, 25000);
+            setTimeout(function(){showProgress('100%');}, 26000);
+            setTimeout(function(){clearStatus();}, 28000);
+            setTimeout(function(){setStatus('Installing lesson files...');}, 30000);
+            setTimeout(function(){clearStatus();}, 32000);
+            setTimeout(function(){setStatus('✅ Lesson installed successfully');}, 35000);
+            setTimeout(function(){clearStatus();}, 40000);
+        </script>
+
+    </body>
+</html>

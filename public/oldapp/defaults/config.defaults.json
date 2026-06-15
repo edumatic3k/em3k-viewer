@@ -1,0 +1,54 @@
+{
+    "title": "Intro to Edumatic 3000 (em3k)",
+    "version": "1.0",
+    "defaultLesson": "tutorial",
+    "courseUrl": "https://www.example.com/",
+    "locale": "en-US",
+
+    "features": {
+        "siteIntro": true,
+        "quizzing": true,
+        "unlockAll": false,
+        "certificate": true,
+        "logging": false,
+        "loggingUrl": "",
+        "studentInfo": false,
+        "ipfsEnabled": false
+    },    
+    
+    "branding": {
+        "mainDesc": "A self-contained linear-progression education app with basic quizzing functionality. Build your own lessons and quizzes using JSON files and modern web technologies. Edumatic 3000 allows you to focus on the content of your lessons and not worry about the mechanics of grading quizzes & answers, or navigation elements. The app optionally tracks the student's progress as they advance through the lessons and enforces linear progress so they can't skip ahead to more advanced lessons.",
+        "mainImg": "/assets/img/online-class.svg",
+        "cta": "Take The Tutorial:",
+        "quote": "Learn how to use Edumatic 3000. By the time you've completed all the tutorial lessons, you'll be ready to create your own classes!",
+        "citation": "",
+        "optText": "You can learn more about using Edumatic 3000 (em3k) by going through the built-in tutorial. This program is self-contained and does not rely on external servers. All data is saved locally in your browser. No data is ever sent to (or received from) an external server and there is no sign-up process required. Click the image above to start the tutorial."
+    },
+    
+    "intropage": {
+        "pagetitle": "Welcome to Edumatic 3000",
+        "paragraphs": [
+            "Edumatic 3000 (em3k) is a revolutionary education platform that runs entirely in your web browser. Unlike traditional learning management systems, em3k requires no backend servers, no databases, and no complicated setup. Everything you need to create engaging educational content is right here in this self-contained application. Perfect for IPFS deployment, offline use, or standalone web hosting.",
+            "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia."
+        ],
+        "pageimage": "/assets/img/graduate.svg",
+        "imgcaption": "Makes learning fun again!"
+    },
+    
+    "certificate": {
+        "teacher": {
+            "signature": "John R. Barrington",
+            "title": "Course Instructor"
+        },
+        "organization": {
+            "name": "Organization Name",
+            "url": "https://www.example.com"
+        }
+    },
+
+    "author": "I.M. Weasel",
+    "email": "weasel@example.com",
+    "organization": "Example Organization",
+    "published": "2026-06-07T14:38:07.093Z",
+    "lastUpdated": "2026-06-07T14:38:07.093Z"
+}

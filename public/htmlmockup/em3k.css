@@ -1,0 +1,40 @@
+html, body {
+    max-width: 100%;
+    min-width: 440px;
+    overflow-x: hidden;
+}
+
+header {
+    min-width: 440px;
+}
+
+main {
+    padding: 75px 5px 5px 100px;
+}
+
+footer {
+    min-width: 440px;
+}
+
+
+.progbar {
+    width: 120px;
+}
+
+.searchquery {
+    width: 130px !important;
+}
+
+/* media queries */
+
+@media only screen and (min-width: 768px) {
+    .searchquery {
+        width: 180px !important;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .searchquery {
+        width: 220px !important;
+    }
+}

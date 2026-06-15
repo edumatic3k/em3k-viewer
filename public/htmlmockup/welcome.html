@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Edumatic 3000 (em3k)</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="graduate-cap.svg" type="image/svg+xml">
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/bootstrap/icons/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="em3k.css">
+    </head>
+    <body>
+
+        <!-- top menubar -->
+        <header>
+            <nav class="navbar fixed-top navbar-expand bg-body-secondary border-bottom border-1 border-dark py-0" style="height: 50px;">
+                <div class="container-fluid px-2">
+
+                    <!-- branding -->
+                    <a class="navbar-brand m-0 p-0 me-3 d-flex align-items-center" href="#" title="Home">
+                        <img src="graduate-cap.svg" height="38" alt="logo"> 
+                    </a>
+
+                    <!-- Menu items -->
+                    <ul class="navbar-nav flex-row align-items-center me-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                File
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Import Lesson...</a></li>
+                                <li><a class="dropdown-item" href="#">Work Offline</a></li>
+                                <li><a class="dropdown-item" href="#">Share Lesson</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Edit
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Go
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Home</a></li>
+                                <li><a class="dropdown-item" href="#">Library</a></li>
+                                <li><a class="dropdown-item" href="#">Lesson Menu</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Help
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Em3k Tutorial</a></li>
+                                <li><a class="dropdown-item" href="#">Online Documentation</a></li>
+                                <li><a class="dropdown-item" href="#">Contact Support</a></li>
+                                <li><a class="dropdown-item" href="#">About Em3k</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- Search -->
+                    <form method="GET" class="d-flex ms-auto me-3 me-md-4" role="search">
+                        <div class="input-group text-nowrap">
+                            <input name="query" class="form-control form-control-sm searchquery" type="search" placeholder="Search" aria-label="Search" required/>
+                            <button class="btn btn-outline-secondary btn-sm" type="submit">Go</button>
+                        </div>
+                    </form>
+
+                    <!-- close button -->
+                    <button type="button" class="btn-close me-1" aria-label="Close" onclick="closeApp()"></button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- main content area -->
+        <main class="container">
+            <h1 class="display-5 mb-4">Welcome to em3k!</h1>
+            <img src="teacher.svg" class="float-end mx-3 my-1" alt="Teacher" style="min-width: 150px; max-width: 220px;">
+            <p>Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.</p>
+            <p>Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.</p>
+            <p class="text-center my-5">
+                <a href="home.html" type="button" class="btn btn-outline-success btn-lg me-5 shadow">
+                    Go Home
+                </a>
+                <button type="button" class="btn btn-outline-primary btn-lg shadow" onclick="alert('Not implemented yet!')">
+                    Take the Tutorial
+                </button>
+            </p>
+            <br/><br/>
+        </main>
+
+        <!-- bottom status bar -->
+        <footer>
+            <nav class="navbar fixed-bottom bg-body-secondary border-top border-1 border-dark m-0 p-0" style="height: 40px;">
+
+                <!-- status message -->
+                <span id="statusmsg" class="navbar-text m-0 p-0 ms-2 small font-monospace">
+                    <i class="bi bi-info-circle-fill text-primary"></i> Downloading lesson files...
+                </span>
+
+                <!-- progress bar -->
+                <div id="progressbar" class="progress progbar ms-2 border border-1 border-dark">
+                    <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width:46%" aria-value aria-valuemax="100">46%</div>
+                </div>
+
+                <!-- online status icons -->
+                <div class="ms-auto m-0 p-0 me-1">
+                    <button id="greenbtn" type="button" class="d-none btn btn-sm" title="Status: Online">🟢</button>
+                    <button id="redbtn" type="button" class="btn btn-sm" title="Status: Offline">🔴</button>
+                </div>
+
+            </nav>
+        </footer>
+
+        <!-- modals -->
+        <div id="exampleModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger" role="alert">
+                            <i class="bi bi-exclamation-circle-fill text-danger"></i> 
+                            <b>There was an error downloading the lesson files!</b> 
+                            <p class="mt-2">Check your network connection and try again. If you continue to have trouble downloading please open a support ticket and let us know about the problem.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="confirmQuit.js"></script>
+        <script>
+            // simulated status bar activity:
+            let msg = document.getElementById('statusmsg');
+            let pbar = document.getElementById('progressbar');
+            if (msg && pbar) {
+                setTimeout(function() { msg.textContent = ''; }, 5000);
+                setTimeout(function(){ pbar.style.visibility = 'hidden'; }, 5001);
+                setTimeout(function() { msg.innerHTML = '<a href="#" title="Click for more information" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-exclamation-circle-fill text-danger"></i> Error downloading lesson files!</a>'; }, 5001);
+            }
+            function setStatus(isOnline) {
+                const greenBtn = document.getElementById('greenbtn');
+                const redBtn = document.getElementById('redbtn');
+                greenBtn.classList.toggle('d-none', !isOnline);
+                redBtn.classList.toggle('d-none', isOnline);
+            }
+            document.getElementById('greenbtn')?.addEventListener('click', () => setStatus(false));
+            document.getElementById('redbtn')?.addEventListener('click', () => setStatus(true));
+        </script>
+
+    </body>
+</html>

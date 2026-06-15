@@ -1,0 +1,11 @@
+{
+  "preferences": {
+    "showSystemLessons": false,
+    "theme": "light",
+    "fontSize": "medium",
+    "enableToolbar": true
+  },
+  "activeCourses": [
+    { "teacherSlug": "em3k-system", "courseSlug": "sample-france" }
+  ]
+}

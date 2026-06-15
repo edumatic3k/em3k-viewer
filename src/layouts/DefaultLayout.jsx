@@ -1,9 +1,9 @@
 // src/layouts/DefaultLayout.jsx
-import { Menubar } from '../components/Menubar.jsx';
-import { Statusbar } from '../components/Statusbar.jsx';
-import { Onlinestatus } from '../components/Onlinestatus.jsx';
+import { Menubar } from '../components/ui/Menubar.jsx';
+import { Statusbar } from '../components/ui/Statusbar.jsx';
+import { Onlinestatus } from '../components/ui/Onlinestatus.jsx';
 
-export default function DefaultLayout({ children, title = "em3k Viewer" }) {
+export default function DefaultLayout({ children, title = "Em3k Viewer" }) {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       {/* Top Navigation */}

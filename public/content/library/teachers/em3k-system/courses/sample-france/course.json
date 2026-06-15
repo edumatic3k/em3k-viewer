@@ -1,0 +1,17 @@
+{
+  "slug": "sample-france",
+  "title": "Discovering France",
+  "description": "A short introductory lesson about the country of France.",
+  "teacherSlug": "em3k-system",
+  "version": "1.0",
+  "published": "2026-06-10T10:00:00Z",
+  "estimatedDuration": "25 minutes",
+  "tags": ["geography", "beginner", "em3k", "tutorial"],
+  "thumbnail": "assets/img/france.jpg",
+
+  "settings": {
+    "linearProgression": true,
+    "allowReview": true,
+    "showProgressBar": true
+  }
+}

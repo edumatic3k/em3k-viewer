@@ -1,31 +1,45 @@
 {
+  "id": "em3k-system",
   "slug": "em3k-system",
-  "name": "EM3K System",
-  "isSystem": true,
+  "name": "Em3k System",
   "email": "support@em3k.org",
   "avatar": "/assets/teachers/em3k-system/avatar.png",
-
-  "branding": {
-    "mainDesc": "...",
-    "mainImg": "/assets/img/...",
-    "colors": {
-      "primary": "#3b82f6"
-    }
-  },
-
-  "certificate": {
-    "teacher": {
-      "signature": "EM3K Team",
-      "title": "Course Instructor"
+  "organization": "Em3k",
+  "org-slug": "em3k",
+  "displayName": "Em3k System",
+  "verified": true,
+  "verifiedBy": "em3k-server", 
+  "verifiedAt": "2026-06-01T10:00:00Z",
+  "publicKey": "-----BEGIN PUBLIC KEY----- ...",
+  "signature": "base64-signature-of-content",
+  "source": "server", 
+  "originalUrl": "https://catalog.em3k.org/...",
+  "courses": [
+    {
+      "id": "",
+      "name": ""
     },
-    "organization": {
-      "name": "EM3K",
-      "url": "https://em3k.org"
+    {
+      "id": "",
+      "name": ""
+    },
+    {
+      "id": "",
+      "name": ""
     }
+  ],
+  "certificate": {
+      "teacher": {
+        "signature": "EM3K Team",
+        "title": "Course Instructor"
+      },
+      "organization": {
+        "name": "Edumatic 3000 (em3k)",
+        "url": "https://em3k.org"
+      }
   },
-
   "defaults": {
     "linearProgression": true,
     "allowReview": true
-  }
+  }  
 }

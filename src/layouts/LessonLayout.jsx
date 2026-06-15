@@ -4,29 +4,32 @@ import { Statusbar } from '../components/ui/Statusbar.jsx';
 import { OffCanvasMenu } from '../components/modals/OffCanvasMenu.jsx';
 
 /**
- * Layout specifically for Lesson Viewer pages
+ * Dedicated layout for Lesson Viewer pages
+ * Bootstrap 5 full-height flex layout
+ * 
  * @param {Object} props
- * @param {import('preact').ComponentChildren} props.children - The lesson content (intro, page, quiz, etc.)
- * @param {string} [props.title] - Optional page title
+ * @param {import('preact').ComponentChildren} props.children
+ * @param {string} [props.title]
  */
-export function LessonLayout({ children, title = "Lesson" }) {
+export function LessonLayout({ children, title = "EM3K Lesson Viewer" }) {
   return (
     <div className="d-flex flex-column min-vh-100">
-  
-      <Menubar title={title} />
+      {/* Top Navigation */}
+      <Menubar title={title} isLessonMode={true} />
 
-      <div className="d-flex flex-grow-1" style="padding-top: 50px;"> {/* Offset for fixed navbar */}
-        {/* Main Content Area */}
-        <main className="flex-grow-1 p-3 overflow-auto">
-          <div className="container-fluid">
+      {/* Main Content Area */}
+      <div className="d-flex flex-grow-1 pt-5"> {/* Offset for fixed navbar */}
+        <main className="flex-grow-1 overflow-auto bg-light">
+          <div className="container-fluid px-4 py-4">
             {children}
           </div>
         </main>
-
       </div>
 
+      {/* Bottom Statusbar */}
       <Statusbar />
 
+      {/* Offcanvas Menu */}
       <OffCanvasMenu />
     </div>
   );

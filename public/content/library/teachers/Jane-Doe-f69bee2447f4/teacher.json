@@ -1,30 +1,45 @@
 {
-  "slug": "Jane-Doe",
-  "name": "EM3K System",
-  "email": "support@em3k.org",
-  "avatar": "/assets/teachers/em3k-system/avatar.png",
-
-  "branding": {
-    "mainDesc": "...",
-    "mainImg": "/assets/img/...",
-    "colors": {
-      "primary": "#3b82f6"
-    }
-  },
-
-  "certificate": {
-    "teacher": {
-      "signature": "EM3K Team",
-      "title": "Course Instructor"
+  "id": "Jane-Doe-f69bee2447f4",
+  "slug": "jane-doe",
+  "name": "Jane Doe",
+  "email": "janedoe@gmail.com",
+  "avatar": "/assets/teachers/avatars/jane-doe-avatar.png",
+  "organization": "The Seymour School",
+  "org-slug": "seymour",
+  "displayName": "Mrs. Jane Doe",
+  "verified": true,
+  "verifiedBy": "em3k-server", 
+  "verifiedAt": "2026-06-01T10:00:00Z",
+  "publicKey": "-----BEGIN PUBLIC KEY----- ...",
+  "signature": "base64-signature-of-content",
+  "source": "server", 
+  "originalUrl": "https://catalog.em3k.org/...",
+  "courses": [
+    {
+      "id": "",
+      "name": ""
     },
-    "organization": {
-      "name": "EM3K",
-      "url": "https://em3k.org"
+    {
+      "id": "",
+      "name": ""
+    },
+    {
+      "id": "",
+      "name": ""
     }
+  ],
+  "certificate": {
+      "teacher": {
+        "signature": "Mrs. Jane Doe",
+        "title": "Professor of Mathematics"
+      },
+      "organization": {
+        "name": "The Seymour School",
+        "url": "https://seymourschool.edu"
+      }
   },
-
   "defaults": {
     "linearProgression": true,
     "allowReview": true
-  }
+  }  
 }

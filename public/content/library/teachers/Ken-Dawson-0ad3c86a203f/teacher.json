@@ -1,30 +1,45 @@
 {
-  "slug": "Ken-Dawson",
-  "name": "EM3K System",
-  "email": "support@em3k.org",
-  "avatar": "/assets/teachers/em3k-system/avatar.png",
-
-  "branding": {
-    "mainDesc": "...",
-    "mainImg": "/assets/img/...",
-    "colors": {
-      "primary": "#3b82f6"
-    }
-  },
-
-  "certificate": {
-    "teacher": {
-      "signature": "EM3K Team",
-      "title": "Course Instructor"
+  "id": "Ken-Dawson-0ad3c86a203f",
+  "slug": "ken-dawson",
+  "name": "Ken Dawson",
+  "email": "kendall.dawson@proton.me",
+  "avatar": "/assets/teachers/avatars/ken-dawson-avatar.png",
+  "organization": "",
+  "org-slug": "",
+  "displayName": "Ken Dawson",
+  "verified": false,
+  "verifiedBy": "", 
+  "verifiedAt": "",
+  "publicKey": "",
+  "signature": "",
+  "source": "", 
+  "originalUrl": "",
+  "courses": [
+    {
+      "id": "",
+      "name": ""
     },
-    "organization": {
-      "name": "EM3K",
-      "url": "https://em3k.org"
+    {
+      "id": "",
+      "name": ""
+    },
+    {
+      "id": "",
+      "name": ""
     }
+  ],
+  "certificate": {
+      "teacher": {
+        "signature": "Ken Dawson",
+        "title": "Instructor"
+      },
+      "organization": {
+        "name": "Ken's Educational Courses",
+        "url": "https://kenscourses.org"
+      }
   },
-
   "defaults": {
     "linearProgression": true,
     "allowReview": true
-  }
+  }  
 }

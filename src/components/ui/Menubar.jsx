@@ -67,6 +67,7 @@ export function Menubar() {
                                 <li><a className="dropdown-item" href="/">Root</a></li>
                                 <li><a className="dropdown-item" href="/home">Home</a></li>
                                 <li><a className="dropdown-item" href="/welcome">Welcome</a></li>
+                                <li><a className="dropdown-item" href="/search">Search</a></li>
                                 <li><a className="dropdown-item" href="/library">Library</a></li>
                                 <li><a className="dropdown-item" href="https://catalog.em3k.org" target="_blank">Course Catalog<i class="bi bi-box-arrow-up-right ms-2"></i></a></li>
                                 <li><a className="dropdown-item" href="/lessons">Lesson Index</a></li>
@@ -93,14 +94,16 @@ export function Menubar() {
                         </li>
                     </ul>
 
-                    <form method="GET" className="d-flex ms-auto me-3 me-md-4" role="search">
+                    <form method="GET" action="/search" className="d-flex ms-auto me-3 me-md-4" role="search">
                         <div className="input-group text-nowrap">
                             <input name="query" className="form-control form-control-sm searchquery" type="search" placeholder="Search" aria-label="Search" required/>
                             <button className="btn btn-outline-secondary btn-sm" type="submit" title="Search"><i class="bi bi-search"></i></button>
                         </div>
                     </form>
+
                     <button className="btn me-2" aria-label="Full Screen" title="Full Screen"><i class="bi bi-fullscreen"></i></button>
                     <button type="button" className="btn-close me-1" title="Close" aria-label="Close" onClick={closeApp}></button>
+                    
                 </div>
             </nav>
         </header>		

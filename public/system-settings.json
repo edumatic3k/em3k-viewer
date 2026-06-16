@@ -1,1 +1,14 @@
-{}
+{
+    "defaultTeacher": "em3k-system",
+    "defaultCourse": "sample-france",
+    "features": {
+        "quizzing": true,
+        "certificates": true,
+        "progressTracking": true,
+        "offlineMode": true,
+        "ipfsEnabled": false
+    },
+    "defaults": {
+        "lessonTransition": "linear"
+    }       
+}

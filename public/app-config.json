@@ -1,21 +1,15 @@
 {
   "app": {
-    "title": "em3k - Edumatic 3000",
+    "title": "Edumatic 3000 (em3k)",
     "version": "1.0.0",
-    "defaultTeacher": "em3k-system",
-    "defaultCourse": "sample-france",
+    "author": "Ken Dawson",
+    "email": "info@em3k.org",
+    "organization": "Em3k",
+    "published": "2026-06-07T14:38:07.093Z",
+    "lastUpdated": "2026-06-07T14:38:07.093Z",
     "locale": "en-US",
     "theme": "default"
   },
-
-  "features": {
-    "quizzing": true,
-    "certificates": true,
-    "progressTracking": true,
-    "offlineMode": true,
-    "ipfsEnabled": false
-  },
-
   "ui": {
     "showToolbar": true,
     "toolbarPosition": "top",
@@ -23,13 +17,8 @@
     "showSystemLessonsByDefault": false,
     "firstRunCompleted": false
   },
-
   "navigation": {
     "enableOffscreenModal": true,
     "enablePersistentToolbar": true
-  },
-
-  "defaults": {
-    "lessonTransition": "linear"
   }
 }

@@ -12,6 +12,7 @@ import { Donate } from './pages/donate.jsx';
 import { Help } from './pages/help.jsx';
 import { Share } from './pages/share.jsx';
 import { Report } from './pages/report.jsx';
+import { Search } from './pages/search.jsx';
 import { NotFound } from './pages/_404.jsx';
 import './em3k.css';
 
@@ -34,6 +35,7 @@ export function App() {
 					<Route path="/help" component={Help} />
 					<Route path="/share" component={Share} />
 					<Route path="/report" component={Report} />
+					<Route path="/search" component={Search} />
 					<Route default component={NotFound} />
 				</Router>
 			<Statusbar/>

@@ -1,0 +1,5 @@
+{"timestamp":"2026-06-10T13:45:22Z","event":"course_installed","teacherSlug":"john-doe","courseSlug":"intro-to-react","version":"1.3.0","sizeBytes":2450000,"status":"success"}
+{"timestamp":"2026-06-10T13:47:11Z","event":"course_activated","teacherSlug":"john-doe","courseSlug":"intro-to-react"}
+{"timestamp":"2026-06-10T14:12:05Z","event":"course_deactivated","teacherSlug":"john-doe","courseSlug":"intro-to-react"}
+{"timestamp":"2026-06-10T15:03:44Z","event":"course_uninstalled","teacherSlug":"john-doe","courseSlug":"intro-to-react","reason":"user_request"}
+{"timestamp":"2026-06-10T15:05:19Z","event":"course_install_failed","teacherSlug":"jane-smith","courseSlug":"advanced-js","error":"schema_validation_failed","details":"missing lesson.json"}

@@ -1,0 +1,2 @@
+2026-06-10 13:45:22 [SUCCESS] Installed course "intro-to-react" by john-doe (v1.3.0)
+2026-06-10 15:05:19 [FAILED]  Failed to install "advanced-js" by jane-smith: schema_validation_failed

@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "Edumatic 3000 (em3k)",
-    "version": "1.0.0-beta",
+    "version": "1.0.0",
     "author": "Ken Dawson",
     "email": "info@em3k.org",
     "organization": "Em3k",
@@ -15,7 +15,8 @@
     "toolbarPosition": "top",
     "allowHidingToolbar": true,
     "showSystemLessonsByDefault": false,
-    "firstRunCompleted": false
+    "firstRunCompleted": false,
+    "firstRunRoute": "/welcome"
   },
   "navigation": {
     "enableOffscreenModal": true,

@@ -41,8 +41,6 @@ const AppRoutes = () => {
 	  <Route path="/report" component={Report} />
 	  <Route path="/search" component={Search} />
 	  <Route default component={NotFound} />
-      <Route path="/welcome" component={Welcome} />
-      <Route path="/home" component={Home} />
     </Router>
   );
 };

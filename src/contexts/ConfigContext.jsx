@@ -17,7 +17,7 @@ export const ConfigProvider = ({ children }) => {
   const [contentIndex, setContentIndex] = useState(null);
   const [isFirstRun, setIsFirstRun] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState('');   // string to avoid type issues
 
   useEffect(() => {
     const initialize = async () => {

@@ -15,6 +15,7 @@ import { Report } from './pages/report.jsx';
 import { Search } from './pages/search.jsx';
 import { NotFound } from './pages/_404.jsx';
 import { ConfigProvider, useConfig } from './contexts/ConfigContext';
+import { LibraryProvider } from './contexts/LibraryContext.jsx';
 import './em3k.css';
 
 /** @type {HTMLElement | null} */
@@ -48,13 +49,15 @@ const AppRoutes = () => {
 
 export function App() {
 	return (
-		<ConfigProvider>
+	<ConfigProvider>
+		<LibraryProvider>
 			<LocationProvider>
 				<Menubar/>
 					<AppRoutes />
 				<Statusbar/>
 			</LocationProvider>
-		</ConfigProvider>
+		</LibraryProvider>
+	</ConfigProvider>
 	);
 }
 

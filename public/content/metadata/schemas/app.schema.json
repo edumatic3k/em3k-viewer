@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "App Metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "title": { "type": "string" },
+    "version": { "type": "string" },
+    "engineUrl": { "type": "string", "format": "uri", "default": "" },
+    "courseUrl": { "type": "string", "format": "uri", "default": "" },
+    "updateUrl": { "type": "string", "format": "uri", "default": "" },
+    "publicKey": { "type": "string" },
+    "author": { "type": "string" },
+    "email": { "type": "string", "format": "email" },
+    "organization": { "type": "string" },
+    "published": { "type": "string", "format": "date-time" },
+    "lastUpdated": { "type": "string", "format": "date-time" }
+  },
+  "required": ["title", "version"]
+}

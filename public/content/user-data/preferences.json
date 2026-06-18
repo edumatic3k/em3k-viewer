@@ -1,11 +1,15 @@
 {
-  "preferences": {
-    "showSystemLessons": false,
-    "theme": "light",
-    "fontSize": "medium",
-    "enableToolbar": true
-  },
-  "activeCourses": [
-    { "teacherSlug": "em3k-system", "courseSlug": "sample-france" }
-  ]
+  "version": "1.0",
+  "theme": "light",
+  "language": "en",
+  "option1": true,
+  "option2": false,
+  "option3": true,
+  "option4": false,
+  "option5": true,
+  "option6": false,
+  "option7": true,
+  "showSystemContent": true,
+  "autoSaveProgress": true,
+  "activeCourses": []
 }

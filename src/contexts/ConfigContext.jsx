@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { createContext, useContext, useEffect, useState } from 'preact';
+import { createContext, useContext, useEffect, useState } from 'preact/compat';
 
 /** @type {import('preact').Context<any>} */
 const ConfigContext = createContext(null);

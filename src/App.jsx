@@ -14,32 +14,48 @@ import { Share } from './pages/share.jsx';
 import { Report } from './pages/report.jsx';
 import { Search } from './pages/search.jsx';
 import { NotFound } from './pages/_404.jsx';
+import { ConfigProvider, useConfig } from './contexts/ConfigContext';
 import './em3k.css';
 
 /** @type {HTMLElement | null} */
 const app = document.getElementById('app');
 
+const AppRoutes = () => {
+  const { isFirstRun, loading, error } = useConfig();
+
+  if (loading) return <div className="loading-screen">Initializing EM3K Viewer...</div>;
+  if (error) return <div className="error">Error loading config: {error}</div>;
+
+  return (
+    <Router>
+      <Route path="/" component={isFirstRun ? Welcome : Home} />
+      <Route path="/home" component={Home} />
+	  <Route path="/welcome" component={Welcome} />
+	  <Route path="/library" component={Library} />
+	  <Route path="/lessons" component={LessonIndex} />
+	  <Route path="/settings" component={Settings} />
+	  <Route path="/about" component={About} />
+	  <Route path="/donate" component={Donate} />
+	  <Route path="/help" component={Help} />
+	  <Route path="/share" component={Share} />
+	  <Route path="/report" component={Report} />
+	  <Route path="/search" component={Search} />
+	  <Route default component={NotFound} />
+      <Route path="/welcome" component={Welcome} />
+      <Route path="/home" component={Home} />
+    </Router>
+  );
+};
+
 export function App() {
 	return (
-		<LocationProvider>
-			<Menubar/>
-				<Router>
-					<Route path="/" component={Welcome} />
-					<Route path="/home" component={Home} />
-					<Route path="/welcome" component={Welcome} />
-					<Route path="/library" component={Library} />
-					<Route path="/lessons" component={LessonIndex} />
-					<Route path="/settings" component={Settings} />
-					<Route path="/about" component={About} />
-					<Route path="/donate" component={Donate} />
-					<Route path="/help" component={Help} />
-					<Route path="/share" component={Share} />
-					<Route path="/report" component={Report} />
-					<Route path="/search" component={Search} />
-					<Route default component={NotFound} />
-				</Router>
-			<Statusbar/>
-		</LocationProvider>
+		<ConfigProvider>
+			<LocationProvider>
+				<Menubar/>
+					<AppRoutes />
+				<Statusbar/>
+			</LocationProvider>
+		</ConfigProvider>
 	);
 }
 

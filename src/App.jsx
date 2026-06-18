@@ -21,6 +21,7 @@ import './em3k.css';
 const app = document.getElementById('app');
 
 const AppRoutes = () => {
+
   const { isFirstRun, loading, error } = useConfig();
 
   if (loading) return <div className="loading-screen">Initializing EM3K Viewer...</div>;

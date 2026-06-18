@@ -17,7 +17,7 @@ export const ConfigProvider = ({ children }) => {
   const [contentIndex, setContentIndex] = useState(null);
   const [isFirstRun, setIsFirstRun] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');   // string to avoid type issues
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const initialize = async () => {
@@ -30,6 +30,7 @@ export const ConfigProvider = ({ children }) => {
         if (!indexRes.ok) throw new Error('Failed to load content index');
         const loadedIndex = await indexRes.json();
 
+        // First-run handling
         let firstRun = localStorage.getItem('isFirstRun') === null;
         if (firstRun) {
           localStorage.setItem('isFirstRun', 'false');

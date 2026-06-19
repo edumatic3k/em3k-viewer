@@ -1,11 +1,42 @@
 // src/components/ui/Menubar.jsx
-import { useLocation } from 'preact-iso';
+import { useState, useEffect } from "preact/hooks";
 import mainLogo from '/assets/img/em3k.svg';
 
 export function Menubar() {
-	
-	// not currently used 
-	const { url } = useLocation();
+    
+    // remember state of fullscreen and show correct icon
+    const [isFullScreen, setIsFullScreen] = useState(false);
+
+    const syncFullScreenState = () => {
+        const apiFullScreen = !!document.fullscreenElement;
+        const browserFullScreen =
+        window.outerWidth === screen.width && window.outerHeight === screen.height;
+        setIsFullScreen(apiFullScreen || browserFullScreen);
+    };
+
+    const handleFullScreen = async () => {
+        try {
+            if (!document.fullscreenElement) {
+                await document.documentElement.requestFullscreen();
+            } else {
+                await document.exitFullscreen();
+            }
+        } catch (err) {
+            console.error("Failed to toggle fullscreen:", err);
+        }
+    };
+
+    const fullScreenLabel = isFullScreen ? "Exit Fullscreen" : "Full Screen";
+
+    useEffect(() => {
+        syncFullScreenState();
+        document.addEventListener("fullscreenchange", syncFullScreenState);
+        window.addEventListener("resize", syncFullScreenState);
+        return () => {
+            document.removeEventListener("fullscreenchange", syncFullScreenState);
+            window.removeEventListener("resize", syncFullScreenState);
+        };
+    }, []);
 
 	function closeApp() {
 		if (confirm("Are you sure you want to quit em3k?") == true) {
@@ -97,12 +128,19 @@ export function Menubar() {
 
                     <form method="GET" action="/search" className="d-flex ms-auto me-3 me-md-4" role="search">
                         <div className="input-group text-nowrap">
-                            <input name="keyword" className="form-control form-control-sm searchquery" type="search" placeholder="Search" aria-label="Search" required/>
+                            <input name="keyword" className="form-control form-control-sm searchquery" type="search" placeholder="Search all..." aria-label="Search" required/>
                             <button className="btn btn-outline-secondary btn-sm" type="submit" title="Search"><i class="bi bi-search"></i></button>
                         </div>
                     </form>
 
-                    <button className="btn me-2" aria-label="Full Screen" title="Full Screen"><i class="bi bi-fullscreen"></i></button>
+                    <button 
+                    className="btn me-2" 
+                    aria-label={fullScreenLabel} 
+                    title={fullScreenLabel} 
+                    onClick={handleFullScreen}
+                    >
+                        <i className={isFullScreen ? "bi bi-fullscreen-exit" : "bi bi-fullscreen"}></i>
+                    </button>
                     <button type="button" className="btn-close me-1" title="Close" aria-label="Close" onClick={closeApp}></button>
                     
                 </div>

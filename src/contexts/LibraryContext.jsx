@@ -1,9 +1,30 @@
-// @ts-nocheck
 import { createContext, useContext, useEffect, useState } from 'preact/compat';
 import { useConfig } from './ConfigContext';
 import { useJsonResource } from '../hooks/useJsonResource';
 
-const LibraryContext = createContext(null);
+/**
+ * @typedef {{ slug: string, name?: string, teacherSlug?: string }} Course
+ * @typedef {{
+ *   active?: Course[],
+ *   system?: { courses?: Course[] },
+ *   installed?: { courses?: Course[] }
+ * }} ContentIndexData
+ * @typedef {{
+ *   contentIndex: ContentIndexData | null,
+ *   activeCourses: Course[],
+ *   systemCourses: Course[],
+ *   installedCourses: Course[],
+ *   loading: boolean,
+ *   error: any,
+ *   getAllCourses: () => Course[],
+ *   getActiveCourses: () => Course[],
+ *   getSystemCourses: () => Course[],
+ *   getInstalledCourses: () => Course[],
+ *   refreshLibrary: () => void
+ * }} LibraryContextValue
+ */
+
+const LibraryContext = createContext(/** @type {LibraryContextValue | null} */ (null));
 
 export const useLibrary = () => {
   const context = useContext(LibraryContext);
@@ -12,56 +33,50 @@ export const useLibrary = () => {
   }
   return context;
 };
-
+/**
+ * @param {object} props
+ * @param {import('preact').ComponentChildren} props.children
+ */
 export const LibraryProvider = ({ children }) => {
-  const { contentIndex, isFirstRun, userPrefs } = useConfig();
+  const { isFirstRun } = useConfig();
 
+  /** @type {{ data: ContentIndexData | null, loading: boolean, error: any }} */
   const { data: indexData, loading: indexLoading, error: indexError } = useJsonResource(
     '/content/metadata/content-index.json',
     { cache: true }
   );
 
-  // Future: load active courses, installed content, etc.
-  const [activeCourses, setActiveCourses] = useState([]);
+  const [activeCourses, setActiveCourses] = useState(/** @type {Course[]} */ ([]));
 
   useEffect(() => {
-    if (indexData?.active) {
-      setActiveCourses(indexData.active);
+    if (Array.isArray(indexData?.active)) {
+      setActiveCourses(/** @type {Course[]} */ (indexData.active));
     }
   }, [indexData]);
 
-  // Basic selectors
-  const getSystemCourses = () => indexData?.system?.courses || [];
-  const getInstalledCourses = () => indexData?.installed?.courses || [];
+  const getSystemCourses = () => /** @type {Course[]} */ (indexData?.system?.courses || []);
+  const getInstalledCourses = () => /** @type {Course[]} */ (indexData?.installed?.courses || []);
   const getAllCourses = () => [...getSystemCourses(), ...getInstalledCourses()];
 
   const getActiveCourses = () => {
-    // On first run, show tutorial + sample
     if (isFirstRun || activeCourses.length === 0) {
-      return getSystemCourses().concat(getInstalledCourses().slice(0, 1)); // sample-france
+      return getSystemCourses().concat(getInstalledCourses().slice(0, 1));
     }
     return activeCourses;
   };
 
   const value = {
-    // Data
     contentIndex: indexData,
     activeCourses: getActiveCourses(),
     systemCourses: getSystemCourses(),
     installedCourses: getInstalledCourses(),
-
-    // States
     loading: indexLoading,
     error: indexError,
-
-    // Selectors
     getAllCourses,
     getActiveCourses,
     getSystemCourses,
     getInstalledCourses,
-
-    // Future helpers
-    refreshLibrary: () => window.location.reload(), // temporary
+    refreshLibrary: () => window.location.reload(),
   };
 
   return (

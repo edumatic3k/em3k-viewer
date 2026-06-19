@@ -1,23 +1,25 @@
-// src/layouts/DefaultLayout.jsx
+import { useEffect } from 'preact/hooks';
 import { Menubar } from '../components/ui/Menubar.jsx';
 import { Statusbar } from '../components/ui/Statusbar.jsx';
-import { Onlinestatus } from '../components/ui/Onlinestatus.jsx';
 
-export default function DefaultLayout({ children, title = "Em3k Viewer" }) {
+/**
+ * @param {object} props
+ * @param {import('preact').ComponentChildren} props.children
+ * @param {string} [props.title='Em3k)']
+ */
+export default function DefaultLayout({ children, title = 'EM3K' }) {
+
+  useEffect(() => {
+    document.title = title ? `EM3K: ${title}` : 'EM3K';
+  }, [title]);
+
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
-      {/* Top Navigation */}
-      <Menubar title={title} />
-
-      {/* Main Content Area */}
-      <main className="flex-1 container mx-auto px-4 py-6 max-w-7xl">
-        {children}
+    <div className="min-vh-100 d-flex flex-column">
+      <Menubar />
+      <main className="container-fluid ps-3 pe-4">
+          {children}
       </main>
-
-      {/* Bottom Status Bar */}
-      <Statusbar>
-        <Onlinestatus />
-      </Statusbar>
+      <Statusbar />
     </div>
   );
 }

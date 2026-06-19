@@ -1,10 +1,11 @@
+import DefaultLayout from "../layouts/DefaultLayout";
+
 export function Share() {
 
     return (
-        <main class="container">
-            <h1 class="display-5 mb-4">Share Em3k</h1>
-
+        <DefaultLayout title="Share">
+            <h1 class="display-5 mb-4">Share EM3K</h1>
             <br/><br/>
-        </main>        
+        </DefaultLayout>        
     );
 }

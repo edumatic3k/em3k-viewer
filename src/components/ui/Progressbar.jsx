@@ -1,3 +1,5 @@
+// src/components/ui/Progressbar.jsx
+
 export function Progressbar({percentage}) {
     return (
         <div id="progressbar" className="progress progbar ms-2 border border-1 border-dark">

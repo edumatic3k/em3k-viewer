@@ -1,13 +1,14 @@
+import DefaultLayout from "../layouts/DefaultLayout";
+
 export function Library() {
     
     return (
-        <main class="container-fluid" style="padding-top: 55px; margin-bottom: 100px;">
-
+        <DefaultLayout title="Library">
             <div className="row w-100">
                 <div className="col-3">
 
                     {/* <!-- Sidebar --> */}
-                    <div className="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px">
+                    <div className="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 220px">
                         <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                         <span className="fs-4">Sidebar</span>
                         </a>
@@ -55,7 +56,7 @@ export function Library() {
                     </div>
 
                 </div>
-                <div className="col-9">
+                <div className="col-9 pb-5">
 
                     <h1 className="display-5 mb-4">Library</h1>
 
@@ -86,7 +87,7 @@ export function Library() {
 
                 </div>
             </div>
-            <br/><br/>
-        </main>        
+            <br/><br/>            
+        </DefaultLayout>      
     );
 }

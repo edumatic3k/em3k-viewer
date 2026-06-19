@@ -1,3 +1,4 @@
+// src/components/ui/Menubar.jsx
 import { useLocation } from 'preact-iso';
 import mainLogo from '/assets/img/em3k.svg';
 
@@ -96,7 +97,7 @@ export function Menubar() {
 
                     <form method="GET" action="/search" className="d-flex ms-auto me-3 me-md-4" role="search">
                         <div className="input-group text-nowrap">
-                            <input name="query" className="form-control form-control-sm searchquery" type="search" placeholder="Search" aria-label="Search" required/>
+                            <input name="keyword" className="form-control form-control-sm searchquery" type="search" placeholder="Search" aria-label="Search" required/>
                             <button className="btn btn-outline-secondary btn-sm" type="submit" title="Search"><i class="bi bi-search"></i></button>
                         </div>
                     </form>

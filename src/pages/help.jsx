@@ -1,10 +1,11 @@
+import DefaultLayout from "../layouts/DefaultLayout";
+
 export function Help() {
 
     return (
-        <main class="container">
-            <h1 class="display-5 mb-4">Em3k Help</h1>
-
+        <DefaultLayout title="Help">
+            <h1 class="display-5 mb-4">EM3K Help</h1>
             <br/><br/>
-        </main>        
+        </DefaultLayout>        
     );
 }

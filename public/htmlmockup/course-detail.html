@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Edumatic 3000 (em3k)</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="graduate-cap.svg" type="image/svg+xml">
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/bootstrap/icons/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="em3k.css">
+    </head>
+    <body>
+
+        <!-- top menubar -->
+        <header>
+            <nav class="navbar fixed-top navbar-expand bg-body-secondary border-bottom border-1 border-dark py-0" style="height: 50px;">
+                <div class="container-fluid px-2">
+
+                    <!-- branding -->
+                    <a class="navbar-brand m-0 p-0 me-3 d-flex align-items-center" href="#" title="Home">
+                        <img src="graduate-cap.svg" height="38" alt="logo"> 
+                    </a>
+
+                    <!-- Menu items -->
+                    <ul class="navbar-nav flex-row align-items-center me-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                File
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Import Lesson...</a></li>
+                                <li><a class="dropdown-item" href="#">Work Offline</a></li>
+                                <li><a class="dropdown-item" href="#">Share Lesson</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Edit
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Go
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Home</a></li>
+                                <li><a class="dropdown-item" href="#">Library</a></li>
+                                <li><a class="dropdown-item" href="#">Lesson Menu</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Help
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Em3k Tutorial</a></li>
+                                <li><a class="dropdown-item" href="#">Online Documentation</a></li>
+                                <li><a class="dropdown-item" href="#">Contact Support</a></li>
+                                <li><a class="dropdown-item" href="#">About Em3k</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- Search -->
+                    <form method="GET" class="d-flex ms-auto me-3 me-md-4" role="search">
+                        <div class="input-group text-nowrap">
+                            <input name="query" class="form-control form-control-sm searchquery" type="search" placeholder="Search" aria-label="Search" required/>
+                            <button class="btn btn-outline-secondary btn-sm" type="submit">Go</button>
+                        </div>
+                    </form>
+
+                    <!-- close button -->
+                    <button type="button" class="btn-close me-1" aria-label="Close" onclick="closeApp()"></button>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-fluid mb-5">
+
+            <p class="mt-4"><a href="library.html" class="text-decoration-none"><i class="bi bi-arrow-left-square"></i> Back to Library</a></p>
+
+            <h1 class="display-5 mb-4">Course Details</h1>
+
+            <div class="text-center">
+                <img src="../assets/img/placeholder.svg" width="100"/><br/>
+                <span class="fs-3 fw-bold">This Is A Course Name</span><br/>
+                By Teacher Name
+            </div>
+
+            <hr/>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary btn-lg me-5">Large button</button>
+                    <button type="button" class="btn btn-secondary btn-lg">Large button</button>
+                </div>
+            <hr/>
+
+            <p class="mt-4">Info Block 1<br/>
+                <ul class="list-group">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                </ul>
+            </p>
+
+            <p class="mt-4">Info Block 2<br/>
+                <ul class="list-group">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                </ul>
+            </p>
+
+            <p class="mt-4">Info Block 3<br/>
+                <ul class="list-group">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                </ul>
+            </p>
+
+            <div class="mt-4 container-fluid bg-body-secondary">
+                Version 1.0.0
+            </div>
+
+            <br/><br/><br/><br/>
+
+        </main>
+
+        <!-- bottom status bar -->
+        <footer>
+            <nav class="navbar fixed-bottom bg-body-secondary border-top border-1 border-dark m-0 p-0" style="height: 40px;">
+
+                <!-- online status icons -->
+                <div class="ms-auto m-0 p-0 me-1">
+                    <button id="greenbtn" type="button" class="btn btn-sm" title="Status: Online">🟢</button>
+                    <button id="redbtn" type="button" class="d-none btn btn-sm" title="Status: Offline">🔴</button>
+                </div>
+
+            </nav>
+        </footer>
+
+        <!-- Status modal -->
+        <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <p class="mt-5">
+                            <select class="form-select">
+                                <option selected>Set Status</option>
+                                <option value="1">Active</option>
+                                <option value="2">Disabled</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="confirmQuit.js"></script>
+
+    </body>
+</html>

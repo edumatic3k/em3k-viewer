@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Edumatic 3000 (em3k)</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="graduate-cap.svg" type="image/svg+xml">
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/bootstrap/icons/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="em3k.css">
+    </head>
+    <body>
+
+        <!-- top menubar -->
+        <header>
+            <nav class="navbar fixed-top navbar-expand bg-body-secondary border-bottom border-1 border-dark py-0" style="height: 50px;">
+                <div class="container-fluid px-2">
+
+                    <!-- branding -->
+                    <a class="navbar-brand m-0 p-0 me-3 d-flex align-items-center" href="#" title="Home">
+                        <img src="graduate-cap.svg" height="38" alt="logo"> 
+                    </a>
+
+                    <!-- Menu items -->
+                    <ul class="navbar-nav flex-row align-items-center me-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                File
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Import Lesson...</a></li>
+                                <li><a class="dropdown-item" href="#">Work Offline</a></li>
+                                <li><a class="dropdown-item" href="#">Share Lesson</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Edit
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Go
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Home</a></li>
+                                <li><a class="dropdown-item" href="#">Library</a></li>
+                                <li><a class="dropdown-item" href="#">Lesson Menu</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link px-2 py-1 text-decoration-none" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                                Help
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Em3k Tutorial</a></li>
+                                <li><a class="dropdown-item" href="#">Online Documentation</a></li>
+                                <li><a class="dropdown-item" href="#">Contact Support</a></li>
+                                <li><a class="dropdown-item" href="#">About Em3k</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- Search -->
+                    <form method="GET" class="d-flex ms-auto me-3 me-md-4" role="search">
+                        <div class="input-group text-nowrap">
+                            <input name="query" class="form-control form-control-sm searchquery" type="search" placeholder="Search" aria-label="Search" required/>
+                            <button class="btn btn-outline-secondary btn-sm" type="submit">Go</button>
+                        </div>
+                    </form>
+
+                    <!-- close button -->
+                    <button type="button" class="btn-close me-1" aria-label="Close" onclick="closeApp()"></button>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-fluid">
+
+            <h1 class="display-5 mb-4">Lesson Index</h1>
+
+        </main>
+
+        <!-- bottom status bar -->
+        <footer>
+            <nav class="navbar fixed-bottom bg-body-secondary border-top border-1 border-dark m-0 p-0" style="height: 40px;">
+
+                <!-- online status icons -->
+                <div class="ms-auto m-0 p-0 me-1">
+                    <button id="greenbtn" type="button" class="btn btn-sm" title="Status: Online">🟢</button>
+                    <button id="redbtn" type="button" class="d-none btn btn-sm" title="Status: Offline">🔴</button>
+                </div>
+
+            </nav>
+        </footer>
+
+        <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="confirmQuit.js"></script>
+
+    </body>
+</html>

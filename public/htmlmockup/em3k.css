@@ -16,6 +16,9 @@ footer {
     min-width: 440px;
 }
 
+.dev {
+    border: 1px solid red;
+}
 
 .progbar {
     width: 120px;

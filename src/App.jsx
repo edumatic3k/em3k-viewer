@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { render } from 'preact';
-import { lazy, LocationProvider, ErrorBoundary, Router, Route } from 'preact-iso';
-
+import { lazy, LocationProvider, ErrorBoundary as IsoErrorBoundary, Router, Route } from 'preact-iso';
 import { Menubar } from './components/ui/Menubar.jsx';
 import { Statusbar } from './components/ui/Statusbar.jsx';
 import { ConfigProvider, useConfig } from './contexts/ConfigContext';
@@ -20,8 +19,24 @@ const Share = lazy(() => import('./pages/share.jsx'));
 const Report = lazy(() => import('./pages/report.jsx'));
 const Search = lazy(() => import('./pages/search.jsx'));
 const NotFound = lazy(() => import('./pages/_404.jsx'));
+const ErrorPage = lazy(() => import('./pages/error.jsx'));
+
+// Custom wrapper so we can pass error + reset props
+const AppErrorBoundary = ({ children }) => {
+  return (
+    <IsoErrorBoundary
+      onError={(error) => {
+        console.error('App Error Caught:', error);
+        // Optional: send to analytics / logging later
+      }}
+    >
+      {children}
+    </IsoErrorBoundary>
+  );
+};
 
 const AppRoutes = () => {
+  
   const { isFirstRun, loading, error } = useConfig();
 
   if (loading) return <div className="loading-screen">Initializing EM3K Viewer...</div>;
@@ -31,7 +46,7 @@ const AppRoutes = () => {
   // console.log('✅ Rendering routes. isFirstRun =', isFirstRun);
 
   return (
-    <ErrorBoundary>
+    <AppErrorBoundary>
       <Router>
         <Route path="/" component={isFirstRun ? Welcome : Home} />
 
@@ -51,7 +66,7 @@ const AppRoutes = () => {
 
         <Route default component={NotFound} />
       </Router>
-    </ErrorBoundary>
+    </AppErrorBoundary>
   );
 };
 

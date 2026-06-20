@@ -1,7 +1,7 @@
 import { useLocation } from 'preact-iso';
 import DefaultLayout from '../layouts/DefaultLayout';
 
-export function Search() {
+export default function Search() {
 
     const { query } = useLocation();
 

@@ -1,6 +1,6 @@
 import DefaultLayout from "../layouts/DefaultLayout";
 
-export function Help() {
+export default function Help() {
 
     return (
         <DefaultLayout title="Help">

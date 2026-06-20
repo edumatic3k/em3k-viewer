@@ -1,6 +1,6 @@
 import DefaultLayout from "../layouts/DefaultLayout";
 
-export function Report() {
+export default function Report() {
 
     return (
         <DefaultLayout title="Report">

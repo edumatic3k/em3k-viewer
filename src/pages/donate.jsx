@@ -1,6 +1,6 @@
 import DefaultLayout from "../layouts/DefaultLayout";
 
-export function Donate() {
+export default function Donate() {
 
     return (
         <DefaultLayout title="Donate">

@@ -1,6 +1,6 @@
 import DefaultLayout from "../layouts/DefaultLayout";
 
-export function Share() {
+export default function Share() {
 
     return (
         <DefaultLayout title="Share">

@@ -1,7 +1,7 @@
 import DefaultLayout from '../layouts/DefaultLayout';
 import Lost from '/assets/img/lost.svg';
 
-export function NotFound() {
+export default function NotFound() {
 	return (
 		<DefaultLayout title="Error">
 			<div className="text-center mt-4">

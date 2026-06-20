@@ -27,6 +27,9 @@ const AppRoutes = () => {
   if (loading) return <div className="loading-screen">Initializing EM3K Viewer...</div>;
   if (error) return <div className="error">Error loading config: {error}</div>;
 
+  // Debugging:
+  // console.log('✅ Rendering routes. isFirstRun =', isFirstRun);
+
   return (
     <ErrorBoundary>
       <Router>

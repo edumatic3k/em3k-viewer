@@ -6,7 +6,7 @@ import DefaultLayout from '../layouts/DefaultLayout.jsx';
  * @typedef {import('../contexts/LibraryContext.jsx').Course} Course
  */
 
-export const Library = () => {
+export default function Library() {
   const {
     activeCourses,
     installedCourses,

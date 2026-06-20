@@ -1,6 +1,6 @@
 import DefaultLayout from "../layouts/DefaultLayout";
 
-export function Settings() {
+export default function Settings() {
     return (
         <DefaultLayout title="Settings">
 

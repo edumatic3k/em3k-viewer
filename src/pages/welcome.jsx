@@ -1,6 +1,6 @@
 import DefaultLayout from "../layouts/DefaultLayout";
 
-export function Welcome() {
+export default function Welcome() {
 
     function errMsg() {
         alert('Not implemented yet!');

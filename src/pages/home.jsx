@@ -6,7 +6,7 @@ import { useLibrary } from '../contexts/LibraryContext.jsx';
  * @typedef {import('../contexts/LibraryContext.jsx').Course} Course
  */
 
-export function Home() {
+export default function Home() {
   const { activeCourses, loading } = useLibrary();
 
   /** @type {Course | undefined} */

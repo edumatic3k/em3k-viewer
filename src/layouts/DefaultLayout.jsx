@@ -16,7 +16,7 @@ export default function DefaultLayout({ children, title = 'EM3K' }) {
   return (
     <div className="min-vh-100 d-flex flex-column">
       <Menubar />
-      <main className="container-fluid ps-3 pe-4">
+      <main className="container-fluid ps-3 pe-4 mb-5">
           {children}
       </main>
       <Statusbar />

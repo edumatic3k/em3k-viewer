@@ -1,14 +1,16 @@
 // @ts-nocheck
 import { render } from 'preact';
-import { lazy, LocationProvider, ErrorBoundary, Router } from 'preact-iso';
+import { lazy, LocationProvider, ErrorBoundary, Router, Route } from 'preact-iso';
+
 import { Menubar } from './components/ui/Menubar.jsx';
 import { Statusbar } from './components/ui/Statusbar.jsx';
 import { ConfigProvider, useConfig } from './contexts/ConfigContext';
 import { LibraryProvider } from './contexts/LibraryContext.jsx';
 import './em3k.css';
 
+// Lazy pages
 const Welcome = lazy(() => import('./pages/welcome.jsx'));
-const Home = lazy(() => import('./pages/home.jsx'));           // Dashboard
+const Home = lazy(() => import('./pages/home.jsx'));
 const Library = lazy(() => import('./pages/library.jsx'));
 const Settings = lazy(() => import('./pages/settings.jsx'));
 const About = lazy(() => import('./pages/about.jsx'));
@@ -28,20 +30,23 @@ const AppRoutes = () => {
   return (
     <ErrorBoundary>
       <Router>
-        <Welcome path="/" condition={() => isFirstRun} />
-        <Home path="/" condition={() => !isFirstRun} />
-        <Home path="/home" />
-        <Home path="/dashboard" />
-        <Welcome path="/welcome" />
-        <Library path="/library" />
-        <Settings path="/settings" />
-        <About path="/about" />
-        <Donate path="/donate" />
-        <Help path="/help" />
-        <Share path="/share" />
-        <Report path="/report" />
-        <Search path="/search" />
-        <NotFound default />
+        <Route path="/" component={isFirstRun ? Welcome : Home} />
+
+        {/* Aliases */}
+        <Route path="/home" component={Home} />
+        <Route path="/dashboard" component={Home} />
+
+        <Route path="/welcome" component={Welcome} />
+        <Route path="/library" component={Library} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/about" component={About} />
+        <Route path="/donate" component={Donate} />
+        <Route path="/help" component={Help} />
+        <Route path="/share" component={Share} />
+        <Route path="/report" component={Report} />
+        <Route path="/search" component={Search} />
+
+        <Route default component={NotFound} />
       </Router>
     </ErrorBoundary>
   );
@@ -62,6 +67,4 @@ export function App() {
 }
 
 const app = document.getElementById('app');
-if (app) {
-  render(<App />, app);
-}
+if (app) render(<App />, app);

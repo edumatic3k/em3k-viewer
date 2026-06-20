@@ -11,24 +11,27 @@
     </head>
     <body>
 
+
         <!-- top menubar -->
         <header>
             <nav class="navbar fixed-top navbar-expand bg-body-secondary border-bottom border-1 border-dark py-0" style="height: 50px;">
                 <div class="container-fluid px-2">
 
+
                     <!-- branding -->
                     <a class="navbar-brand m-0 p-0 me-3 d-flex align-items-center" href="#" title="Home">
-                        <img src="graduate-cap.svg" height="38" alt="logo"> 
+                        <img src="graduate-cap.svg" height="38" alt="logo">
                     </a>
+
 
                     <!-- Menu items -->
                     <ul class="navbar-nav flex-row align-items-center me-auto">
                         <li class="nav-item dropdown">
-                            <a class="nav-link px-2 py-1 text-decoration-none" 
-                            href="#" 
-                            role="button" 
-                            data-bs-toggle="dropdown" 
-                            aria-expanded="false">
+                            <a class="nav-link px-2 py-1 text-decoration-none"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
                                 File
                             </a>
                             <ul class="dropdown-menu">
@@ -38,11 +41,11 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link px-2 py-1 text-decoration-none" 
-                            href="#" 
-                            role="button" 
-                            data-bs-toggle="dropdown" 
-                            aria-expanded="false">
+                            <a class="nav-link px-2 py-1 text-decoration-none"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
                                 Edit
                             </a>
                             <ul class="dropdown-menu">
@@ -50,11 +53,11 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link px-2 py-1 text-decoration-none" 
-                            href="#" 
-                            role="button" 
-                            data-bs-toggle="dropdown" 
-                            aria-expanded="false">
+                            <a class="nav-link px-2 py-1 text-decoration-none"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
                                 Go
                             </a>
                             <ul class="dropdown-menu">
@@ -64,11 +67,11 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link px-2 py-1 text-decoration-none" 
-                            href="#" 
-                            role="button" 
-                            data-bs-toggle="dropdown" 
-                            aria-expanded="false">
+                            <a class="nav-link px-2 py-1 text-decoration-none"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
                                 Help
                             </a>
                             <ul class="dropdown-menu">
@@ -80,13 +83,15 @@
                         </li>
                     </ul>
 
+
                     <!-- Search -->
                     <form method="GET" class="d-flex ms-auto me-3 me-md-4" role="search">
                         <div class="input-group text-nowrap">
-                            <input name="query" class="form-control form-control-sm searchquery" type="search" placeholder="Search" aria-label="Search" required/>
+                            <input name="query" class="form-control form-control-sm searchquery" type="search" placeholder="Search courses..." aria-label="Search" required>
                             <button class="btn btn-outline-secondary btn-sm" type="submit">Go</button>
                         </div>
                     </form>
+
 
                     <!-- close button -->
                     <button type="button" class="btn-close me-1" aria-label="Close" onclick="closeApp()"></button>
@@ -94,119 +99,171 @@
             </nav>
         </header>
 
+
         <main class="container-fluid mb-5">
 
-            <p class="mt-4"><a href="home.html" class="text-decoration-none"><i class="bi bi-arrow-left-square"></i> Back to Home</a></p>
 
-            <div class="alert alert-light float-end">
-                Installed: 15<br/>
-                Active: 8<br/>
-                Total Size: 4.5 MB<br/>
+            <p class="mt-4">
+                <a href="home.html" class="text-decoration-none">
+                    <i class="bi bi-arrow-left-square"></i> Back to Home
+                </a>
+            </p>
+
+
+            <div class="alert alert-light float-end mb-4">
+                Installed: 15<br>
+                Active: 8<br>
+                Total Size: 4.5 MB
             </div>
+
 
             <h1 class="display-5 mb-4">Library</h1>
 
-            <div class="dropdown mb-4">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Filter
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item active" href="#">All Apps</a></li>
-                    <li><a class="dropdown-item" href="#">Active</a></li>
-                    <li><a class="dropdown-item" href="#">Inactive</a></li>
-                </ul>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item active" href="#">All Content</a></li>
+                        <li><a class="dropdown-item" href="#">Active Only</a></li>
+                        <li><a class="dropdown-item" href="#">Installed Only</a></li>
+                    </ul>
+                </div>
+
+                <div class="text-secondary small d-none d-md-block">
+                    Showing all available library items
+                </div>
             </div>
 
-            <!-- All Items (Unfiltered)-->
-            <ul class="list-group">
-                <li class="list-group-item bg-light">
-                    <div class="d-flex justify-content-start align-items-center">
-                        <div class="p-2 flex-shrink-1"><img src="../assets/img/placeholder.svg" width="50"/></div>
-                        <div class="p-2 fw-bold">This Is A Course Name</div>
-                        <div class="p-2">by Teacher Name</div>
-                        <div class="p-2 fw-light text-secondary">1.2 MB</div>
-                        <div class="p-2 fw-light text-secondary"><i class="bi bi-dash-square"></i> Inactive</div>
-                        <div class="p-2 text-end flex-grow-1">
-                            <a href="course-detail.html" type="button" class="btn btn-outline-secondary btn-sm">Details</a>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal">Set Status</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm">Delete</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item bg-success-subtle">
-                    <div class="d-flex justify-content-start align-items-center">
-                        <div class="p-2 flex-shrink-1"><img src="../assets/img/placeholder.svg" width="50"/></div>
-                        <div class="p-2 fw-bold">This Is A Second Course Name</div>
-                        <div class="p-2">by Teacher Name</div>
-                        <div class="p-2 fw-light text-secondary">800 KB</div>
-                        <div class="p-2 fw-light text-secondary"><i class="bi bi-plus-square"></i> Active</div>
-                        <div class="p-2 text-end flex-grow-1">
-                            <a href="course-detail.html" type="button" class="btn btn-outline-secondary btn-sm">Details</a>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal">Set Status</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm">Delete</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item bg-light">
-                    <div class="d-flex justify-content-start align-items-center">
-                        <div class="p-2 flex-shrink-1"><img src="../assets/img/placeholder.svg" width="50"/></div>
-                        <div class="p-2 fw-bold">This Is A Third Course Name</div>
-                        <div class="p-2">by Teacher Name</div>
-                        <div class="p-2 fw-light text-secondary">1.0 MB</div>
-                        <div class="p-2 fw-light text-secondary"><i class="bi bi-dash-square"></i> Inactive</div>
-                        <div class="p-2 text-end flex-grow-1">
-                            <a href="course-detail.html" type="button" class="btn btn-outline-secondary btn-sm">Details</a>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal">Set Status</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm">Delete</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item bg-light">
-                    <div class="d-flex justify-content-start align-items-center">
-                        <div class="p-2 flex-shrink-1"><img src="../assets/img/placeholder.svg" width="50"/></div>
-                        <div class="p-2 fw-bold">This Is A Fourth Course Name</div>
-                        <div class="p-2">by Teacher Name</div>
-                        <div class="p-2 fw-light text-secondary">1.7 MB</div>
-                        <div class="p-2 fw-light text-secondary"><i class="bi bi-dash-square"></i> Inactive</div>
-                        <div class="p-2 text-end flex-grow-1">
-                            <a href="course-detail.html" type="button" class="btn btn-outline-secondary btn-sm">Details</a>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal">Set Status</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm">Delete</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item bg-success-subtle">
-                    <div class="d-flex justify-content-start align-items-center">
-                        <div class="p-2 flex-shrink-1"><img src="../assets/img/placeholder.svg" width="50"/></div>
-                        <div class="p-2 fw-bold">This Is A Fifth Course Name</div>
-                        <div class="p-2">by Teacher Name</div>
-                        <div class="p-2 fw-light text-secondary">1.3 MB</div>
-                        <div class="p-2 fw-light text-secondary"><i class="bi bi-plus-square"></i> Active</div>
-                        <div class="p-2 text-end flex-grow-1">
-                            <a href="course-detail.html" type="button" class="btn btn-outline-secondary btn-sm">Details</a>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal">Set Status</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm">Delete</button>
-                        </div>
-                    </div>
-                </li>
-            </ul>
 
-            <br/><br/><br/><br/>
+            <!-- Library items -->
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Course Title</th>
+                            <th>Teacher</th>
+                            <th>Status</th>
+                            <th>Last Viewed</th>
+                            <th>Progress</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>This Is A Course Name</strong></td>
+                            <td>by Teacher Name</td>
+                            <td>
+                                <span class="badge bg-secondary">Installed</span>
+                            </td>
+                            <td>\u2014</td>
+                            <td>
+                                <div class="progress" style="width: 140px; height: 8px;">
+                                    <div class="progress-bar bg-primary" style="width: 45%;"></div>
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <a href="course-detail.html" class="btn btn-outline-secondary btn-sm me-2">Details</a>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal">Set Status</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>This Is A Second Course Name</strong></td>
+                            <td>by Teacher Name</td>
+                            <td>
+                                <span class="badge bg-success">Active</span>
+                            </td>
+                            <td>\u2014</td>
+                            <td>
+                                <div class="progress" style="width: 140px; height: 8px;">
+                                    <div class="progress-bar bg-primary" style="width: 45%;"></div>
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <a href="course-detail.html" class="btn btn-outline-secondary btn-sm me-2">Details</a>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal">Set Status</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>This Is A Third Course Name</strong></td>
+                            <td>by Teacher Name</td>
+                            <td>
+                                <span class="badge bg-secondary">Installed</span>
+                            </td>
+                            <td>\u2014</td>
+                            <td>
+                                <div class="progress" style="width: 140px; height: 8px;">
+                                    <div class="progress-bar bg-primary" style="width: 45%;"></div>
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <a href="course-detail.html" class="btn btn-outline-secondary btn-sm me-2">Details</a>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal">Set Status</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>This Is A Fourth Course Name</strong></td>
+                            <td>by Teacher Name</td>
+                            <td>
+                                <span class="badge bg-secondary">Installed</span>
+                            </td>
+                            <td>\u2014</td>
+                            <td>
+                                <div class="progress" style="width: 140px; height: 8px;">
+                                    <div class="progress-bar bg-primary" style="width: 45%;"></div>
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <a href="course-detail.html" class="btn btn-outline-secondary btn-sm me-2">Details</a>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal">Set Status</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>This Is A Fifth Course Name</strong></td>
+                            <td>by Teacher Name</td>
+                            <td>
+                                <span class="badge bg-success">Active</span>
+                            </td>
+                            <td>\u2014</td>
+                            <td>
+                                <div class="progress" style="width: 140px; height: 8px;">
+                                    <div class="progress-bar bg-primary" style="width: 45%;"></div>
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <a href="course-detail.html" class="btn btn-outline-secondary btn-sm me-2">Details</a>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal">Set Status</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="alert alert-info text-center py-5 mt-4">
+                Your library is empty.<br>
+                Visit the Catalog to install your first course.
+            </div>
+
+
+            <br><br><br><br>
+
 
         </main>
+
 
         <!-- bottom status bar -->
         <footer>
             <nav class="navbar fixed-bottom bg-body-secondary border-top border-1 border-dark m-0 p-0" style="height: 40px;">
-
-                <!-- online status icons -->
                 <div class="ms-auto m-0 p-0 me-1">
-                    <button id="greenbtn" type="button" class="btn btn-sm" title="Status: Online">🟢</button>
-                    <button id="redbtn" type="button" class="d-none btn btn-sm" title="Status: Offline">🔴</button>
+                    <button id="greenbtn" type="button" class="btn btn-sm" title="Status: Online">\U0001f7e2</button>
+                    <button id="redbtn" type="button" class="d-none btn btn-sm" title="Status: Offline">\U0001f534</button>
                 </div>
-
             </nav>
         </footer>
+
 
         <!-- Status modal -->
         <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
@@ -226,8 +283,10 @@
             </div>
         </div>
 
+
         <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="confirmQuit.js"></script>
+
 
     </body>
 </html>

@@ -96,13 +96,14 @@ export function Menubar() {
                                 Go
                             </a>
                             <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="/">Root</a></li>
-                                <li><a className="dropdown-item" href="/home">Home</a></li>
+                                <li><a className="dropdown-item" href="/">Home</a></li>
+                                <li><a className="dropdown-item" href="/dashboard">Dashboard</a></li>
                                 <li><a className="dropdown-item" href="/welcome">Welcome</a></li>
                                 <li><a className="dropdown-item" href="/search">Search</a></li>
                                 <li><a className="dropdown-item" href="/library">Library</a></li>
                                 <li><a className="dropdown-item" href="https://catalog.em3k.org" target="_blank">Course Catalog<i class="bi bi-box-arrow-up-right ms-2"></i></a></li>
-                                <li><a className="dropdown-item" href="/lessons">Lesson Index</a></li>
+                                <hr/>
+                                <li><a className="dropdown-item" href="#">Add New Items Here</a></li>
                             </ul>
                         </li>
                         <li className="nav-item dropdown">

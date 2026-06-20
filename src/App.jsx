@@ -5,7 +5,6 @@ import { Statusbar } from './components/ui/Statusbar.jsx';
 import { Welcome } from './pages/welcome.jsx';
 import { Home } from './pages/home.jsx';
 import { Library } from './pages/library.jsx';
-import { LessonIndex } from './pages/lessonIndex.jsx';
 import { Settings } from './pages/settings.jsx';
 import { About } from './pages/about.jsx';
 import { Donate } from './pages/donate.jsx';
@@ -32,9 +31,9 @@ const AppRoutes = () => {
     <Router>
       <Route path="/" component={isFirstRun ? Welcome : Home} />
       <Route path="/home" component={Home} />
+	  <Route path="/dashboard" component={Home} />
 	  <Route path="/welcome" component={Welcome} />
 	  <Route path="/library" component={Library} />
-	  <Route path="/lessons" component={LessonIndex} />
 	  <Route path="/settings" component={Settings} />
 	  <Route path="/about" component={About} />
 	  <Route path="/donate" component={Donate} />

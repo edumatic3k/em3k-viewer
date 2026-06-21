@@ -1,0 +1,66 @@
+{
+    "lesson": 1,
+    "title": "Lesson 1 Quiz: Understanding em3k",
+    "description": "Test your knowledge of Edumatic 3000 basics",
+    "grading": {
+        "type": "percentage",
+        "passGrade": 80,
+        "showCorrectAnswers": true,
+        "allowRetake": true
+    },
+    "questions": [
+        {
+            "id": 1,
+            "type": "multichoice",
+            "text": "What makes em3k ideal for IPFS deployment?",
+            "points": 1,
+            "options": {
+                "a": "It's self-contained and requires no backend server",
+                "b": "It's written in Python",
+                "c": "It uses a database",
+                "d": "It requires constant internet connection"
+            },
+            "answer": "a"
+        },
+        {
+            "id": 2,
+            "type": "truefalse",
+            "text": "Students can skip ahead to any lesson they want in em3k.",
+            "points": 1,
+            "answer": false
+        },
+        {
+            "id": 3,
+            "type": "multichoice",
+            "text": "Which of these is NOT a currently supported block type?",
+            "points": 1,
+            "options": {
+                "a": "Text",
+                "b": "Slideshow",
+                "c": "Podcast",
+                "d": "Video"
+            },
+            "answer": "c"
+        },
+        {
+            "id": 4,
+            "type": "multichoice",
+            "text": "Where do you store lesson content in em3k?",
+            "points": 1,
+            "options": {
+                "a": "In the assets folder",
+                "b": "In the lessons folder",
+                "c": "In the config.json file",
+                "d": "Directly in index.html"
+            },
+            "answer": "b"
+        },
+        {
+            "id": 5,
+            "type": "truefalse",
+            "text": "Each lesson folder contains its own manifest.json file.",
+            "points": 1,
+            "answer": true
+        }
+    ]
+}

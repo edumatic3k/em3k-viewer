@@ -1,0 +1,22 @@
+{
+  "heading": "Culture and Cuisine",
+  "subhead": "What France is famous for",
+  "blocks": [
+    {
+      "id": 1,
+      "type": "text",
+      "content": "French culture is renowned for its cuisine, art, fashion, and philosophy. Food specialties include baguettes, cheese, wine, and regional dishes."
+    },
+    {
+      "id": 2,
+      "type": "video",
+      "url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "aspectRatio": "16:9"
+    },
+    {
+      "id": 3,
+      "type": "text",
+      "content": "This concludes the sample lesson. Proceed to the quiz to test your knowledge."
+    }
+  ]
+}

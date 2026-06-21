@@ -1,0 +1,25 @@
+{
+  "heading": "Overview of France",
+  "subhead": "Geography and landmarks",
+  "blocks": [
+    {
+      "id": 1,
+      "type": "text",
+      "content": "France is a country in Western Europe known for its rich history, culture, and landmarks such as the Eiffel Tower and the Louvre Museum."
+    },
+    {
+      "id": 2,
+      "type": "slideshow",
+      "images": [
+        { "src": "/assets/img/placeholder.svg", "caption": "Eiffel Tower" },
+        { "src": "/assets/img/placeholder.svg", "caption": "The Louvre" },
+        { "src": "/assets/img/placeholder.svg", "caption": "French countryside" }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "text",
+      "content": "France has diverse regions, from Mediterranean beaches to Alpine mountains. In this lesson we'll explore a few highlights."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+    "heading": "Lesson 1: An Overview of Edumatic 3000",
+    "subhead": "Understanding the em3k Platform and Its Capabilities",
+    "blocks": [
+        {
+            "id": 1,
+            "type": "text",
+            "content": "Welcome to the first lesson in the Edumatic 3000 tutorial! In this lesson, you'll learn what makes em3k special and how it differs from traditional learning management systems. By the end of this lesson, you'll understand how em3k works and be ready to explore its content creation capabilities in Lesson 2. This lesson includes 5 pages and concludes with a quiz. You must score at least 80% to pass and continue to the next lesson."
+        },
+        {
+            "id": 2,
+            "type": "heading",
+            "size": "h4",
+            "content": "What You'll Learn:"
+        },
+        {
+            "id": 3,
+            "type": "list",
+            "listType": "ol",
+            "listItems": [
+                "The core features of em3k",
+                "How em3k enforces linear progression",
+                "Understanding the block-based content system",
+                "Built-in quizzing capabilities",
+                "Deployment options (IPFS, standalone, web hosting)"
+            ]
+        }
+    ]
+}

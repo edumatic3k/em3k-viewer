@@ -1,0 +1,46 @@
+{
+    "heading": "Getting Started",
+    "subhead": "Your First Steps with em3k",
+    "blocks": [
+        {
+            "id": 1,
+            "type": "text",
+            "content": "Ready to create your own lessons? Here's what you need to do:"
+        },
+        {
+            "id": 2,
+            "type": "text",
+            "content": "1. Download the latest em3k release from <a href=\"https://github.com/kendawson-online/em3k-app\" target=\"_blank\">GitHub</a>"
+        },
+        {
+            "id": 3,
+            "type": "text",
+            "content": "2. Unzip the files to a folder on your computer"
+        },
+        {
+            "id": 4,
+            "type": "text",
+            "content": "3. Copy the <b>sample</b> lesson folder and rename it to your topic"
+        },
+        {
+            "id": 5,
+            "type": "text",
+            "content": "4. Edit the manifest.json to define your lesson structure"
+        },
+        {
+            "id": 6,
+            "type": "text",
+            "content": "5. Create your lesson page JSON files using the block system"
+        },
+        {
+            "id": 7,
+            "type": "text",
+            "content": "6. Update the root config.json to point to your new lesson"
+        },
+        {
+            "id": 8,
+            "type": "text",
+            "content": "The following lessons will walk you through each of these steps in detail. Let's take the quiz to test your understanding so far!"
+        }
+    ]
+}

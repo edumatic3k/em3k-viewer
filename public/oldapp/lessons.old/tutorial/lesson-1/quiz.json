@@ -1,0 +1,81 @@
+{
+    "lesson": 1,
+    "id": "lesson-1-quiz",
+    "title": "Lesson 1 Quiz: em3k Overview",
+    "desc": "Test your understanding of the Edumatic 3000 platform.<br>You must score at least 80% to pass and continue to the next lesson.",
+    "grading": {
+        "type": "percentage",
+        "passGrade": 80,
+        "showCorrectAnswers": true,
+        "allowRetake": false
+    },
+    "questions": [
+        {
+            "id": 1,
+            "num": 1,
+            "type": "multichoice",
+            "text": "What does em3k stand for?",
+            "points": 1,
+            "options": {
+                "a": "Edumatic 3000",
+                "b": "Educational Manager 3K",
+                "c": "Easy Make 3000",
+                "d": "Electronic Media Kit"
+            },
+            "answer": "a"
+        },
+        {
+            "id": 2,
+            "num": 2,
+            "type": "truefalse",
+            "text": "em3k requires a backend server and database to function.",
+            "points": 1,
+            "answer": false
+        },
+        {
+            "id": 3,
+            "num": 3,
+            "type": "multichoice",
+            "text": "Which content system does em3k use?",
+            "points": 1,
+            "options": {
+                "a": "Markdown files",
+                "b": "HTML pages",
+                "c": "Block-based JSON",
+                "d": "XML documents"
+            },
+            "answer": "c"
+        },
+        {
+            "id": 4,
+            "num": 4,
+            "type": "truefalse",
+            "text": "Students can skip ahead to advanced lessons in em3k.",
+            "points": 1,
+            "answer": false
+        },
+        {
+            "id": 5,
+            "num": 5,
+            "type": "userinput",
+            "text": "Name at least TWO block types supported by em3k (separate with spaces).",
+            "points": 1,
+            "answer": ["text", "image", "slideshow", "video"],
+            "minRequired": 2
+        },
+        {
+            "id": 6,
+            "num": 6,
+            "type": "multichoice",
+            "text": "Which file controls app-wide settings like branding and features?",
+            "points": 1,
+            "options": {
+                "a": "manifest.json",
+                "b": "config.json",
+                "c": "settings.json",
+                "d": "index.html"
+            },
+            "answer": "b"
+        }
+    ]
+}

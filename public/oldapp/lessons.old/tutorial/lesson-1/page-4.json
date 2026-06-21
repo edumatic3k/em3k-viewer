@@ -1,0 +1,32 @@
+{
+    "heading": "Configuration Files",
+    "subhead": "config.json and manifest.json",
+    "blocks": [
+        {
+            "id": 1,
+            "type": "text",
+            "content": "em3k uses two types of configuration files to control behavior:"
+        },
+        {
+            "id": 2,
+            "type": "text",
+            "content": "<b>Root config.json:</b> Controls app-wide settings like branding, features (quizzing, certificates, logging), and which lesson to load by default."
+        },
+        {
+            "id": 3,
+            "type": "text",
+            "content": "<b>Lesson manifest.json:</b> Each lesson folder contains a manifest that defines the lesson structure, number of pages, quiz settings, and metadata."
+        },
+        {
+            "id": 4,
+            "type": "video",
+            "url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+            "aspectRatio": "16:9"
+        },
+        {
+            "id": 5,
+            "type": "text",
+            "content": "This separation allows lessons to be truly <b>modular and portable</b>. You can copy an entire lesson folder to another em3k installation and it will work immediately."
+        }
+    ]
+}

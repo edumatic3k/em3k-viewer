@@ -1,0 +1,10 @@
+{
+  "lesson": 1,
+  "title": "Sample Quiz: France Basics",
+  "description": "Short quiz on the sample lesson",
+  "grading": { "type": "percentage", "passGrade": 70 },
+  "questions": [
+    { "id": 1, "type": "multichoice", "text": "What is the capital of France?", "points": 1, "options": { "a": "Paris", "b": "Lyon", "c": "Marseille", "d": "Nice" }, "answer": "a" },
+    { "id": 2, "type": "truefalse", "text": "The Eiffel Tower is in Paris.", "points": 1, "answer": true }
+  ]
+}

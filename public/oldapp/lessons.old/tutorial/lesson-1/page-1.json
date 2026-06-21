@@ -1,0 +1,51 @@
+{
+    "heading": "What is Edumatic 3000?",
+    "subhead": "Understanding the em3k Platform",
+    "blocks": [
+        {
+            "id": 1,
+            "type": "text",
+            "content": "Edumatic 3000 is a self-contained educational platform that runs entirely in the browser. It requires no backend server or database, making it perfect for deployment on decentralized networks like IPFS. Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate."
+        },
+        {
+            "id": 2,
+            "type": "slideshow",
+            "images": [
+                {
+                    "src": "/assets/img/placeholder.svg",
+                    "caption": "em3k runs completely standalone"
+                },
+                {
+                    "src": "/assets/img/placeholder.svg",
+                    "caption": "Perfect for IPFS deployment"
+                },
+                {
+                    "src": "/assets/img/placeholder.svg",
+                    "caption": "No external dependencies required"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "type": "text",
+            "content": "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis."
+        },
+        {
+            "id": 4,
+            "type": "heading",
+            "size": "h4",
+            "content": "Key features include:"
+        },
+        {
+            "id": 5,
+            "type": "list",
+            "listType": "ul",
+            "listItems": [
+                "<em>Linear Progression</em>: Students must complete lessons in order - no skipping ahead!",
+                "<i>Built-in Quizzing</i>: Test student knowledge with multiple choice, true/false, and more.",
+                "<i>Certificate of Completion</i>: Reward students with printable certificates when they finish."
+
+            ]
+        }
+    ]
+}

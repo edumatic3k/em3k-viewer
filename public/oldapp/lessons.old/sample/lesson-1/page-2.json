@@ -1,0 +1,23 @@
+{
+  "heading": "History Highlights",
+  "subhead": "A brief timeline",
+  "blocks": [
+    {
+      "id": 1,
+      "type": "text",
+      "content": "France has been shaped by events such as the Roman period, the Middle Ages, the Renaissance, and the French Revolution. Each era contributed to its culture and institutions."
+    },
+    {
+      "id": 2,
+      "type": "image",
+      "src": "/assets/img/placeholder.svg",
+      "caption": "Historic painting",
+      "fluid": true
+    },
+    {
+      "id": 3,
+      "type": "text",
+      "content": "Key figures include Joan of Arc, Napoleon Bonaparte, and influential artists and thinkers."
+    }
+  ]
+}

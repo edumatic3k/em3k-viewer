@@ -1,0 +1,32 @@
+{
+  "id": "sample",
+  "title": "Sample Lesson: History of France (Demo)",
+  "description": "A short sample lesson to demonstrate block types and quizzing.",
+  "author": "Kendall Dawson",
+  "version": "1.0.0",
+  "settings": {
+    "linear": true,
+    "allowReview": true,
+    "showPageNumbers": true
+  },
+  "lessons": [
+    {
+      "number": 1,
+      "title": "An Introduction to France",
+      "slug": "france-intro",
+      "folder": "lesson-1",
+      "pages": 3,
+      "pageFiles": [
+        "page-1.json",
+        "page-2.json",
+        "page-3.json"
+      ],
+      "hasIntro": true,
+      "introFile": "lesson-1/intro.json",
+      "hasQuiz": true,
+      "quizFile": "lesson-1/quiz.json",
+      "passGrade": 70,
+      "estimatedMinutes": 5
+    }
+  ]
+}

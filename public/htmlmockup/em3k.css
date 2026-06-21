@@ -9,7 +9,7 @@ header {
 }
 
 main {
-    padding: 55px 0 0 100px;
+    padding: 65px 0 0 100px;
 }
 
 footer {
@@ -25,19 +25,19 @@ footer {
 }
 
 .searchquery {
-    width: 130px !important;
+    width: 160px !important;
 }
 
 /* media queries */
 
 @media only screen and (min-width: 768px) {
     .searchquery {
-        width: 180px !important;
+        width: 220px !important;
     }
 }
 
 @media only screen and (min-width: 992px) {
     .searchquery {
-        width: 220px !important;
+        width: 300px !important;
     }
 }

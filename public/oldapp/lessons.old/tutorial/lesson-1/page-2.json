@@ -1,0 +1,64 @@
+{
+    "heading": "How em3k Works",
+    "subhead": "The Block-Based Content System",
+    "blocks": [
+        {
+            "id": 1,
+            "type": "text",
+            "content": "em3k uses a <b>block-based content system</b> similar to modern website builders like WordPress. Each page is composed of individual blocks that can contain different types of content."
+        },
+        {
+            "id": 2,
+            "type": "image",
+            "src": "/assets/img/placeholder.svg",
+            "alt": "Example of a block-based page layout showing different content blocks stacked vertically",
+            "caption": "Example of a block-based page layout",
+            "fluid": true
+        },
+        {
+            "id": 3,
+            "type": "text",
+            "content": "Currently supported block types include:"
+        },
+        {
+            "id": 4,
+            "type": "text",
+            "content": "<b>Text Blocks:</b> Paragraphs with basic formatting (bold, italic, links)"
+        },
+        {
+            "id": 5,
+            "type": "text",
+            "content": "<b>Slideshow Blocks:</b> Image carousels with captions"
+        },
+        {
+            "id": 6,
+            "type": "text",
+            "content": "<b>Image Blocks:</b> Single images with optional captions"
+        },
+        {
+            "id": 7,
+            "type": "text",
+            "content": "<b>Video Blocks:</b> Embedded videos with responsive aspect ratios"
+        },
+        {
+            "id": 8,
+            "type": "text",
+            "content": "<b>Spacer Blocks:</b> Creates a blank space between blocks"
+        },
+        {
+            "id": 9,
+            "type": "text",
+            "content": "<b>List Blocks:</b> Creates a grouped list of items"
+        },
+        {
+            "id": 10,
+            "type": "text",
+            "content": "<b>Callout Blocks:</b> Highlights important information with tip, warning, note, or danger variants"
+        },
+        {
+            "id": 11,
+            "type": "text",
+            "content": "<b>Table Blocks:</b> Displays tabular data with optional striping, borders, and hover effects"
+        }
+    ]
+}

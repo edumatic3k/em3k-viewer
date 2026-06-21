@@ -1,0 +1,20 @@
+{
+  "heading": "Welcome to the Sample Lesson",
+  "subhead": "Using blocks to build lessons",
+  "blocks": [
+    {
+      "id": 1,
+      "type": "text",
+      "content": "This sample lesson demonstrates how to create pages using text, slideshow, image, and video blocks. Use it as a template for your own lessons."
+    },
+    {
+      "id": 2,
+      "type": "slideshow",
+      "images": [
+        { "src": "/assets/img/placeholder.svg", "caption": "France: landmark 1" },
+        { "src": "/assets/img/placeholder.svg", "caption": "France: landmark 2" },
+        { "src": "/assets/img/placeholder.svg", "caption": "France: landmark 3" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+    "heading": "Text Blocks",
+    "subhead": "The Foundation of Your Content",
+    "blocks": [
+        {
+            "id": 1,
+            "type": "text",
+            "content": "Text blocks are the simplest and most common block type. They contain paragraphs of text with basic HTML formatting."
+        },
+        {
+            "id": 2,
+            "type": "text",
+            "content": "You can use <b>bold text</b> to emphasize important points."
+        },
+        {
+            "id": 3,
+            "type": "text",
+            "content": "You can use <i>italic text</i> for subtle emphasis or foreign words."
+        },
+        {
+            "id": 4,
+            "type": "text",
+            "content": "You can include <a href=\"https://example.com\" target=\"_blank\">hyperlinks</a> to external resources. All links automatically open in new tabs."
+        },
+        {
+            "id": 5,
+            "type": "text",
+            "content": "Keep your text blocks focused on one idea or concept. Multiple shorter blocks are better than one long block for readability."
+        }
+    ]
+}

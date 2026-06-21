@@ -1,0 +1,97 @@
+{
+    "heading": "Multimedia Blocks",
+    "subhead": "Images, Slideshows, and Videos",
+    "blocks": [
+        {
+            "id": 1,
+            "type": "text",
+            "content": "em3k supports three types of multimedia blocks to make your lessons engaging and visual."
+        },
+        {
+            "id": 2,
+            "type": "text",
+            "content": "<b>Image Blocks:</b> Display a single image with an optional caption. Set fluid to true for responsive sizing."
+        },
+        {
+            "id": 3,
+            "type": "image",
+            "src": "/assets/img/placeholder.svg",
+            "alt": "Example image block with caption displayed below",
+            "caption": "This is an example image block with a caption",
+            "fluid": true
+        },
+        {
+            "id": 4,
+            "type": "text",
+            "content": "<b>Slideshow Blocks:</b> Create an image carousel with multiple slides. Each slide can have its own caption."
+        },
+        {
+            "id": 5,
+            "type": "text",
+            "content": "<b>Video Blocks:</b> Embed videos from YouTube or other sources. The aspect ratio is maintained automatically for responsive design."
+        },
+        {
+            "id": 6,
+            "type": "text",
+            "content": "Store your lesson-specific images in the lesson's assets folder for portability."
+        },
+        {
+            "id": 7,
+            "type": "spacer"
+        },
+        {
+            "id": 8,
+            "type": "heading",
+            "size": "h3",
+            "content": "Callout Blocks (Tip, Warning, Note, Danger)"
+        },
+        {
+            "id": 9,
+            "type": "text",
+            "content": "Callout blocks draw attention to important information. Use variants like 'tip', 'warning', 'note', or 'danger' to set the visual tone:"
+        },
+        {
+            "id": 10,
+            "type": "callout",
+            "variant": "tip",
+            "title": "💡 Tip",
+            "content": "Callout blocks are great for highlighting best practices and helpful hints."
+        },
+        {
+            "id": 11,
+            "type": "callout",
+            "variant": "warning",
+            "title": "⚠️ Warning",
+            "content": "Use warning callouts to alert learners about common mistakes or important prerequisites."
+        },
+        {
+            "id": 12,
+            "type": "spacer"
+        },
+        {
+            "id": 13,
+            "type": "heading",
+            "size": "h3",
+            "content": "Table Blocks"
+        },
+        {
+            "id": 14,
+            "type": "text",
+            "content": "Table blocks display structured data using Bootstrap-styled HTML tables. Tables support striping, borders, and hover effects for better readability."
+        },
+        {
+            "id": 15,
+            "type": "table",
+            "striped": true,
+            "bordered": true,
+            "hover": true,
+            "headers": ["Feature", "Image Block", "Slideshow", "Video"],
+            "rows": [
+                ["Single Item", "✓", "–", "–"],
+                ["Multiple Items", "–", "✓", "–"],
+                ["Embedded", "–", "–", "✓"],
+                ["Captions", "✓", "✓", "✓"]
+            ]
+        }
+    ]
+}

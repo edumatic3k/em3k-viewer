@@ -1,0 +1,36 @@
+{
+    "heading": "Creating Your First Lesson",
+    "subhead": "Understanding the Block System",
+    "blocks": [
+        {
+            "id": 1,
+            "type": "text",
+            "content": "Creating a lesson in em3k is straightforward. Each lesson page is a JSON file that defines the heading, optional subhead, and an array of content blocks."
+        },
+        {
+            "id": 2,
+            "type": "text",
+            "content": "Let's look at the structure of a basic lesson page. Every page follows this format:"
+        },
+        {
+            "id": 3,
+            "type": "text",
+            "content": "<b>heading:</b> The main title displayed at the top of the page"
+        },
+        {
+            "id": 4,
+            "type": "text",
+            "content": "<b>subhead:</b> An optional subtitle (can be empty string)"
+        },
+        {
+            "id": 5,
+            "type": "text",
+            "content": "<b>blocks:</b> An array of content blocks that make up the page"
+        },
+        {
+            "id": 6,
+            "type": "text",
+            "content": "Each block has an <b>id</b> (unique number), a <b>type</b> (text, slideshow, image, or video), and type-specific content."
+        }
+    ]
+}

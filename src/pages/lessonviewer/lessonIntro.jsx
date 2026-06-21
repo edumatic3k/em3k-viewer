@@ -1,4 +1,4 @@
-export function lessonIntro() {
+export default function lessonIntro() {
 
     return (
         <main class="container">

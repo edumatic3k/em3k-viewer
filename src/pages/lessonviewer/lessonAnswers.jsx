@@ -1,4 +1,4 @@
-export function lessonAnswers() {
+export default function lessonAnswers() {
 
     return (
         <main class="container">

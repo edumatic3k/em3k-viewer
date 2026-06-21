@@ -1,4 +1,4 @@
-export function Certificate() {
+export default function Certificate() {
 
     return (
         <main class="container">

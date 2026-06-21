@@ -1,4 +1,4 @@
-export function courseSummary() {
+export default function courseSummary() {
 
     return (
         <main class="container">

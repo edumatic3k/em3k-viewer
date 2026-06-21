@@ -26,34 +26,9 @@
                 <div class="container-fluid px-2">
 
                     <!-- branding -->
-                    <a class="navbar-brand m-0 p-0 me-md-3 d-flex align-items-center" href="courseviewer.html" title="Course Viewer">
-                        <img src="book.svg" height="38" alt="logo" class="me-2"> 
-                        <span class="d-none d-md-block">Course Viewer</span>
+                    <a title="Course Menu" class="navbar-brand" href="#courseMenu" data-bs-toggle="offcanvas" role="button" aria-controls="courseMenu">
+                        <img src="book.svg" height="38" alt="logo" class="me-2">
                     </a>
-
-                    <!-- Menu items -->
-                    <ul class="navbar-nav flex-row align-items-center me-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link px-2 py-1 text-decoration-none" 
-                            href="#" 
-                            role="button" 
-                            data-bs-toggle="dropdown" 
-                            aria-expanded="false">
-                                Options
-                            </a>
-                            <ul class="dropdown-menu px-3">
-                                <li>
-                                    <div class="d-flex justify-content-start align-items-center">
-                                        <div><a class="dropdown-item" href="#courseMenu" data-bs-toggle="offcanvas" role="button" aria-controls="courseMenu">Show Course Menu</a></div>
-                                        <div class="keycmd">Shift + M</div>
-                                    </div>
-                                </li>
-                                <li><a class="dropdown-item" href="course-prefs.html">Preferences</a></li>
-                                <hr/>
-                                <li><a class="dropdown-item" href="/" id="exitLink">Exit</a></li>
-                            </ul>
-                        </li>
-                    </ul>
 
                     <!-- Search -->
                     <form method="GET" class="d-flex ms-auto me-3 me-md-4" role="search">
@@ -110,7 +85,7 @@
             culpa duis.</p>
 
             <p class="text-center my-5">
-                <a href="lesson_page.html" type="button" class="btn btn-danger btn-lg px-5 py-3 border border-1 border-dark fs-4">
+                <a href="lesson_page.html?lesson=1&page=1" type="button" class="btn btn-danger btn-lg px-5 py-3 border border-1 border-dark fs-4">
                     Start The Lesson
                     <i class="bi bi-arrow-right-circle-fill ms-2"></i>
                 </a>
@@ -229,5 +204,6 @@
         <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="confirmQuit.js"></script>
         <script src="demoFunctions.js"></script>
+ 
     </body>
 </html>

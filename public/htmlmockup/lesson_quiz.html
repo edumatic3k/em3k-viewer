@@ -26,34 +26,9 @@
                 <div class="container-fluid px-2">
 
                     <!-- branding -->
-                    <a class="navbar-brand m-0 p-0 me-md-3 d-flex align-items-center" href="courseviewer.html" title="Course Viewer">
-                        <img src="book.svg" height="38" alt="logo" class="me-2"> 
-                        <span class="d-none d-md-block">Course Viewer</span>
+                    <a title="Course Menu" class="navbar-brand" href="#courseMenu" data-bs-toggle="offcanvas" role="button" aria-controls="courseMenu">
+                        <img src="book.svg" height="38" alt="logo" class="me-2">
                     </a>
-
-                    <!-- Menu items -->
-                    <ul class="navbar-nav flex-row align-items-center me-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link px-2 py-1 text-decoration-none" 
-                            href="#" 
-                            role="button" 
-                            data-bs-toggle="dropdown" 
-                            aria-expanded="false">
-                                Options
-                            </a>
-                            <ul class="dropdown-menu px-3">
-                                <li>
-                                    <div class="d-flex justify-content-start align-items-center">
-                                        <div><a class="dropdown-item" href="#courseMenu" data-bs-toggle="offcanvas" role="button" aria-controls="courseMenu">Show Course Menu</a></div>
-                                        <div class="keycmd">Shift + M</div>
-                                    </div>
-                                </li>
-                                <li><a class="dropdown-item" href="course-prefs.html">Preferences</a></li>
-                                <hr/>
-                                <li><a class="dropdown-item" href="/" id="exitLink">Exit</a></li>
-                            </ul>
-                        </li>
-                    </ul>
 
                     <!-- Search -->
                     <form method="GET" class="d-flex ms-auto me-3 me-md-4" role="search">
@@ -72,63 +47,14 @@
          <!-- main content area -->
         <main class="container-fluid">
 
-            <h1 class="display-5 mb-4">Viewer Preferences</h1>
+            <h1 class="display-5 mb-4">Lesson 1 Quiz</h1>
 
-            <div class="container-fluid fs-4 my-3 ms-5">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="switch1" checked />
-                    <label class="form-check-label" for="switch1">Option 1</label>
-                </div>
-            </div>
+            <p>The questions appear here</p>
 
-            <div class="container-fluid fs-4 mb-3 ms-5">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="switch2" />
-                    <label class="form-check-label" for="switch2">Option 2</label>
-                </div>
-            </div>
-
-            <div class="container-fluid fs-4 mb-3 ms-5">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="switch3" />
-                    <label class="form-check-label" for="switch3">Option 3</label>
-                </div>
-            </div>
-
-            <div class="container-fluid fs-4 mb-3 ms-5">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="switch4" checked />
-                    <label class="form-check-label" for="switch4">Option 4</label>
-                </div>
-            </div>
-
-            <div class="container-fluid fs-4 mb-3 ms-5">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="switch5" />
-                    <label class="form-check-label" for="switch5">Option 5</label>
-                </div>
-            </div>
-
-            <div class="container-fluid fs-4 mb-3 ms-5">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="switch6" />
-                    <label class="form-check-label" for="switch6">Option 6</label>
-                </div>
-            </div>
-
-            <div class="container-fluid fs-4 mb-5 ms-5">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="switch7" checked />
-                    <label class="form-check-label" for="switch7">Option 7</label>
-                </div>
-            </div>
-
-            <div class="container-fluid fs-4 my-5 ms-5">
-                <a href="courseviewer.html" class="btn btn-danger btn-lg px-4 py-2 me-2" type="button">Cancel</a>
-                <a href="courseviewer.html" class="btn btn-success btn-lg px-4 py-2" type="button">Save</a>
-            </div>
-
-            <br/><br/>
+            <p class="mt-5">
+                <a id="btnQuiz" href="lesson_page.html?lesson=1&page=5" type="button" class="btn btn-secondary btn-lg px-5 py-3">Back</a>
+                <a id="btnQuiz" href="lesson_answers.html" type="button" class="btn btn-primary btn-lg px-5 py-3">Submit Answers</a>
+            </p>
 
         </main>
 

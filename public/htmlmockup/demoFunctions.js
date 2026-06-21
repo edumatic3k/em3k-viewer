@@ -1,3 +1,8 @@
+// Configuration
+const MAX_PAGES = 5;
+const INTRO_PAGE = 'lesson_intro.html';
+const LESSON_PAGE = 'lesson_page.html';
+
 // example of using key command (Shift+M) to toggle offcanvas menu
 document.addEventListener('DOMContentLoaded', function () {
     const offcanvasEl = document.getElementById('courseMenu');
@@ -19,82 +24,78 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-// Event Listener for Exit Menu Link
-document.getElementById('exitLink').addEventListener('click', function(event) {
-    event.preventDefault();
-    // 1. Find the dropdown components
-    const dropdownMenu = this.closest('.dropdown-menu');
-    const dropdownParent = dropdownMenu ? dropdownMenu.parentElement : null;
-    const dropdownToggle = dropdownParent ? dropdownParent.querySelector('[data-bs-toggle="dropdown"]') : null;
-    // 2. Forcefully remove the 'show' class from both the menu and the toggle
-    if (dropdownMenu) {
-        dropdownMenu.classList.remove('show');
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const lesson = params.get('lesson');
+    const page = parseInt(params.get('page'), 10);
+
+    // Only run logic if we are on a lesson page with valid parameters
+    if (lesson && !isNaN(page)) {
+        updateContent(lesson, page);
+        updateNavigationUI(page);
     }
-    if (dropdownToggle) {
-        dropdownToggle.classList.remove('show');
-        dropdownToggle.setAttribute('aria-expanded', 'false');
-    }
-    // 3. Optional: Small timeout to allow UI to repaint if closeApp() is heavy
-    // Remove this setTimeout if closeApp() handles navigation/termination instantly
-    setTimeout(() => {
-        closeApp();
-    }, 10); 
 });
 
-// Get URL parameters
-const urlSearchParams = new URLSearchParams(window.location.search);
-const params = Object.fromEntries(urlSearchParams.entries());
-
-// Simulate dynamic pages
-if (params.lesson || params.page) {
-    let less = params.lesson;
-    let page = params.page;
-    let lh = document.getElementById('lessonheader');
-    let lp = document.getElementById('lessonpage');
-    if (lh) {
-        lh.textContent = `Lesson ${less} Introduction`;
-    }
-    if (lp) {
-        lp.textContent = `Lesson ${less}: Page ${page}`;
-        const state = {
-            "lesson": less,
-            "page": page
-        }
-        localStorage.setItem('demo', JSON.stringify(state));
-    }
+/**
+ * Updates the text content for lesson header and page number
+ */
+function updateContent(lesson, page) {
+    const lh = document.getElementById('lessonheader');
+    const lp = document.getElementById('lessonpage');
+    if (lh) lh.textContent = `Lesson ${lesson}: Page ${page}`;
+    if (lp) lp.textContent = `Lesson ${lesson}: Page ${page}`;
+    
+    // Optional: Save to local storage if other scripts depend on it
+    // localStorage.setItem('demo', JSON.stringify({ lesson, page }));
 }
 
-// used for next/back button on lesson pages
-function doNavigation(action) {
-    if (!action) { return false; }
-    let state = getState();
-    if (state) {
-        if (action === 'back') {
-            let less = state.lesson;
-            let page = state.page;
-            let newpage = page - 1;
-            location.href = (`lesson_page.html?lesson=${less}&page=${newpage}`);
-        }
-        if (action === 'next') {
-            let less = state.lesson;
-            let page = Number(state.page);
-            let newpage = page ++;
-            location.href = (`lesson_page.html?lesson=${less}&page=${newpage}`);
-        }        
-    }
-}
+/**
+ * Toggles visibility of Next vs Take Quiz button
+ */
+function updateNavigationUI(page) {
+    const btnNext = document.getElementById('btnNext');
+    const btnQuiz = document.getElementById('btnQuiz');
 
-function getState() {
-    let d = localStorage.getItem('demo');
-    if (d) {
-        let state = JSON.parse(d);
-        if (state) {
-            let less = state.lesson;
-            let page = state.page;
-            console.log(`Lesson is: ${less} and Page is: ${page}`);
-            return state;
-        }
+    if (!btnNext || !btnQuiz) return;
+
+    if (page >= MAX_PAGES) {
+        btnNext.classList.add('d-none');
+        btnQuiz.classList.remove('d-none');
     } else {
-        return false;
+        btnNext.classList.remove('d-none');
+        btnQuiz.classList.add('d-none');
     }
+}
+
+/**
+ * Handles Back and Next button clicks
+ */
+function doNavigation(action) {
+    const params = new URLSearchParams(window.location.search);
+    const lesson = params.get('lesson');
+    const page = parseInt(params.get('page'), 10);
+
+    if (!lesson || isNaN(page)) return;
+
+    let nextPage = page;
+
+    if (action === 'back') {
+        nextPage = page - 1;
+        if (nextPage < 1) {
+            // Redirect to intro if going back from page 1
+            window.location.href = INTRO_PAGE;
+            return;
+        }
+    } else if (action === 'next') {
+        nextPage = page + 1;
+        if (nextPage > MAX_PAGES) {
+            // Should not happen if UI is correct, but safety check
+            return; 
+        }
+    }
+
+    // Navigate to the new URL
+    window.location.href = `${LESSON_PAGE}?lesson=${lesson}&page=${nextPage}`;
 }

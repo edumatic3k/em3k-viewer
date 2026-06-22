@@ -1,14 +1,9 @@
 // src/components/modals/OffCanvasMenu.jsx
-
-/**
- * Simplified Offcanvas Lesson Menu - Bootstrap 5
- * Context logic will be re-added later
- */
-export function OffcanvasCourseMenu() {
+export default function OffcanvasCourseMenu() {
   return (
     <div 
       className="offcanvas offcanvas-start" 
-      tabIndex="-1" 
+      tabIndex={-1} 
       id="offcanvasLessonMenu" 
       aria-labelledby="offcanvasLessonMenuLabel"
     >

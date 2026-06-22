@@ -11,6 +11,7 @@ import './em3k.css';
 const Welcome = lazy(() => import('./pages/welcome.jsx'));
 const Home = lazy(() => import('./pages/home.jsx'));
 const Library = lazy(() => import('./pages/library.jsx'));
+const Catalog = lazy(() => import('./pages/catalog.jsx'));
 const Settings = lazy(() => import('./pages/settings.jsx'));
 const About = lazy(() => import('./pages/about.jsx'));
 const Donate = lazy(() => import('./pages/donate.jsx'));
@@ -21,7 +22,6 @@ const Search = lazy(() => import('./pages/search.jsx'));
 const NotFound = lazy(() => import('./pages/_404.jsx'));
 const ErrorPage = lazy(() => import('./pages/error.jsx'));
 const CourseViewer = lazy(() => import('./pages/courseviewer/courseViewer'));
-
 
 // Custom wrapper so we can pass error + reset props
 const AppErrorBoundary = ({ children }) => {
@@ -44,9 +44,6 @@ const AppRoutes = () => {
   if (loading) return <div className="loading-screen">Initializing EM3K Viewer...</div>;
   if (error) return <div className="error">Error loading config: {error}</div>;
 
-  // Debugging:
-  // console.log('✅ Rendering routes. isFirstRun =', isFirstRun);
-
   return (
     <AppErrorBoundary>
       <Router>
@@ -56,8 +53,10 @@ const AppRoutes = () => {
         <Route path="/home" component={Home} />
         <Route path="/dashboard" component={Home} />
 
+        {/* Pages */}
         <Route path="/welcome" component={Welcome} />
         <Route path="/library" component={Library} />
+        <Route path="/catalog" component={Catalog} />
         <Route path="/settings" component={Settings} />
         <Route path="/about" component={About} />
         <Route path="/donate" component={Donate} />
@@ -66,8 +65,10 @@ const AppRoutes = () => {
         <Route path="/report" component={Report} />
         <Route path="/search" component={Search} />
 
+        {/* Course Viewer */}
         <Route path="/course/:courseSlug" component={CourseViewer} />
-
+         
+        {/* 404 Not Found Page */}
         <Route default component={NotFound} />
       </Router>
     </AppErrorBoundary>

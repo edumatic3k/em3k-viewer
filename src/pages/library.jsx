@@ -45,9 +45,9 @@ export default function Library() {
 
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h1 className="display-5">Library</h1>
-          <button type="button" className="btn btn-outline-secondary btn-lg">
+          <a href="/catalog" type="button" className="btn btn-outline-secondary btn-lg border border-2 border-dark">
             <i className="bi bi-book me-2"></i>Course Catalog
-          </button>
+          </a>
           <div className="d-flex gap-2">
             <input
               type="text"

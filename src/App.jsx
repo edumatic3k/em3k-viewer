@@ -20,6 +20,8 @@ const Report = lazy(() => import('./pages/report.jsx'));
 const Search = lazy(() => import('./pages/search.jsx'));
 const NotFound = lazy(() => import('./pages/_404.jsx'));
 const ErrorPage = lazy(() => import('./pages/error.jsx'));
+const CourseViewer = lazy(() => import('./pages/courseviewer/courseViewer'));
+
 
 // Custom wrapper so we can pass error + reset props
 const AppErrorBoundary = ({ children }) => {
@@ -63,6 +65,8 @@ const AppRoutes = () => {
         <Route path="/share" component={Share} />
         <Route path="/report" component={Report} />
         <Route path="/search" component={Search} />
+
+        <Route path="/course/:courseSlug" component={CourseViewer} />
 
         <Route default component={NotFound} />
       </Router>

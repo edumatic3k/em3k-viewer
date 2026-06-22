@@ -4,7 +4,7 @@
  * Simplified Offcanvas Lesson Menu - Bootstrap 5
  * Context logic will be re-added later
  */
-export function OffCanvasMenu() {
+export function OffcanvasCourseMenu() {
   return (
     <div 
       className="offcanvas offcanvas-start" 

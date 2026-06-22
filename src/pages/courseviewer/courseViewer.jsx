@@ -1,17 +1,17 @@
-import { useContext } from 'preact/hooks';
+import { useCourse } from '../../hooks/useCourse';
 import CourseShell from '../../layouts/CourseShell';
 import DynamicPage from './dynamicPage';
-import { CourseContext } from '../../contexts/CourseContext';
 
 export default function CourseViewer({ courseSlug }) {
-  const { course, currentBlock, navigate } = useContext(CourseContext);
-
+  const courseData = useCourse(courseSlug);
+  
   return (
-    <CourseShell course={course}>
+    <CourseShell course={courseData.course}>
       <DynamicPage 
-        currentBlock={currentBlock} 
-        onNext={navigate.next}
-        onBack={navigate.back}
+        currentBlock={courseData.currentBlock}
+        onNext={courseData.navigate.next}
+        onBack={courseData.navigate.back}
+        getContentPath={courseData.getContentPath}
       />
     </CourseShell>
   );

@@ -1,17 +1,75 @@
 {
+  "id": "em3k-tutorial",
   "slug": "em3k-tutorial",
   "title": "Learning Edumatic 3000 (em3k)",
   "description": "A tutorial to teach you about the features of Edumatic 3000 (em3k)",
+  "author": "Kendall Dawson",
   "teacherSlug": "em3k-system",
-  "version": "1.0",
+  "version": "1.0.0",
   "published": "2026-06-10T10:00:00Z",
+  "updated": "2026-06-22T09:00:00Z",
+  "thumbnail": "assets/img/em3k.png",
   "estimatedDuration": "25 minutes",
   "tags": ["system", "help", "support", "tutorial", "em3k"],
-  "thumbnail": "assets/img/em3k.png",
 
   "settings": {
     "linearProgression": true,
     "allowReview": true,
-    "showProgressBar": true
-  }
+    "showProgressBar": true,
+    "showPageNumbers": true
+  },
+
+  "sequence": [
+    { "id": "index", "type": "index", "file": "index.json" },
+    { "id": "course-intro", "type": "course-intro", "file": "course-intro.json" },
+
+    {
+      "id": "lesson-1",
+      "type": "lesson",
+      "title": "An Overview of Edumatic 3000",
+      "slug": "overview",
+      "folder": "lesson-1",
+      "children": {
+        "intro": { "type": "lesson-intro", "file": "intro.json" },
+        "pages": [
+          { "id": "page-1", "file": "page-1.json" },
+          { "id": "page-2", "file": "page-2.json" },
+          { "id": "page-3", "file": "page-3.json" },
+          { "id": "page-4", "file": "page-4.json" },
+          { "id": "page-5", "file": "page-5.json" }
+        ],
+        "summary": { "type": "lesson-summary", "file": "summary.json", "enabled": false },
+        "quiz": { 
+          "type": "quiz", 
+          "file": "quiz.json",
+          "passGrade": 80,
+          "enabled": true 
+        }
+      },
+      "estimatedMinutes": 15
+    },
+
+    {
+      "id": "lesson-2",
+      "type": "lesson",
+      "title": "Creating Your Own Lessons",
+      "slug": "create-lessons",
+      "folder": "lesson-2",
+      "children": {
+        "intro": { "type": "lesson-intro", "file": "intro.json", "enabled": false },
+        "pages": [
+          { "id": "page-1", "file": "page-1.json" },
+          { "id": "page-2", "file": "page-2.json" },
+          { "id": "page-3", "file": "page-3.json" }
+        ],
+        "summary": { "type": "lesson-summary", "file": "summary.json", "enabled": false },
+        "quiz": { "type": "quiz", "enabled": false }
+      },
+      "estimatedMinutes": 12
+    },
+
+    { "id": "course-summary", "type": "course-summary", "file": "course-summary.json" },
+    { "id": "end", "type": "end", "file": "end.json" },
+    { "id": "certificate", "type": "certificate", "enabled": false }
+  ]
 }

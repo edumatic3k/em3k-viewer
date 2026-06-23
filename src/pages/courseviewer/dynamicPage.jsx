@@ -8,37 +8,52 @@ import CourseSummary from './courseSummary';
 import CourseEnd from './courseEnd';
 import Certificate from './certificate';
 
-export default function DynamicPage({ currentBlock, onNext, onBack, getContentPath }) {
+export default function DynamicPage({ 
+  currentBlock, 
+  onNext, 
+  onBack, 
+  getContentPath 
+}) {
   if (!currentBlock) {
-    return <div class="p-8 text-center">Loading course content...</div>;
+    return (
+      <div className="text-center py-10">
+        <h3>Loading content...</h3>
+      </div>
+    );
   }
 
-  const basePath = getContentPath ? getContentPath(currentBlock) : '';
+  const basePath = getContentPath ? getContentPath() : '';
+
+  console.log('Rendering block:', currentBlock.type, currentBlock);
 
   switch (currentBlock.type) {
     case 'index':
-      return <CourseIndex onNext={onNext} />;
-    
+      return <CourseIndex onNext={onNext} data={currentBlock} basePath={basePath} />;
+
     case 'course-intro':
-      return <CourseIntro data={currentBlock} basePath={basePath} onNext={onNext} />;
-    
+      return <CourseIntro onNext={onNext} data={currentBlock} basePath={basePath} />;
+
     case 'lesson':
-      // For now, render the first enabled child (intro or first page)
-      const lessonChildren = currentBlock.children || {};
-      if (lessonChildren.intro?.enabled) {
-        return <LessonIntro data={lessonChildren.intro} onNext={onNext} />;
+      // Smart fallback: show intro if available, otherwise first page
+      const children = currentBlock.children || {};
+      if (children.intro?.enabled !== false) {
+        return <LessonIntro 
+          data={children.intro} 
+          onNext={onNext} 
+          basePath={basePath + (currentBlock.folder ? currentBlock.folder + '/' : '')} 
+        />;
       }
       return <LessonPages 
-        lesson={currentBlock} 
-        pages={lessonChildren.pages || []} 
+        lesson={currentBlock}
+        pages={children.pages || []} 
         basePath={basePath} 
         onNext={onNext} 
         onBack={onBack} 
       />;
-    
+
     case 'lesson-intro':
-      return <LessonIntro data={currentBlock} onNext={onNext} />;
-    
+      return <LessonIntro data={currentBlock} onNext={onNext} basePath={basePath} />;
+
     case 'lesson-pages':
     case 'lesson-page':
       return <LessonPages 
@@ -47,31 +62,32 @@ export default function DynamicPage({ currentBlock, onNext, onBack, getContentPa
         onNext={onNext} 
         onBack={onBack} 
       />;
-    
+
     case 'lesson-summary':
       return <LessonSummary data={currentBlock} onNext={onNext} />;
-    
+
     case 'quiz':
       return <Quiz 
         quizData={currentBlock} 
         basePath={basePath} 
         onNext={onNext} 
       />;
-    
+
     case 'course-summary':
       return <CourseSummary data={currentBlock} onNext={onNext} />;
-    
+
     case 'end':
-      return <CourseEnd data={currentBlock} />;
-    
+      return <CourseEnd data={currentBlock} onNext={onNext} />;
+
     case 'certificate':
       return <Certificate data={currentBlock} />;
-    
+
     default:
       return (
-        <div class="p-8 text-center">
-          <h2>Unknown block type: {currentBlock.type}</h2>
-          <pre class="text-left mt-4 text-sm">{JSON.stringify(currentBlock, null, 2)}</pre>
+        <div className="alert alert-info">
+          <h4>Block Type: <code>{currentBlock.type}</code></h4>
+          <p>This page type is not implemented yet.</p>
+          <pre className="small mt-3 bg-light p-3">{JSON.stringify(currentBlock, null, 2)}</pre>
         </div>
       );
   }

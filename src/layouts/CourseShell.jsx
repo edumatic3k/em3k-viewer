@@ -1,9 +1,9 @@
-import { useContext } from 'preact/hooks';
 import OffcanvasCourseMenu from '../components/modals/OffcanvasCourseMenu';
-import { CourseContext } from '../contexts/CourseContext';
 
 export default function CourseShell({ children, course }) {
-  const { closeCourse } = useContext(CourseContext); // We'll wire this in the context
+  const closeCourse = () => {
+    window.history.back(); // Go back to previous page (Library, etc.)
+  };
 
   return (
     <div className="course-viewer-shell d-flex flex-column" style={{ height: '100vh' }}>
@@ -20,7 +20,12 @@ export default function CourseShell({ children, course }) {
               role="button" 
               aria-controls="courseMenu"
             >
-              <img src="/assets/img/book.svg" height="38" alt="Course Logo" className="me-2" />
+              <img 
+                src="/assets/img/book.svg" 
+                height="38" 
+                alt="Course Logo" 
+                className="me-2" 
+              />
               <span className="fw-bold">{course?.title || 'Course Viewer'}</span>
             </a>
 
@@ -61,10 +66,8 @@ export default function CourseShell({ children, course }) {
       {/* Bottom Status Bar */}
       <footer>
         <nav className="navbar fixed-bottom bg-body-secondary border-top border-1 border-dark m-0 p-0" style={{ height: '40px' }}>
-          {/* Status Message */}
           <span id="statusmsg" className="navbar-text m-0 p-0 ms-2 small font-monospace"></span>
 
-          {/* Progress Bar */}
           <div className="progress progbar ms-2 border border-1 border-dark" style={{ width: '200px', height: '20px' }}>
             <div 
               className="progress-bar progress-bar-striped bg-primary" 
@@ -75,10 +78,8 @@ export default function CourseShell({ children, course }) {
             </div>
           </div>
 
-          {/* Online Status */}
           <div className="ms-auto m-0 p-0 me-2 d-flex align-items-center">
             <button type="button" className="btn btn-sm" title="Status: Online">🟢</button>
-            <button type="button" className="btn btn-sm d-none" title="Status: Offline">🔴</button>
           </div>
         </nav>
       </footer>

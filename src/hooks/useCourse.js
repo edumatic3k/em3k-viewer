@@ -5,84 +5,60 @@ export function useCourse(courseSlug) {
   const [course, setCourse] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState({});
-  const [coursePath, setCoursePath] = useState(null);
 
   if (!courseSlug) {
-    return { loading: false, error: "No course slug provided" };
+    return { loading: false, error: "No course slug" };
   }
 
-  // First attempt: Try system courses
-  let initialPath = `/content/system/${courseSlug}/course.json`;
+  // Smart path detection
+  const isSystemCourse = courseSlug.includes('tutorial') || courseSlug.startsWith('system-');
+  const coursePath = isSystemCourse 
+    ? `/content/system/${courseSlug}/course.json`
+    : `/content/library/teachers/em3k-system/courses/${courseSlug}/course.json`;
 
-  const { data: manifest, loading, error } = useJsonResource(initialPath);
+  const { data: manifest, loading, error } = useJsonResource(coursePath);
 
   useEffect(() => {
     if (manifest) {
-      // System course loaded successfully
       setCourse(manifest);
-      setCoursePath(initialPath);
-      console.log(`✅ System course loaded: ${manifest.title}`);
-    } else if (error && !loading) {
-      // Try library path if system path failed
-      const libraryPath = `/content/library/teachers/${manifest?.teacherSlug || 'em3k-system'}/courses/${courseSlug}/course.json`;
-      
-      // For now we'll need a second useJsonResource, but to keep it simple for this step:
-      console.warn("System course not found, trying library path...");
+      console.log(`✅ Course loaded successfully: ${manifest.title}`);
+      console.log('Path used:', coursePath);
     }
-  }, [manifest, error, loading, courseSlug]);
-
-  // Better version with fallback (recommended)
-  const systemManifest = useJsonResource(`/content/system/${courseSlug}/course.json`);
-  const libraryManifest = useJsonResource(
-    courseSlug === 'sample-france' 
-      ? `/content/library/teachers/em3k-system/courses/${courseSlug}/course.json`
-      : null
-  );
-
-  const activeManifest = systemManifest.data || libraryManifest.data;
-  const activeError = systemManifest.error && libraryManifest.error;
-  const activeLoading = systemManifest.loading || libraryManifest.loading;
-
-  useEffect(() => {
-    if (activeManifest) {
-      setCourse(activeManifest);
-      console.log(`✅ Course loaded: ${activeManifest.title} (${courseSlug})`);
+    if (error) {
+      console.error('Failed to load course from:', coursePath, error);
     }
-  }, [activeManifest]);
+  }, [manifest, error, coursePath]);
 
   const currentBlock = course?.sequence?.[currentIndex] || null;
-
-  const getContentPath = (block) => {
-    if (!course) return '';
-    
-    if (course.teacherSlug) {
-      return `/content/library/teachers/${course.teacherSlug}/courses/${courseSlug}/`;
-    }
-    // System course
-    return `/content/system/${courseSlug}/`;
-  };
 
   const navigate = {
     next: useCallback(() => {
       if (currentIndex < (course?.sequence?.length || 0) - 1) {
-        setCurrentIndex(i => i + 1);
+        setCurrentIndex(prev => prev + 1);
       }
     }, [currentIndex, course]),
 
     back: useCallback(() => {
-      if (currentIndex > 0) setCurrentIndex(i => i - 1);
+      if (currentIndex > 0) {
+        setCurrentIndex(prev => prev - 1);
+      }
     }, [currentIndex]),
   };
 
+  const getContentPath = () => {
+    return isSystemCourse 
+      ? `/content/system/${courseSlug}/`
+      : `/content/library/teachers/em3k-system/courses/${courseSlug}/`;
+  };
+
   return {
-    course: activeManifest || course,
+    course,
     currentBlock,
     currentIndex,
     progress,
-    loading: activeLoading,
-    error: activeError,
+    loading,
+    error,
     navigate,
     getContentPath,
-    courseSlug,
   };
 }

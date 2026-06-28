@@ -12,6 +12,7 @@ const Welcome = lazy(() => import('./pages/welcome.jsx'));
 const Home = lazy(() => import('./pages/home.jsx'));
 const Library = lazy(() => import('./pages/library.jsx'));
 const Catalog = lazy(() => import('./pages/catalog.jsx'));
+const Details = lazy(() => import('./pages/details.jsx'));
 const Settings = lazy(() => import('./pages/settings.jsx'));
 const About = lazy(() => import('./pages/about.jsx'));
 const Donate = lazy(() => import('./pages/donate.jsx'));
@@ -57,6 +58,7 @@ const AppRoutes = () => {
         <Route path="/welcome" component={Welcome} />
         <Route path="/library" component={Library} />
         <Route path="/catalog" component={Catalog} />
+        <Route path="/details" component={Details} />
         <Route path="/settings" component={Settings} />
         <Route path="/about" component={About} />
         <Route path="/donate" component={Donate} />

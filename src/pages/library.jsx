@@ -103,12 +103,18 @@ export default function Library() {
                     </td>
                     <td className="text-end">
                       <Link
-                        href={`/course/${course.slug}`}
-                        className="btn btn-sm btn-primary me-2"
+                        href={`/details?c=${course.slug}`}
+                        className="btn btn-sm btn-outline-primary me-2"
                       >
-                        Details
+                        Details<i class="bi bi-list ms-2"></i>
                       </Link>
-                      <button className="btn btn-sm btn-outline-danger">Uninstall</button>
+                      <Link
+                        href={`/course/${course.slug}`}
+                        className="btn btn-sm btn-outline-success px-3 me-2"
+                      >
+                        Load<i class="bi bi-arrow-right-square ms-1"></i>
+                      </Link>
+                      <button className="btn btn-sm btn-outline-danger">Uninstall<i class="bi bi-dash-circle ms-1"></i></button>
                     </td>
                   </tr>
                 );
@@ -151,7 +157,7 @@ export default function Library() {
                     <td>Jun 20 2026 08:25 AM</td>
                     <td>
                       <div className="progress border border-1 border-dark" style={{ width: '140px', height: '8px' }}>
-                        <div className="progress-bar bg-primary" style={{ width: '45%' }}></div>
+                        <div className="progress-bar bg-secondary" style={{ width: '0%' }}></div>
                       </div>
                     </td>
                     <td className="text-end">
@@ -160,8 +166,10 @@ export default function Library() {
                         className="btn btn-sm btn-primary me-2"
                       >
                         Details
+                        <i class="bi bi-list ms-1"></i>
                       </Link>
-                      <button className="btn btn-sm btn-outline-danger">Uninstall</button>
+                      <button className="btn btn-sm btn-outline-success me-2">Activate<i class="bi bi-plus-circle ms-1"></i></button>
+                      <button className="btn btn-sm btn-outline-danger">Uninstall<i class="bi bi-dash-circle ms-1"></i></button>
                     </td>
                   </tr>
                 );

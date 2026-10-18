@@ -1,87 +1,83 @@
 import { createContext, useContext, useEffect, useState } from 'preact/compat';
-import { useConfig } from './ConfigContext';
-import { useJsonResource } from '../hooks/useJsonResource';
+import { importCourseArchive, getAvailableCourses, loadBundledRegistry } from '../lib/coursePackages';
+import { removePackage, setCourseActive, setPackageActive } from '../lib/courseStorage';
 
-/**
- * @typedef {{ slug: string, name?: string, teacherSlug?: string }} Course
- * @typedef {{
- *   active?: Course[],
- *   system?: { courses?: Course[] },
- *   installed?: { courses?: Course[] }
- * }} ContentIndexData
- * @typedef {{
- *   contentIndex: ContentIndexData | null,
- *   activeCourses: Course[],
- *   systemCourses: Course[],
- *   installedCourses: Course[],
- *   loading: boolean,
- *   error: any,
- *   getAllCourses: () => Course[],
- *   getActiveCourses: () => Course[],
- *   getSystemCourses: () => Course[],
- *   getInstalledCourses: () => Course[],
- *   refreshLibrary: () => void
- * }} LibraryContextValue
- */
-
-const LibraryContext = createContext(/** @type {LibraryContextValue | null} */ (null));
+const LibraryContext = createContext(null);
 
 export const useLibrary = () => {
   const context = useContext(LibraryContext);
-  if (!context) {
-    throw new Error('useLibrary must be used within a LibraryProvider');
-  }
+  if (!context) throw new Error('useLibrary must be used within a LibraryProvider');
   return context;
 };
-/**
- * @param {object} props
- * @param {import('preact').ComponentChildren} props.children
- */
+
 export const LibraryProvider = ({ children }) => {
-  const { isFirstRun } = useConfig();
+  const [registry, setRegistry] = useState(null);
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  /** @type {{ data: ContentIndexData | null, loading: boolean, error: any }} */
-  const { data: indexData, loading: indexLoading, error: indexError } = useJsonResource(
-    '/content/metadata/content-index.json',
-    { cache: true }
-  );
-
-  const [activeCourses, setActiveCourses] = useState(/** @type {Course[]} */ ([]));
+  const refreshLibrary = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const loadedRegistry = registry || await loadBundledRegistry();
+      const availableCourses = await getAvailableCourses(loadedRegistry);
+      setRegistry(loadedRegistry);
+      setCourses(availableCourses);
+    } catch (loadError) {
+      setError(loadError instanceof Error ? loadError.message : String(loadError));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    if (Array.isArray(indexData?.active)) {
-      setActiveCourses(/** @type {Course[]} */ (indexData.active));
-    }
-  }, [indexData]);
+    refreshLibrary();
+  }, []);
 
-  const getSystemCourses = () => /** @type {Course[]} */ (indexData?.system?.courses || []);
-  const getInstalledCourses = () => /** @type {Course[]} */ (indexData?.installed?.courses || []);
-  const getAllCourses = () => [...getSystemCourses(), ...getInstalledCourses()];
+  const libraryCourses = courses.filter((course) => course.placement === 'library');
+  const activeCourses = libraryCourses.filter((course) => course.active);
+  const helpCourses = courses.filter((course) => course.placement === 'help');
 
-  const getActiveCourses = () => {
-    if (isFirstRun || activeCourses.length === 0) {
-      return getSystemCourses().concat(getInstalledCourses().slice(0, 1));
+  const setCourseActiveState = async (courseId, active) => {
+    const course = courses.find((item) => item.id === courseId);
+    if (course?.bundled) {
+      await setCourseActive(courseId, active);
+    } else {
+      await setPackageActive(courseId, active);
     }
-    return activeCourses;
+    await refreshLibrary();
+  };
+
+  const uninstallCourse = async (courseId) => {
+    const course = courses.find((item) => item.id === courseId);
+    if (course?.bundled) {
+      await setCourseActive(courseId, false);
+    } else {
+      await removePackage(courseId);
+    }
+    await refreshLibrary();
+  };
+
+  const importCourse = async (file) => {
+    const result = await importCourseArchive(file);
+    await refreshLibrary();
+    return result.course;
   };
 
   const value = {
-    contentIndex: indexData,
-    activeCourses: getActiveCourses(),
-    systemCourses: getSystemCourses(),
-    installedCourses: getInstalledCourses(),
-    loading: indexLoading,
-    error: indexError,
-    getAllCourses,
-    getActiveCourses,
-    getSystemCourses,
-    getInstalledCourses,
-    refreshLibrary: () => window.location.reload(),
+    courses,
+    libraryCourses,
+    activeCourses,
+    helpCourses,
+    registry,
+    loading,
+    error,
+    refreshLibrary,
+    setCourseActive: setCourseActiveState,
+    uninstallCourse,
+    importCourse,
   };
 
-  return (
-    <LibraryContext.Provider value={value}>
-      {children}
-    </LibraryContext.Provider>
-  );
+  return <LibraryContext.Provider value={value}>{children}</LibraryContext.Provider>;
 };

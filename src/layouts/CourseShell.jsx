@@ -3,7 +3,7 @@ import CourseTopbar from '../components/courseviewer/CourseTopbar';
 import CourseStatusbar from '../components/courseviewer/CourseStatusbar';
 import OffcanvasCourseMenu from '../components/modals/OffcanvasCourseMenu';
 
-export default function CourseShell({ children, course }) {
+export default function CourseShell({ children, course, lessons, steps, currentStep, currentStepIndex, completed, onSelectStep }) {
   useEffect(() => {
     if (course?.title) {
       document.title = `${course.title} - Edumatic 3000`;
@@ -32,7 +32,12 @@ export default function CourseShell({ children, course }) {
   return (
     <div className="course-viewer-shell d-flex flex-column vh-100">
       <CourseTopbar course={course} />
-      <OffcanvasCourseMenu course={course} />
+      <OffcanvasCourseMenu
+        course={{ ...course, lessons }}
+        steps={steps}
+        currentStepIndex={currentStepIndex}
+        onSelectStep={onSelectStep}
+      />
 
       <main className="flex-grow-1 overflow-auto pt-5 pb-5 container-fluid">
         <div className="p-3 p-md-4">
@@ -40,7 +45,7 @@ export default function CourseShell({ children, course }) {
         </div>
       </main>
 
-      <CourseStatusbar course={course} />
+      <CourseStatusbar course={course} currentStep={currentStep} currentStepIndex={currentStepIndex} totalSteps={steps?.length || 0} completed={completed} />
     </div>
   );
 }

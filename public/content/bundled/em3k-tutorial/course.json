@@ -1,0 +1,23 @@
+{
+  "formatVersion": 1,
+  "id": "org.em3k.system.tutorial",
+  "version": "1.0.0",
+  "title": "Using the em3k Viewer",
+  "description": "A short guide to finding, installing, and taking courses in em3k.",
+  "publisherId": "em3k-system",
+  "language": "en-US",
+  "license": "CC-BY-4.0",
+  "tags": ["help", "tutorial"],
+  "lessons": [
+    {
+      "id": "getting-started",
+      "title": "Getting Started",
+      "file": "lessons/getting-started.json"
+    },
+    {
+      "id": "courses-and-library",
+      "title": "Courses and Your Library",
+      "file": "lessons/courses-and-library.json"
+    }
+  ]
+}

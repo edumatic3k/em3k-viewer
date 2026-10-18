@@ -1,23 +1,32 @@
 {
   "name": "em3k-viewer",
-  "version": "1.0.0-beta",	
-    "private": true,
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"preview": "vite preview"
-	},
-	"dependencies": {
-		"@preact/signals": "^2.9.1",
-		"preact": "^10.26.9",
-		"preact-iso": "^2.12.0"
-	},
-	"devDependencies": {
-		"@preact/preset-vite": "^2.10.2",
-		"vite": "^7.0.4"
-	},
-	"overrides": {
-    	"esbuild": "^0.25.0"
-  	}	
+  "version": "1.0.0-beta",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "validate:content": "node scripts/validate-content.js"
+  },
+  "dependencies": {
+    "@preact/signals": "^2.9.1",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "fflate": "^0.8.3",
+    "idb": "^8.0.4",
+    "preact": "^10.26.9",
+    "preact-iso": "^2.12.0"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.2",
+    "vite": "^7.0.4",
+    "vite-plugin-pwa": "^2.0.0"
+  },
+  "overrides": {
+    "esbuild": "^0.25.0"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true
+  }
 }

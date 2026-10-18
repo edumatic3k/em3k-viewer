@@ -3,6 +3,8 @@
 
 # Dependency directories
 node_modules/
+/dist/
+/old-stuff/
 
 # dotenv environment variable files
 .env

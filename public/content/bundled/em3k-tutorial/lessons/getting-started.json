@@ -1,0 +1,39 @@
+{
+  "formatVersion": 1,
+  "id": "getting-started",
+  "title": "Getting Started",
+  "pages": [
+    {
+      "id": "welcome",
+      "heading": "Welcome to em3k",
+      "subhead": "Learn anywhere, even when you are offline.",
+      "blocks": [
+        {
+          "type": "text",
+          "content": "em3k is a course viewer designed around portable course packages. Once a course is available on your device, you can read it without staying connected to the internet."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Start here",
+          "content": "This tutorial is available from Help. The Discovering France course is already in your Library so you can try a regular course right away."
+        }
+      ]
+    },
+    {
+      "id": "navigation",
+      "heading": "Moving Around",
+      "blocks": [
+        {
+          "type": "list",
+          "style": "unordered",
+          "items": [
+            "Use the course controls to move through pages and lessons.",
+            "Open the Library to manage courses installed in this viewer.",
+            "Use Help to return to this tutorial."
+          ]
+        }
+      ]
+    }
+  ]
+}

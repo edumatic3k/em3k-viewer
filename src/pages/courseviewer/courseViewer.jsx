@@ -24,12 +24,24 @@ export default function CourseViewer({ courseSlug }) {
   }
 
   return (
-    <CourseShell course={courseData.course}>
+    <CourseShell
+      course={courseData.course}
+      lessons={courseData.lessons}
+      steps={courseData.steps}
+      currentStep={courseData.currentStep}
+      currentStepIndex={courseData.stepIndex}
+      completed={courseData.completed}
+      onSelectStep={courseData.navigate.goToStep}
+    >
       <DynamicPage 
-        currentBlock={courseData.currentBlock}
-        onNext={courseData.navigate.next}
+        course={courseData.course}
+        step={courseData.currentStep}
+        stepIndex={courseData.stepIndex}
+        totalSteps={courseData.totalSteps}
+        completed={courseData.completed}
         onBack={courseData.navigate.back}
-        getContentPath={courseData.getContentPath}
+        onNext={courseData.navigate.next}
+        resolveAsset={courseData.resolveAsset}
       />
     </CourseShell>
   );

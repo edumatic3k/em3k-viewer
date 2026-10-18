@@ -1,0 +1,213 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://em3k.org/schemas/lesson-1.schema.json",
+  "title": "em3k Lesson",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "id", "title", "pages"],
+  "properties": {
+    "formatVersion": { "const": 1 },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/page" }
+    },
+    "quiz": { "$ref": "#/definitions/quiz" }
+  },
+  "definitions": {
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "heading", "blocks"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "heading": { "type": "string", "minLength": 1 },
+        "subhead": { "type": "string" },
+        "blocks": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/block" }
+        }
+      }
+    },
+    "block": {
+      "oneOf": [
+        { "$ref": "#/definitions/textBlock" },
+        { "$ref": "#/definitions/headingBlock" },
+        { "$ref": "#/definitions/imageBlock" },
+        { "$ref": "#/definitions/slideshowBlock" },
+        { "$ref": "#/definitions/listBlock" },
+        { "$ref": "#/definitions/calloutBlock" },
+        { "$ref": "#/definitions/videoBlock" },
+        { "$ref": "#/definitions/spacerBlock" }
+      ]
+    },
+    "textBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "content"],
+      "properties": {
+        "type": { "const": "text" },
+        "content": { "type": "string" }
+      }
+    },
+    "headingBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "content"],
+      "properties": {
+        "type": { "const": "heading" },
+        "content": { "type": "string", "minLength": 1 },
+        "level": { "type": "integer", "minimum": 2, "maximum": 6 }
+      }
+    },
+    "imageBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "src", "alt"],
+      "properties": {
+        "type": { "const": "image" },
+        "src": { "$ref": "#/definitions/packagePath" },
+        "alt": { "type": "string" },
+        "caption": { "type": "string" }
+      }
+    },
+    "slideshowBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "images"],
+      "properties": {
+        "type": { "const": "slideshow" },
+        "images": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["src", "alt"],
+            "properties": {
+              "src": { "$ref": "#/definitions/packagePath" },
+              "alt": { "type": "string" },
+              "caption": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "listBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "items"],
+      "properties": {
+        "type": { "const": "list" },
+        "style": { "enum": ["ordered", "unordered"] },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "calloutBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "content"],
+      "properties": {
+        "type": { "const": "callout" },
+        "variant": { "enum": ["info", "tip", "warning", "danger"] },
+        "title": { "type": "string" },
+        "content": { "type": "string" }
+      }
+    },
+    "videoBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "src", "title"],
+      "properties": {
+        "type": { "const": "video" },
+        "src": { "$ref": "#/definitions/packagePath" },
+        "title": { "type": "string", "minLength": 1 },
+        "caption": { "type": "string" }
+      }
+    },
+    "spacerBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "const": "spacer" },
+        "size": { "enum": ["small", "medium", "large"] }
+      }
+    },
+    "packagePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?![A-Za-z][A-Za-z0-9+.-]*:)(?!.*(?:^|/)\\.\\.?/)[^\\\\?#]+$"
+    },
+    "quiz": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "passPercent", "questions"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "passPercent": { "type": "number", "minimum": 0, "maximum": 100 },
+        "questions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/question" }
+        }
+      }
+    },
+    "question": {
+      "oneOf": [
+        { "$ref": "#/definitions/multipleChoiceQuestion" },
+        { "$ref": "#/definitions/trueFalseQuestion" }
+      ]
+    },
+    "multipleChoiceQuestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "prompt", "options", "answer"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": { "const": "multiple-choice" },
+        "prompt": { "type": "string", "minLength": 1 },
+        "options": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "text"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "text": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "answer": { "type": "string", "minLength": 1 }
+      }
+    },
+    "trueFalseQuestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "prompt", "answer"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": { "const": "true-false" },
+        "prompt": { "type": "string", "minLength": 1 },
+        "answer": { "type": "boolean" }
+      }
+    }
+  }
+}

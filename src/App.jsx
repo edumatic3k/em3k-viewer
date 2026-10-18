@@ -1,10 +1,7 @@
 // @ts-nocheck
 import { render } from 'preact';
 import { lazy, LocationProvider, ErrorBoundary as IsoErrorBoundary, Router, Route } from 'preact-iso';
-import { Menubar } from './components/ui/Menubar.jsx';
-import { Statusbar } from './components/ui/Statusbar.jsx';
-import { ConfigProvider, useConfig } from './contexts/ConfigContext';
-import { LibraryProvider } from './contexts/LibraryContext.jsx';
+import { LibraryProvider, useLibrary } from './contexts/LibraryContext.jsx';
 import './em3k.css';
 
 // Lazy pages
@@ -39,8 +36,7 @@ const AppErrorBoundary = ({ children }) => {
 };
 
 const AppRoutes = () => {
-  
-  const { isFirstRun, loading, error } = useConfig();
+  const { loading, error } = useLibrary();
 
   if (loading) return <div className="loading-screen">Initializing EM3K Viewer...</div>;
   if (error) return <div className="error">Error loading config: {error}</div>;
@@ -48,7 +44,7 @@ const AppRoutes = () => {
   return (
     <AppErrorBoundary>
       <Router>
-        <Route path="/" component={isFirstRun ? Welcome : Home} />
+        <Route path="/" component={Home} />
 
         {/* Aliases */}
         <Route path="/home" component={Home} />
@@ -80,13 +76,9 @@ const AppRoutes = () => {
 export function App() {
   return (
     <LocationProvider>
-      <ConfigProvider>
-        <LibraryProvider>
-          <Menubar />
-          <AppRoutes />
-          <Statusbar />
-        </LibraryProvider>
-      </ConfigProvider>
+      <LibraryProvider>
+        <AppRoutes />
+      </LibraryProvider>
     </LocationProvider>
   );
 }

@@ -1,94 +1,66 @@
+import { BlockRenderer } from '../../components/blocks/BlockRenderer';
 import CourseIndex from './courseIndex';
-import CourseIntro from './courseIntro';
-import LessonIntro from './lessonIntro';
-import LessonPages from './lessonPages';
-import LessonSummary from './lessonSummary';
 import Quiz from './quiz';
-import CourseSummary from './courseSummary';
-import CourseEnd from './courseEnd';
-import Certificate from './certificate';
 
-export default function DynamicPage({ 
-  currentBlock, 
-  onNext, 
-  onBack, 
-  getContentPath 
+function StepNavigation({ onBack, onNext, label = 'Continue' }) {
+  return (
+    <div className="d-flex justify-content-between gap-3 mt-5">
+      <button className="btn btn-outline-secondary" onClick={onBack}>Back</button>
+      <button className="btn btn-primary" onClick={onNext}>{label}</button>
+    </div>
+  );
+}
+
+export default function DynamicPage({
+  course,
+  step,
+  stepIndex,
+  totalSteps,
+  completed,
+  onBack,
+  onNext,
+  onSelectStep,
+  resolveAsset,
 }) {
-  if (!currentBlock) {
+  if (!step) {
+    if (completed) {
+      return (
+        <div className="mx-auto text-center py-5" style={{ maxWidth: '720px' }}>
+          <h1 className="display-5">Course complete</h1>
+          <p className="lead">You have reached the end of {course.title}.</p>
+          <button className="btn btn-primary" onClick={onBack}>Review the last activity</button>
+        </div>
+      );
+    }
+    return <CourseIndex data={course} onNext={onNext} resolveAsset={resolveAsset} />;
+  }
+
+  if (step.kind === 'quiz') {
     return (
-      <div className="text-center py-10">
-        <h3>Loading content...</h3>
-      </div>
+      <Quiz
+        key={`${step.lesson.id}-${stepIndex}`}
+        quizData={step.quiz}
+        onBack={onBack}
+        onNext={onNext}
+        isLastStep={stepIndex === totalSteps - 1}
+      />
     );
   }
 
-  const basePath = getContentPath ? getContentPath() : '';
-
-  console.log('Rendering block:', currentBlock.type, currentBlock);
-
-  switch (currentBlock.type) {
-    case 'index':
-      return <CourseIndex onNext={onNext} data={currentBlock} basePath={basePath} />;
-
-    case 'course-intro':
-      return <CourseIntro onNext={onNext} data={currentBlock} basePath={basePath} />;
-
-    case 'lesson':
-      // Smart fallback: show intro if available, otherwise first page
-      const children = currentBlock.children || {};
-      if (children.intro?.enabled !== false) {
-        return <LessonIntro 
-          data={children.intro} 
-          onNext={onNext} 
-          basePath={basePath + (currentBlock.folder ? currentBlock.folder + '/' : '')} 
-        />;
-      }
-      return <LessonPages 
-        lesson={currentBlock}
-        pages={children.pages || []} 
-        basePath={basePath} 
-        onNext={onNext} 
-        onBack={onBack} 
-      />;
-
-    case 'lesson-intro':
-      return <LessonIntro data={currentBlock} onNext={onNext} basePath={basePath} />;
-
-    case 'lesson-pages':
-    case 'lesson-page':
-      return <LessonPages 
-        pages={currentBlock.pages || []} 
-        basePath={basePath} 
-        onNext={onNext} 
-        onBack={onBack} 
-      />;
-
-    case 'lesson-summary':
-      return <LessonSummary data={currentBlock} onNext={onNext} />;
-
-    case 'quiz':
-      return <Quiz 
-        quizData={currentBlock} 
-        basePath={basePath} 
-        onNext={onNext} 
-      />;
-
-    case 'course-summary':
-      return <CourseSummary data={currentBlock} onNext={onNext} />;
-
-    case 'end':
-      return <CourseEnd data={currentBlock} onNext={onNext} />;
-
-    case 'certificate':
-      return <Certificate data={currentBlock} />;
-
-    default:
-      return (
-        <div className="alert alert-info">
-          <h4>Block Type: <code>{currentBlock.type}</code></h4>
-          <p>This page type is not implemented yet.</p>
-          <pre className="small mt-3 bg-light p-3">{JSON.stringify(currentBlock, null, 2)}</pre>
-        </div>
-      );
-  }
+  const { lesson, page, pageIndex, pageCount } = step;
+  return (
+    <article className="mx-auto" style={{ maxWidth: '900px' }}>
+      <p className="text-secondary mb-2">
+        {lesson.title} · Page {pageIndex + 1} of {pageCount}
+      </p>
+      <h1 className="display-5 mb-2">{page.heading}</h1>
+      {page.subhead && <p className="lead text-secondary">{page.subhead}</p>}
+      <BlockRenderer blocks={page.blocks} resolveAsset={resolveAsset} />
+      <StepNavigation
+        onBack={onBack}
+        onNext={onNext}
+        label={stepIndex === totalSteps - 1 ? 'Finish course' : 'Next'}
+      />
+    </article>
+  );
 }

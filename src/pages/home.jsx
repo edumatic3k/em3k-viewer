@@ -7,7 +7,7 @@ import { useLibrary } from '../contexts/LibraryContext.jsx';
  */
 
 export default function Home() {
-  const { activeCourses, loading } = useLibrary();
+  const { activeCourses, helpCourses, loading } = useLibrary();
 
   /** @type {Course | undefined} */
   const resumeCourse = activeCourses?.[0];
@@ -45,12 +45,10 @@ export default function Home() {
                 <div className="col-lg-4 mt-4 mt-lg-0">
                   <div className="card border-0 bg-dark text-white">
                     <div className="card-body">
-                      <h5 className="card-title">Current Status</h5>
+                      <h5 className="card-title">On this device</h5>
                       <ul className="list-unstyled mb-0">
                         <li className="mb-2">Active courses: {activeCourses?.length || 0}</li>
-                        <li className="mb-2">Completed lessons: 0</li>
-                        <li className="mb-2">Storage used: 4.5 MB</li>
-                        <li>Last activity: Today</li>
+                        <li>Help courses: {helpCourses?.length || 0}</li>
                       </ul>
                     </div>
                   </div>
@@ -78,18 +76,18 @@ export default function Home() {
                 />
               </div>
               <div className="card-body">
-                <div className="text-secondary small mb-1">Resume</div>
+                <div className="text-secondary small mb-1">Your library</div>
                 <h5 className="card-title mb-2">
                   {resumeCourse?.name || resumeCourse?.slug || 'No active course yet'}
                 </h5>
                 <p className="card-text text-secondary">
-                  Pick up where you left off.
+                  Open an installed course. Your progress is saved on this device.
                 </p>
                 <Link
                   href={resumeCourse ? `/course/${resumeCourse.slug}` : '/library'}
                   className="btn btn-sm btn-primary"
                 >
-                  Open
+                  {resumeCourse ? 'Open course' : 'Open library'}
                 </Link>
               </div>
             </div>
@@ -129,12 +127,9 @@ export default function Home() {
             <div className="card h-100 shadow-sm">
               <div className="card-body">
                 <div className="text-secondary small mb-1">Storage</div>
-                <h5 className="card-title mb-2">4.5 MB Used</h5>
-                <div className="progress mb-3" style={{ height: '8px' }}>
-                  <div className="progress-bar" style={{ width: '30%' }}></div>
-                </div>
+                <h5 className="card-title mb-2">Stored on this device</h5>
                 <p className="card-text text-secondary mb-0">
-                  Lesson content stored on your device.
+                  Installed packages and learning progress stay in this browser.
                 </p>
               </div>
             </div>
@@ -175,7 +170,7 @@ export default function Home() {
                           Teacher: {course.teacherSlug || 'EM3K System'}
                         </div>
                         <div className="text-secondary small">
-                          Progress: In progress
+                          Course available offline after the viewer has been cached.
                         </div>
                       </div>
 

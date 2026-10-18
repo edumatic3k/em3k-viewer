@@ -1,0 +1,26 @@
+{
+  "formatVersion": 1,
+  "id": "courses-and-library",
+  "title": "Courses and Your Library",
+  "pages": [
+    {
+      "id": "course-packages",
+      "heading": "Portable Course Packages",
+      "blocks": [
+        {
+          "type": "text",
+          "content": "An em3k course is a package of course information, lessons, pages, and any included assets. The same package can be published in a catalog, shared as a file, or copied to another device."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "content": "Your Library"
+        },
+        {
+          "type": "text",
+          "content": "The Library is specific to this viewer. It shows courses available here and keeps learner progress separate from the course package."
+        }
+      ]
+    }
+  ]
+}

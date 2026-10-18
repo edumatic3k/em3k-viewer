@@ -1,11 +1,11 @@
-export default function CourseIndex({ onNext, data, basePath }) {
+export default function CourseIndex({ onNext, data, resolveAsset }) {
   return (
     <div className="text-center py-5">
       <div className="mx-auto" style={{ maxWidth: '700px' }}>
         {/* Hero / Welcome Image */}
         {data?.thumbnail && (
           <img 
-            src={`${basePath}${data.thumbnail}`} 
+            src={resolveAsset(data.thumbnail)}
             alt={data.title} 
             className="img-fluid rounded mb-4 shadow-sm" 
             style={{ maxHeight: '320px', objectFit: 'cover' }}

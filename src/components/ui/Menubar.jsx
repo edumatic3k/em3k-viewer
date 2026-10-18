@@ -115,7 +115,7 @@ export function Menubar() {
                                 Help
                             </a>
                             <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Em3k Tutorial</a></li>
+                                <li><a className="dropdown-item" href="/course/org.em3k.system.tutorial">Em3k Tutorial</a></li>
                                 <li><a className="dropdown-item" href="/help">Em3k Help</a></li>
                                 <hr/>
                                 <li><a className="dropdown-item" href="/report">Report A Problem</a></li>

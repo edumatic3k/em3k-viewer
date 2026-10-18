@@ -1,0 +1,15 @@
+{
+  "formatVersion": 1,
+  "courses": [
+    {
+      "id": "org.em3k.system.tutorial",
+      "entry": "em3k-tutorial/course.json",
+      "placement": "help"
+    },
+    {
+      "id": "org.em3k.system.sample-france",
+      "entry": "sample-france/course.json",
+      "placement": "library"
+    }
+  ]
+}

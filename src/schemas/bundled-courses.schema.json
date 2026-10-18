@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://em3k.org/schemas/bundled-courses-1.schema.json",
+  "title": "em3k Bundled Course Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "courses"],
+  "properties": {
+    "formatVersion": { "const": 1 },
+    "courses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "entry", "placement"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 3,
+            "pattern": "^[a-z0-9][a-z0-9._:-]*$"
+          },
+          "entry": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.?/)[^?#]+/course\\.json$"
+          },
+          "placement": { "enum": ["library", "help"] }
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,6 @@
-import { useContext } from 'preact/hooks';
-// import { CourseContext } from '../../contexts/CourseContext'; // we'll add later
-
 export default function CourseTopbar({ course }) {
   const closeCourse = () => {
-    window.history.back();
+    window.location.href = '/library';
   };
 
   return (

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'preact/hooks';
 import { useLibrary } from '../contexts/LibraryContext';
-import { loadCoursePackage, resolvePackageAsset } from '../lib/coursePackages';
+import { loadCoursePackage, releasePackageAssets, resolvePackageAsset } from '../lib/coursePackages';
 import { getCourseProgress, saveCourseProgress } from '../lib/courseStorage';
 
 /** @typedef {{ id: string, heading: string, subhead?: string, blocks: Array<{ type: string, src?: string, images?: Array<{ src: string }> }> }} CoursePage */
@@ -28,17 +28,22 @@ function buildSteps(lessons) {
 export function useCourse(courseId) {
   const { registry } = useLibrary();
   const [coursePackage, setCoursePackage] = useState(/** @type {LoadedCoursePackage | null} */ (null));
+  const [packageRegistry, setPackageRegistry] = useState(null);
   const [stepIndex, setStepIndex] = useState(-1);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [loadStatus, setLoadStatus] = useState({ courseId: null, registry: null, loading: true, error: '' });
 
   useEffect(() => {
     let cancelled = false;
 
     async function load() {
-      if (!courseId || !registry) return;
-      setLoading(true);
-      setError('');
+      setCoursePackage(null);
+      setPackageRegistry(null);
+      setStepIndex(-1);
+      setLoadStatus({ courseId, registry, loading: true, error: '' });
+      if (!courseId || !registry) {
+        setLoadStatus({ courseId, registry, loading: false, error: '' });
+        return;
+      }
       try {
         const [loadedPackage, progress] = await Promise.all([
           loadCoursePackage(courseId, registry),
@@ -46,11 +51,24 @@ export function useCourse(courseId) {
         ]);
         if (cancelled) return;
         setCoursePackage(loadedPackage);
+        setPackageRegistry(registry);
         setStepIndex(progress?.stepIndex ?? -1);
       } catch (loadError) {
-        if (!cancelled) setError(loadError instanceof Error ? loadError.message : String(loadError));
+        if (!cancelled) {
+          setCoursePackage(null);
+          setPackageRegistry(null);
+          setStepIndex(-1);
+          setLoadStatus({
+            courseId,
+            registry,
+            loading: false,
+            error: loadError instanceof Error ? loadError.message : String(loadError),
+          });
+        }
       } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setLoadStatus((status) => ({ ...status, loading: false }));
+        }
       }
     }
 
@@ -58,7 +76,17 @@ export function useCourse(courseId) {
     return () => { cancelled = true; };
   }, [courseId, registry]);
 
-  const steps = coursePackage ? buildSteps(coursePackage.lessons) : [];
+  useEffect(() => () => {
+    if (coursePackage) releasePackageAssets(coursePackage);
+  }, [coursePackage]);
+
+  const currentPackage = coursePackage?.course.id === courseId && packageRegistry === registry
+    ? coursePackage
+    : null;
+  const statusIsCurrent = loadStatus.courseId === courseId && loadStatus.registry === registry;
+  const loading = !statusIsCurrent || loadStatus.loading || !registry;
+  const error = statusIsCurrent ? loadStatus.error : '';
+  const steps = currentPackage ? buildSteps(currentPackage.lessons) : [];
   const currentStep = stepIndex < 0 ? null : steps[stepIndex] || null;
 
   /** @type {(nextIndex: number) => Promise<void>} */
@@ -78,19 +106,19 @@ export function useCourse(courseId) {
   /** @type {(assetPath: string) => string} */
   const resolveAsset = useCallback((assetPath) => {
     if (/^(?:https?:|data:|blob:)/i.test(assetPath)) return assetPath;
-    return coursePackage ? resolvePackageAsset(coursePackage, assetPath) : '';
-  }, [coursePackage]);
+    return currentPackage ? resolvePackageAsset(currentPackage, assetPath) : '';
+  }, [currentPackage]);
 
   return {
-    course: coursePackage?.course || null,
-    lessons: coursePackage?.lessons || [],
+    course: currentPackage?.course || null,
+    lessons: currentPackage?.lessons || [],
     currentStep,
     steps,
     stepIndex,
     totalSteps: steps.length,
     isCourseIntro: stepIndex < 0,
     completed: stepIndex >= steps.length && steps.length > 0,
-    loading: loading || !registry,
+    loading,
     error,
     navigate: { next, back, goToStep },
     resolveAsset,

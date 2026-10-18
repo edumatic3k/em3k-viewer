@@ -107,6 +107,8 @@ The Library page can:
 - import a zipped course package from disk
 - keep installed packages and course metadata in IndexedDB
 
+Uninstalling an imported course removes its package but intentionally preserves its learner progress on this device. Reinstalling a package with the same course ID resumes that saved progress. Course IDs that are already installed or used by bundled courses are rejected during import rather than overwritten.
+
 This is intentionally local-first; the app does not rely on a remote catalog or server for core playback.
 
 ## Current bundled content

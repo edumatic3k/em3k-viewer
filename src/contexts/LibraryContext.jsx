@@ -60,7 +60,7 @@ export const LibraryProvider = ({ children }) => {
   };
 
   const importCourse = async (file) => {
-    const result = await importCourseArchive(file);
+    const result = await importCourseArchive(file, registry?.courses.map((course) => course.id));
     await refreshLibrary();
     return result.course;
   };

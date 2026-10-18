@@ -268,7 +268,15 @@ export function resolvePackageAsset(coursePackage, assetPath) {
   return cachedUrls.get(safePath);
 }
 
-export async function importCourseArchive(file) {
+export function releasePackageAssets(coursePackage) {
+  if (!coursePackage.objectUrls) return;
+  for (const objectUrl of coursePackage.objectUrls.values()) {
+    URL.revokeObjectURL(objectUrl);
+  }
+  coursePackage.objectUrls.clear();
+}
+
+export async function importCourseArchive(file, reservedCourseIds = []) {
   if (!file) throw new Error('Choose a course package archive.');
   if (file.size > MAX_ARCHIVE_BYTES) throw new Error('Course package archive is larger than 50 MB.');
   const filesInArchive = await unzipArchive(new Uint8Array(await file.arrayBuffer()));
@@ -293,6 +301,9 @@ export async function importCourseArchive(file) {
     if (!(files[packagePath] instanceof Uint8Array)) {
       throw new Error(`Course asset was not found: ${packagePath}`);
     }
+  }
+  if (reservedCourseIds.includes(course.id)) {
+    throw new Error(`A course with ID "${course.id}" is already available in the library.`);
   }
 
   const record = {

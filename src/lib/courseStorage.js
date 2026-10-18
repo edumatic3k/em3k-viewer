@@ -23,7 +23,14 @@ export async function getInstalledPackage(courseId) {
 }
 
 export async function installPackage(record) {
-  return (await database).put('packages', record);
+  try {
+    return await (await database).add('packages', record);
+  } catch (error) {
+    if (error?.name === 'ConstraintError') {
+      throw new Error(`A course with ID "${record.id}" is already installed.`);
+    }
+    throw error;
+  }
 }
 
 export async function setPackageActive(courseId, active) {

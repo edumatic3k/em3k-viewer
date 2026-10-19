@@ -37,16 +37,14 @@ export default function OffcanvasCourseMenu({
             <section key={lesson.id} className="border-top">
               <h6 className="px-3 pt-3 mb-1">{lesson.title}</h6>
               {lessonSteps.map((step) => {
-                const label = step.kind === 'quiz'
-                  ? `${step.lesson.title} quiz`
-                  : step.page.heading;
+                const label = step.kind === 'page' ? step.page.heading : step.lesson.title;
                 return (
                   <button
                     key={`${step.lesson.id}-${step.index}`}
                     className={`list-group-item list-group-item-action border-0 ps-4 ${currentStepIndex === step.index ? 'active' : ''}`}
                     onClick={() => onSelectStep(step.index)}
                   >
-                    {step.kind === 'quiz' ? 'Quiz: ' : ''}{label}
+                    {step.kind === 'page' ? label : `${step.kind === 'quiz-results' ? 'Answers: ' : 'Quiz: '}${label}`}
                   </button>
                 );
               })}

@@ -7,7 +7,7 @@ import {
 } from './coursePackages';
 import { getInstalledPackage, getCourseProgress, removePackage, saveCourseProgress } from './courseStorage';
 
-function createArchive(courseId, title = 'Test course') {
+function createArchive(courseId, title = 'Test course', quiz = null) {
   const course = {
     formatVersion: 1,
     id: courseId,
@@ -23,6 +23,7 @@ function createArchive(courseId, title = 'Test course') {
     id: 'lesson-one',
     title: 'Lesson one',
     pages: [{ id: 'page-one', heading: 'Page one', blocks: [] }],
+    ...(quiz ? { quiz } : {}),
   };
   const bytes = zipSync({
     [`${courseId}/course.json`]: strToU8(JSON.stringify(course)),
@@ -52,6 +53,34 @@ describe('course package corrections', () => {
     await expect(importCourseArchive(createArchive(courseId), [courseId]))
       .rejects.toThrow(`A course with ID "${courseId}" is already available in the library.`);
     await expect(getInstalledPackage(courseId)).resolves.toBeUndefined();
+  });
+
+  it('validates optional allowRetakes as a boolean and accepts it omitted', async () => {
+    const validId = `retakes-valid-${crypto.randomUUID()}`;
+    const quiz = {
+      title: 'Practice',
+      passPercent: 70,
+      allowRetakes: true,
+      questions: [{
+        id: 'question-one',
+        type: 'multiple-choice',
+        prompt: 'Pick one',
+        options: [{ id: 'a', text: 'A' }, { id: 'b', text: 'B' }],
+        answer: 'a',
+      }],
+    };
+    await importCourseArchive(createArchive(validId, 'Valid retakes', quiz));
+
+    const invalidId = `retakes-invalid-${crypto.randomUUID()}`;
+    await expect(importCourseArchive(createArchive(invalidId, 'Invalid retakes', {
+      ...quiz,
+      allowRetakes: 'yes',
+    }))).rejects.toThrow(/must be boolean|allowRetakes/i);
+
+    const omittedId = `retakes-omitted-${crypto.randomUUID()}`;
+    const { allowRetakes, ...legacyQuiz } = quiz;
+    await importCourseArchive(createArchive(omittedId, 'Omitted retakes', legacyQuiz));
+    expect(allowRetakes).toBe(true);
   });
 
   it('uninstalls a package without deleting its learner progress', async () => {

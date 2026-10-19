@@ -91,6 +91,113 @@ describe('useCourse loading state', () => {
     expect(mocks.releasePackageAssets).toHaveBeenCalledWith(loadedPackage);
   });
 
+  it('resumes saved Answers and restores the latest submitted responses', async () => {
+    const loadedPackage = {
+      course: { id: 'answers-course', version: '1.0.0', title: 'Answers course' },
+      lessons: [{
+        id: 'lesson-one',
+        title: 'Lesson one',
+        pages: [{ id: 'page-one', heading: 'Page one', blocks: [] }],
+        quiz: { title: 'Practice', passPercent: 70, questions: [{ id: 'q1' }] },
+      }],
+      files: {},
+      baseUrl: null,
+      placement: 'library',
+    };
+    const attempt = {
+      lessonId: 'lesson-one',
+      attemptId: 'attempt-one',
+      answers: { q1: 'option-a' },
+      correct: 1,
+      total: 1,
+      percent: 100,
+      passed: true,
+      submittedAt: '2026-01-01T00:00:00.000Z',
+    };
+    mocks.loadCoursePackage.mockResolvedValue(loadedPackage);
+    mocks.getCourseProgress.mockResolvedValue({
+      formatVersion: 2,
+      courseId: 'answers-course',
+      courseVersion: '1.0.0',
+      lastLocation: { kind: 'quiz-results', lessonId: 'lesson-one' },
+      visitedPages: [],
+      completedLessons: [{ lessonId: 'lesson-one', completedAt: attempt.submittedAt }],
+      quizResults: [attempt],
+      courseCompletedAt: null,
+      updatedAt: attempt.submittedAt,
+    });
+
+    await act(() => render(h(CourseHarness, { courseId: 'answers-course' }), container));
+    await vi.waitFor(() => expect(courseState.currentStep?.kind).toBe('quiz-results'));
+    expect(courseState.stepIndex).toBe(2);
+    expect(courseState.quizAttempt).toEqual(attempt);
+    expect(courseState.isFreshQuiz).toBe(false);
+
+    await act(() => render(null, container));
+    mocks.getCourseProgress.mockResolvedValue({
+      formatVersion: 2,
+      courseId: 'answers-course',
+      courseVersion: '1.0.0',
+      lastLocation: { kind: 'quiz', lessonId: 'lesson-one' },
+      visitedPages: [],
+      completedLessons: [{ lessonId: 'lesson-one', completedAt: attempt.submittedAt }],
+      quizResults: [attempt],
+      courseCompletedAt: null,
+      updatedAt: attempt.submittedAt,
+    });
+    await act(() => render(h(CourseHarness, { courseId: 'answers-course' }), container));
+    await vi.waitFor(() => expect(courseState.currentStep?.kind).toBe('quiz'));
+    expect(courseState.quizAttempt.answers).toEqual({ q1: 'option-a' });
+    expect(courseState.isFreshQuiz).toBe(false);
+  });
+
+  it('does not award course completion after a failed quiz even at the final screen', async () => {
+    const loadedPackage = {
+      course: { id: 'failed-course', version: '1.0.0', title: 'Failed course' },
+      lessons: [{
+        id: 'lesson-one',
+        title: 'Lesson one',
+        pages: [{ id: 'page-one', heading: 'Page one', blocks: [] }],
+        quiz: { title: 'Practice', passPercent: 70, questions: [{ id: 'q1' }] },
+      }],
+      files: {},
+      baseUrl: null,
+      placement: 'library',
+    };
+    mocks.loadCoursePackage.mockResolvedValue(loadedPackage);
+    mocks.getCourseProgress.mockResolvedValue(null);
+
+    await act(() => render(h(CourseHarness, { courseId: 'failed-course' }), container));
+    await vi.waitFor(() => expect(courseState.course?.id).toBe('failed-course'));
+    await act(async () => { await courseState.navigate.goToStep(1); });
+    await act(async () => {
+      await courseState.onQuizResult('lesson-one', {
+        attemptId: 'failed-attempt',
+        answers: { q1: 'wrong' },
+        correct: 0,
+        total: 1,
+        percent: 0,
+        passed: false,
+      });
+    });
+
+    expect(courseState.currentStep?.kind).toBe('quiz-results');
+    expect(mocks.savedProgress.completedLessons).toEqual([]);
+    await act(async () => { await courseState.startQuizAgain('lesson-one'); });
+    expect(mocks.savedProgress.activeQuizLessonId).toBe('lesson-one');
+    await act(() => render(null, container));
+    mocks.getCourseProgress.mockResolvedValue(mocks.savedProgress);
+    await act(() => render(h(CourseHarness, { courseId: 'failed-course' }), container));
+    await vi.waitFor(() => expect(courseState.currentStep?.kind).toBe('quiz'));
+    expect(courseState.isFreshQuiz).toBe(true);
+    expect(courseState.quizAttempt.attemptId).toBe('failed-attempt');
+    await act(async () => { await courseState.navigate.goToStep(2); });
+    await act(async () => { await courseState.navigate.next(); });
+    expect(courseState.showCompletionScreen).toBe(true);
+    expect(courseState.hasCompletedCourse).toBe(false);
+    expect(mocks.savedProgress.courseCompletedAt).toBeNull();
+  });
+
   it('rejects quiz persistence when course progress is unavailable', async () => {
     await act(() => render(h(CourseHarness, { courseId: '' }), container));
 
@@ -134,21 +241,21 @@ describe('useCourse loading state', () => {
 
     await act(() => render(h(CourseHarness, { courseId: 'multi-course' }), container));
     await vi.waitFor(() => expect(courseState.currentStep?.page?.id).toBe('page-two'));
-    expect(courseState.steps.map((step) => step.kind)).toEqual(['page', 'page', 'quiz', 'page']);
+    expect(courseState.steps.map((step) => step.kind)).toEqual(['page', 'page', 'quiz', 'quiz-results', 'page']);
     expect(courseState.stepIndex).toBe(1);
     expect(courseState.progressPercent).toBe(67);
 
-    await act(async () => { await courseState.navigate.goToStep(3); });
+    await act(async () => { await courseState.navigate.goToStep(4); });
     await vi.waitFor(() => expect(courseState.currentStep?.page?.id).toBe('page-three'));
-    expect(courseState.stepIndex).toBe(3);
+    expect(courseState.stepIndex).toBe(4);
     expect(courseState.progressPercent).toBe(100);
     expect(courseState.progressPercent).toBeGreaterThan(67);
 
     await act(async () => { await courseState.navigate.back(); });
-    await vi.waitFor(() => expect(courseState.stepIndex).toBe(2));
-    await vi.waitFor(() => expect(courseState.currentStep?.kind).toBe('quiz'));
+    await vi.waitFor(() => expect(courseState.stepIndex).toBe(3));
+    await vi.waitFor(() => expect(courseState.currentStep?.kind).toBe('quiz-results'));
     expect(courseState.progressPercent).toBe(100);
-    expect(mocks.savedProgress.lastLocation).toEqual({ kind: 'quiz', lessonId: 'lesson-one' });
+    expect(mocks.savedProgress.lastLocation).toEqual({ kind: 'quiz-results', lessonId: 'lesson-one' });
   });
 
   it('records lesson and course completion as explicit milestones that survive review navigation', async () => {
@@ -172,7 +279,7 @@ describe('useCourse loading state', () => {
 
     await act(() => render(h(CourseHarness, { courseId: 'complete-course' }), container));
     await vi.waitFor(() => expect(courseState.course?.id).toBe('complete-course'));
-    expect(courseState.steps.map((step) => step.kind)).toEqual(['page', 'quiz', 'page']);
+    expect(courseState.steps.map((step) => step.kind)).toEqual(['page', 'quiz', 'quiz-results', 'page']);
     await act(async () => { await courseState.navigate.goToStep(1); });
     await vi.waitFor(() => expect(courseState.stepIndex).toBe(1));
     await vi.waitFor(() => expect(courseState.currentStep?.kind).toBe('quiz'));
@@ -180,7 +287,9 @@ describe('useCourse loading state', () => {
     let quizSaveError;
     await act(async () => {
       try {
-        await courseState.onQuizResult('lesson-one', { correct: 1, total: 1, percent: 100, passed: true });
+        await courseState.onQuizResult('lesson-one', {
+          attemptId: 'attempt-one', answers: { q1: 'answer' }, correct: 1, total: 1, percent: 100, passed: true,
+        });
       } catch (error) {
         quizSaveError = error;
       }
@@ -188,15 +297,28 @@ describe('useCourse loading state', () => {
     expect(quizSaveError).toEqual(new Error('Storage unavailable'));
     expect(mocks.savedProgress.quizResults).toEqual([]);
     await act(async () => {
-      await courseState.onQuizResult('lesson-one', { correct: 1, total: 1, percent: 100, passed: true });
+      await courseState.onQuizResult('lesson-one', {
+        attemptId: 'attempt-one', answers: { q1: 'answer' }, correct: 1, total: 1, percent: 100, passed: true,
+      });
     });
     await vi.waitFor(() => expect(mocks.savedProgress.quizResults).toHaveLength(1));
     expect(mocks.savedProgress.quizResults[0]).toMatchObject({
       lessonId: 'lesson-one',
-      score: 1,
+      attemptId: 'attempt-one',
+      answers: { q1: 'answer' },
+      correct: 1,
       percent: 100,
       passed: true,
     });
+    expect(courseState.currentStep.kind).toBe('quiz-results');
+    expect(mocks.savedProgress.lastLocation).toEqual({ kind: 'quiz-results', lessonId: 'lesson-one' });
+    await act(async () => { await courseState.navigate.back(); });
+    expect(courseState.currentStep.kind).toBe('quiz');
+    expect(courseState.quizAttempt.attemptId).toBe('attempt-one');
+    expect(courseState.isFreshQuiz).toBe(false);
+    await act(async () => { await courseState.reviewQuizAnswers('lesson-one'); });
+    expect(courseState.currentStep.kind).toBe('quiz-results');
+    expect(mocks.savedProgress.quizResults).toHaveLength(1);
     await act(async () => { await courseState.navigate.next(); });
     await vi.waitFor(() => expect(mocks.savedProgress.completedLessons).toHaveLength(1));
     expect(mocks.savedProgress.completedLessons).toEqual([

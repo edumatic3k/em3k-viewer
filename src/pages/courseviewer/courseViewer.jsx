@@ -31,6 +31,7 @@ export default function CourseViewer({ courseSlug }) {
       currentStep={courseData.currentStep}
       currentStepIndex={courseData.stepIndex}
       showCompletionScreen={courseData.showCompletionScreen}
+      hasCompletedCourse={courseData.hasCompletedCourse}
       progressPercent={courseData.progressPercent}
       onSelectStep={courseData.navigate.goToStep}
     >
@@ -40,9 +41,17 @@ export default function CourseViewer({ courseSlug }) {
         stepIndex={courseData.stepIndex}
         totalSteps={courseData.totalSteps}
         showCompletionScreen={courseData.showCompletionScreen}
+        hasCompletedCourse={courseData.hasCompletedCourse}
         onBack={courseData.navigate.back}
         onNext={courseData.navigate.next}
         onQuizResult={courseData.onQuizResult}
+        quizAttempt={courseData.quizAttempt}
+        quizAttempts={courseData.quizAttempts}
+        bestPassingScore={courseData.bestPassingScore}
+        isFreshQuiz={courseData.isFreshQuiz}
+        onReviewAnswers={courseData.reviewQuizAnswers}
+        onStartQuizAgain={courseData.startQuizAgain}
+        onSelectStep={courseData.navigate.goToStep}
         resolveAsset={courseData.resolveAsset}
       />
     </CourseShell>

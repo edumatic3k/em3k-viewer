@@ -2,7 +2,9 @@ import { describe, expect, it } from 'vitest';
 import {
   completeCourse,
   completeLesson,
+  areCourseLessonsComplete,
   createCourseProgress,
+  getBestPassingScore,
   getPageProgressPercent,
   getVisitedPageCount,
   normalizeCourseProgress,
@@ -21,13 +23,14 @@ const steps = lessons.flatMap((lesson) => lesson.pages.map((page) => ({ kind: 'p
 describe('course progress model', () => {
   it('initializes a versioned course record at the introduction', () => {
     expect(createCourseProgress(course, '2026-01-01T00:00:00.000Z')).toEqual({
-      formatVersion: 1,
+      formatVersion: 2,
       courseId: 'course-one',
       courseVersion: '1.2.0',
       lastLocation: { kind: 'intro' },
       visitedPages: [],
       completedLessons: [],
       quizResults: [],
+      activeQuizLessonId: null,
       courseCompletedAt: null,
       updatedAt: '2026-01-01T00:00:00.000Z',
     });
@@ -50,6 +53,22 @@ describe('course progress model', () => {
     expect(normalizeCourseProgress(progress, course, lessons, steps).progress).toEqual(progress);
   });
 
+  it('upgrades score-only attempts without inventing response data', () => {
+    const saved = {
+      formatVersion: 1,
+      quizResults: [{ lessonId: 'lesson-one', score: 2, total: 3, percent: 67, passed: false, submittedAt: '2025-12-01' }],
+    };
+    const upgraded = normalizeCourseProgress(saved, course, lessons, steps).progress;
+
+    expect(upgraded.formatVersion).toBe(2);
+    expect(upgraded.quizResults).toEqual([{
+      ...saved.quizResults[0],
+      attemptId: 'legacy-lesson-one-0',
+    }]);
+    expect(upgraded.quizResults[0]).not.toHaveProperty('answers');
+    expect(normalizeCourseProgress(upgraded, course, lessons, steps).progress.quizResults).toEqual(upgraded.quizResults);
+  });
+
   it('migrates legacy completion and safely handles invalid indexes', () => {
     const completed = normalizeCourseProgress({ stepIndex: 1, completed: true, updatedAt: '2025-12-01' }, course, lessons, steps);
     const invalid = normalizeCourseProgress({ stepIndex: 99 }, course, lessons, steps);
@@ -59,6 +78,23 @@ describe('course progress model', () => {
     expect(completed.stepIndex).toBe(steps.length);
     expect(invalid.progress.lastLocation).toEqual({ kind: 'intro' });
     expect(invalid.stepIndex).toBe(-1);
+  });
+
+  it('resolves legacy positions using the pre-Answers step order', () => {
+    const quizLessons = [
+      { id: 'lesson-one', pages: [{ id: 'page-one' }], quiz: {} },
+      { id: 'lesson-two', pages: [{ id: 'page-two' }] },
+    ];
+    const currentSteps = [
+      { kind: 'page', lesson: quizLessons[0], page: quizLessons[0].pages[0] },
+      { kind: 'quiz', lesson: quizLessons[0] },
+      { kind: 'quiz-results', lesson: quizLessons[0] },
+      { kind: 'page', lesson: quizLessons[1], page: quizLessons[1].pages[0] },
+    ];
+    const migrated = normalizeCourseProgress({ stepIndex: 2 }, course, quizLessons, currentSteps);
+
+    expect(migrated.progress.lastLocation).toEqual({ kind: 'page', lessonId: 'lesson-two', pageId: 'page-two' });
+    expect(migrated.stepIndex).toBe(3);
   });
 
   it('resolves reordered and missing page IDs by stable identity and lesson fallback', () => {
@@ -111,12 +147,40 @@ describe('course progress model', () => {
 
   it('retains every quiz attempt, including retakes, in submission order', () => {
     const initial = createCourseProgress(course);
-    const first = recordQuizResult(initial, 'lesson-one', { correct: 1, total: 2, percent: 50, passed: false }, '2026-01-01');
-    const retake = recordQuizResult(first, 'lesson-one', { correct: 2, total: 2, percent: 100, passed: true }, '2026-01-02');
+    const first = recordQuizResult(initial, 'lesson-one', {
+      attemptId: 'attempt-one', answers: { q1: 'a' }, correct: 1, total: 2, percent: 50, passed: false,
+    }, '2026-01-01');
+    const retake = recordQuizResult(first, 'lesson-one', {
+      attemptId: 'attempt-two', answers: { q1: 'b' }, correct: 2, total: 2, percent: 100, passed: true,
+    }, '2026-01-02');
 
     expect(retake.quizResults).toEqual([
-      { lessonId: 'lesson-one', score: 1, total: 2, percent: 50, passed: false, submittedAt: '2026-01-01' },
-      { lessonId: 'lesson-one', score: 2, total: 2, percent: 100, passed: true, submittedAt: '2026-01-02' },
+      { lessonId: 'lesson-one', attemptId: 'attempt-one', answers: { q1: 'a' }, correct: 1, total: 2, percent: 50, passed: false, submittedAt: '2026-01-01' },
+      { lessonId: 'lesson-one', attemptId: 'attempt-two', answers: { q1: 'b' }, correct: 2, total: 2, percent: 100, passed: true, submittedAt: '2026-01-02' },
     ]);
+    expect(recordQuizResult(retake, 'lesson-one', {
+      attemptId: 'attempt-two', answers: { q1: 'b' }, correct: 2, total: 2, percent: 100, passed: true,
+    })).toBe(retake);
+  });
+
+  it('keeps course eligibility tied to quiz passes and retains the highest passing score', () => {
+    const quizLessons = [
+      { id: 'lesson-one', quiz: {} },
+      { id: 'lesson-two', pages: [{}] },
+    ];
+    const progress = {
+      ...createCourseProgress(course),
+      completedLessons: [{ lessonId: 'lesson-one' }, { lessonId: 'lesson-two' }],
+      quizResults: [
+        { lessonId: 'lesson-one', percent: 80, passed: true },
+        { lessonId: 'lesson-one', percent: 50, passed: false },
+      ],
+    };
+
+    expect(areCourseLessonsComplete(progress, quizLessons)).toBe(true);
+    expect(getBestPassingScore(progress.quizResults, 'lesson-one')).toBe(80);
+    expect(getBestPassingScore([{ lessonId: 'lesson-one', percent: 0, passed: true }], 'lesson-one')).toBe(0);
+    expect(getBestPassingScore([], 'lesson-one')).toBeNull();
+    expect(areCourseLessonsComplete({ ...progress, quizResults: [{ lessonId: 'lesson-one', percent: 50, passed: false }] }, quizLessons)).toBe(false);
   });
 });

@@ -5,6 +5,8 @@ import { getCourseProgress, saveCourseProgress } from '../lib/courseStorage';
 import {
   completeCourse,
   completeLesson,
+  areCourseLessonsComplete,
+  getBestPassingScore,
   getPageProgressPercent,
   locationForStep,
   normalizeCourseProgress,
@@ -17,7 +19,7 @@ import {
 /** @typedef {{ id: string, title: string, pages: CoursePage[], quiz?: { title: string, passPercent: number, questions: Array<{ id: string }> } }} CourseLesson */
 /** @typedef {{ id: string, title: string, description?: string, lessons: Array<{ id: string, title: string, file: string }> }} CourseManifest */
 /** @typedef {{ course: CourseManifest, lessons: CourseLesson[], placement: string, baseUrl: string | null, files: Record<string, Uint8Array> | null, objectUrls?: Map<string, string> }} LoadedCoursePackage */
-/** @typedef {{ kind: 'page', lesson: CourseLesson, lessonIndex: number, page: CoursePage, pageIndex: number, pageCount: number } | { kind: 'quiz', lesson: CourseLesson, lessonIndex: number, quiz: NonNullable<CourseLesson['quiz']> }} CourseStep */
+/** @typedef {{ kind: 'page', lesson: CourseLesson, lessonIndex: number, page: CoursePage, pageIndex: number, pageCount: number } | { kind: 'quiz'|'quiz-results', lesson: CourseLesson, lessonIndex: number, quiz: NonNullable<CourseLesson['quiz']> }} CourseStep */
 
 /** @param {CourseLesson[]} lessons @returns {CourseStep[]} */
 function buildSteps(lessons) {
@@ -30,7 +32,10 @@ function buildSteps(lessons) {
       pageIndex,
       pageCount: lesson.pages.length,
     })),
-    ...(lesson.quiz ? [{ kind: /** @type {'quiz'} */ ('quiz'), lesson, lessonIndex, quiz: lesson.quiz }] : []),
+    ...(lesson.quiz ? [
+      { kind: /** @type {'quiz'} */ ('quiz'), lesson, lessonIndex, quiz: lesson.quiz },
+      { kind: /** @type {'quiz-results'} */ ('quiz-results'), lesson, lessonIndex, quiz: lesson.quiz },
+    ] : []),
   ]);
 }
 
@@ -41,6 +46,7 @@ export function useCourse(courseId) {
   const [packageRegistry, setPackageRegistry] = useState(null);
   const [stepIndex, setStepIndex] = useState(-1);
   const [progress, setProgress] = useState(null);
+  const [freshQuizLessonId, setFreshQuizLessonId] = useState(null);
   const progressRef = useRef(null);
   const openedPageRef = useRef(null);
   const [loadStatus, setLoadStatus] = useState({ courseId: null, registry: null, loading: true, error: '' });
@@ -53,6 +59,7 @@ export function useCourse(courseId) {
       setPackageRegistry(null);
       setStepIndex(-1);
       setProgress(null);
+      setFreshQuizLessonId(null);
       progressRef.current = null;
       openedPageRef.current = null;
       setLoadStatus({ courseId, registry, loading: true, error: '' });
@@ -149,18 +156,24 @@ export function useCourse(courseId) {
       if (completesCourse) nextProgress = completeCourse(nextProgress);
       return nextProgress;
     });
-  }, [steps, updateProgress]);
+  }, [freshQuizLessonId, steps, updateProgress]);
 
   /** @type {(nextIndex: number) => Promise<void>} */
   const goToStep = useCallback((nextIndex) => moveToStep(nextIndex), [moveToStep]);
 
   const next = useCallback(() => {
     const nextStep = steps[stepIndex + 1];
-    const completesLesson = currentStep && nextStep?.lesson.id !== currentStep.lesson.id
+    const completesLesson = currentStep?.kind === 'page'
+      && !currentStep.lesson.quiz
+      && currentStep.pageIndex === currentStep.pageCount - 1
+      && nextStep?.lesson.id !== currentStep.lesson.id
       ? currentStep.lesson.id
       : null;
-    return moveToStep(stepIndex + 1, completesLesson, stepIndex + 1 >= steps.length);
-  }, [currentStep, moveToStep, stepIndex, steps]);
+    const reachesEnd = stepIndex + 1 >= steps.length;
+    const eligibleForCompletion = currentPackage
+      && areCourseLessonsComplete(progressRef.current, currentPackage.lessons, completesLesson);
+    return moveToStep(stepIndex + 1, completesLesson, reachesEnd && eligibleForCompletion);
+  }, [currentPackage, currentStep, moveToStep, stepIndex, steps]);
   const back = useCallback(() => moveToStep(stepIndex - 1), [moveToStep, stepIndex]);
 
   const onQuizResult = useCallback(async (lessonId, result) => {
@@ -168,11 +181,39 @@ export function useCourse(courseId) {
     if (!current || !courseId) {
       throw new Error('Course progress is unavailable; quiz result could not be saved.');
     }
-    const nextProgress = recordQuizResult(current, lessonId, result);
+    const quizResultsStepIndex = steps.findIndex((step) => (
+      step.kind === 'quiz-results' && step.lesson.id === lessonId
+    ));
+    if (quizResultsStepIndex < 0) throw new Error('The quiz Answers step is unavailable.');
+    let nextProgress = recordQuizResult(current, lessonId, result);
+    if (result.passed) nextProgress = completeLesson(nextProgress, lessonId);
+    nextProgress = updateProgressLocation(nextProgress, { kind: 'quiz-results', lessonId });
+    nextProgress.activeQuizLessonId = null;
     await saveCourseProgress(courseId, nextProgress);
     progressRef.current = nextProgress;
     setProgress(nextProgress);
-  }, [courseId]);
+    setStepIndex(quizResultsStepIndex);
+    setFreshQuizLessonId(null);
+  }, [courseId, steps]);
+
+  const startQuizAgain = useCallback((lessonId) => {
+    const quizStepIndex = steps.findIndex((step) => step.kind === 'quiz' && step.lesson.id === lessonId);
+    if (quizStepIndex < 0) return Promise.reject(new Error('The quiz step is unavailable.'));
+    setFreshQuizLessonId(lessonId);
+    setStepIndex(quizStepIndex);
+    return updateProgress((current) => ({
+      ...updateProgressLocation(current, { kind: 'quiz', lessonId }),
+      activeQuizLessonId: lessonId,
+    }));
+  }, [steps, updateProgress]);
+
+  const reviewQuizAnswers = useCallback((lessonId) => {
+    const resultsStepIndex = steps.findIndex((step) => (
+      step.kind === 'quiz-results' && step.lesson.id === lessonId
+    ));
+    if (resultsStepIndex < 0) return Promise.reject(new Error('The quiz Answers step is unavailable.'));
+    return moveToStep(resultsStepIndex);
+  }, [moveToStep, steps]);
 
   /** @type {(assetPath: string) => string} */
   const resolveAsset = useCallback((assetPath) => {
@@ -180,12 +221,23 @@ export function useCourse(courseId) {
     return currentPackage ? resolvePackageAsset(currentPackage, assetPath) : '';
   }, [currentPackage]);
 
+  const quizAttempts = currentStep?.lesson?.id
+    ? progress?.quizResults.filter((attempt) => attempt.lessonId === currentStep.lesson.id) || []
+    : [];
+
   return {
     course: currentPackage?.course || null,
     lessons: currentPackage?.lessons || [],
     currentStep,
     steps,
     stepIndex,
+    quizAttempts,
+    quizAttempt: quizAttempts.at(-1) || null,
+    bestPassingScore: currentStep?.lesson?.id
+      ? getBestPassingScore(progress?.quizResults || [], currentStep.lesson.id)
+      : null,
+    isFreshQuiz: currentStep?.kind === 'quiz'
+      && (freshQuizLessonId === currentStep.lesson.id || progress?.activeQuizLessonId === currentStep.lesson.id),
     totalSteps: steps.length,
     progressPercent: progress && currentPackage
       ? getPageProgressPercent(progress, currentPackage.lessons)
@@ -197,6 +249,8 @@ export function useCourse(courseId) {
     loading,
     error,
     navigate: { next, back, goToStep },
+    startQuizAgain,
+    reviewQuizAnswers,
     onQuizResult,
     resolveAsset,
   };

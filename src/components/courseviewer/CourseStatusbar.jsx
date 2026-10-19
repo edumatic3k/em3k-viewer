@@ -2,11 +2,15 @@ import { Statusmessage } from '../ui/Statusmessage';
 import { Progressbar } from '../ui/Progressbar';
 import { Onlinestatus } from '../ui/Onlinestatus';
 
-export default function CourseStatusbar({ course, currentStep, showCompletionScreen, progressPercent }) {
+export default function CourseStatusbar({ course, currentStep, showCompletionScreen, hasCompletedCourse, progressPercent }) {
   const position = showCompletionScreen
-    ? 'Course complete'
+    ? hasCompletedCourse ? 'Course complete' : 'Course end'
     : currentStep
-    ? `${currentStep.lesson.title} · ${currentStep.kind === 'quiz' ? 'Quiz' : `Page ${currentStep.pageIndex + 1}`}`
+    ? `${currentStep.lesson.title} · ${currentStep.kind === 'quiz'
+      ? 'Quiz'
+      : currentStep.kind === 'quiz-results'
+        ? 'Answers'
+        : `Page ${currentStep.pageIndex + 1}`}`
     : 'Course introduction';
 
   return (

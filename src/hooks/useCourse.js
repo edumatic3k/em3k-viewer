@@ -165,7 +165,9 @@ export function useCourse(courseId) {
 
   const onQuizResult = useCallback(async (lessonId, result) => {
     const current = progressRef.current;
-    if (!current || !courseId) return;
+    if (!current || !courseId) {
+      throw new Error('Course progress is unavailable; quiz result could not be saved.');
+    }
     const nextProgress = recordQuizResult(current, lessonId, result);
     await saveCourseProgress(courseId, nextProgress);
     progressRef.current = nextProgress;

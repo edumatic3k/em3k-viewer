@@ -91,6 +91,18 @@ describe('useCourse loading state', () => {
     expect(mocks.releasePackageAssets).toHaveBeenCalledWith(loadedPackage);
   });
 
+  it('rejects quiz persistence when course progress is unavailable', async () => {
+    await act(() => render(h(CourseHarness, { courseId: '' }), container));
+
+    await expect(courseState.onQuizResult('lesson-one', {
+      correct: 1,
+      total: 1,
+      percent: 100,
+      passed: true,
+    })).rejects.toThrow('Course progress is unavailable; quiz result could not be saved.');
+    expect(mocks.saveCourseProgress).not.toHaveBeenCalled();
+  });
+
   it('resumes a stable location and allows outline jumps and backward navigation without losing visits', async () => {
     const loadedPackage = {
       course: { id: 'multi-course', version: '1.0.0', title: 'Multi course' },

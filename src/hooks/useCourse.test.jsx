@@ -2,6 +2,7 @@ import { h, render } from 'preact';
 import { act } from 'preact/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useCourse } from './useCourse';
+import Quiz from '../pages/courseviewer/quiz';
 
 const mocks = vi.hoisted(() => ({
   loadCoursePackage: vi.fn(),
@@ -30,6 +31,27 @@ let courseState;
 function CourseHarness({ courseId }) {
   courseState = useCourse(courseId);
   return h('div', null, courseState.loading ? 'loading' : courseState.error || courseState.course?.title || 'empty');
+}
+
+function CourseQuizHarness({ courseId }) {
+  courseState = useCourse(courseId);
+  if (courseState.loading) return h('div', null, 'loading');
+  const step = courseState.currentStep;
+  if (step?.kind === 'quiz') {
+    return h(Quiz, {
+      quizData: step.quiz,
+      lessonId: step.lesson.id,
+      attempt: courseState.quizAttempt,
+      isFreshQuiz: courseState.isFreshQuiz,
+      allowRetakes: step.quiz.allowRetakes === true,
+      bestPassingScore: courseState.bestPassingScore,
+      onQuizResult: courseState.onQuizResult,
+      onBack: courseState.navigate.back,
+      onReviewAnswers: () => courseState.reviewQuizAnswers(step.lesson.id),
+    });
+  }
+  if (step?.kind === 'quiz-results') return h('div', { 'data-testid': 'answers-step' }, 'Answers step');
+  return h('div', null, step?.kind || 'introduction');
 }
 
 describe('useCourse loading state', () => {
@@ -196,6 +218,86 @@ describe('useCourse loading state', () => {
     expect(courseState.showCompletionScreen).toBe(true);
     expect(courseState.hasCompletedCourse).toBe(false);
     expect(mocks.savedProgress.courseCompletedAt).toBeNull();
+  });
+
+  it('keeps the failed Quiz attempt active and retries it once before resuming Answers', async () => {
+    const loadedPackage = {
+      course: { id: 'save-failure-course', version: '1.0.0', title: 'Save failure course' },
+      lessons: [{
+        id: 'lesson-one',
+        title: 'Lesson one',
+        pages: [{ id: 'page-one', heading: 'Page one', blocks: [] }],
+        quiz: {
+          title: 'Practice',
+          passPercent: 70,
+          questions: [{
+            id: 'question-one',
+            type: 'multiple-choice',
+            prompt: 'Pick yes',
+            answer: 'yes',
+            options: [{ id: 'yes', text: 'Yes' }, { id: 'no', text: 'No' }],
+          }],
+        },
+      }],
+      files: {},
+      baseUrl: null,
+      placement: 'library',
+    };
+    mocks.loadCoursePackage.mockResolvedValue(loadedPackage);
+    mocks.getCourseProgress.mockResolvedValue(null);
+    let retrySaveResolver;
+    const submittedWrites = [];
+    mocks.saveCourseProgress.mockImplementation(async (_courseId, progress) => {
+      if (progress.quizResults.length > 0) {
+        submittedWrites.push(progress);
+        if (submittedWrites.length === 1) throw new Error('IndexedDB write failed');
+        if (submittedWrites.length === 2) {
+          await new Promise((resolve) => { retrySaveResolver = resolve; });
+        }
+      }
+      mocks.savedProgress = progress;
+    });
+
+    await act(() => render(h(CourseQuizHarness, { courseId: 'save-failure-course' }), container));
+    await vi.waitFor(() => expect(courseState.course?.id).toBe('save-failure-course'));
+    await act(async () => { await courseState.navigate.goToStep(1); });
+    expect(courseState.currentStep.kind).toBe('quiz');
+    await act(() => container.querySelector('input[value="yes"]').click());
+    await act(() => container.querySelector('button[type="submit"]').click());
+    await vi.waitFor(() => expect(container.textContent).toContain('Your result could not be saved.'));
+
+    const firstAttemptId = submittedWrites[0].quizResults[0].attemptId;
+    expect(firstAttemptId).toEqual(expect.any(String));
+    expect(courseState.currentStep.kind).toBe('quiz');
+    expect(container.querySelector('[data-testid="answers-step"]')).toBeNull();
+    expect(container.querySelector('input[value="yes"]').checked).toBe(true);
+    expect(mocks.savedProgress.quizResults).toEqual([]);
+
+    const retryButton = [...container.querySelectorAll('button')]
+      .find((button) => button.textContent === 'Retry saving result');
+    await act(() => {
+      retryButton.click();
+      retryButton.click();
+    });
+    await vi.waitFor(() => expect(retrySaveResolver).toBeDefined());
+    expect(submittedWrites).toHaveLength(2);
+    expect(submittedWrites[1].quizResults[0].attemptId).toBe(firstAttemptId);
+    expect(courseState.currentStep.kind).toBe('quiz');
+    expect(container.querySelector('[data-testid="answers-step"]')).toBeNull();
+
+    retrySaveResolver();
+    await vi.waitFor(() => expect(courseState.currentStep?.kind).toBe('quiz-results'));
+    expect(container.querySelector('[data-testid="answers-step"]')).not.toBeNull();
+    expect(mocks.savedProgress.quizResults).toHaveLength(1);
+    expect(mocks.savedProgress.quizResults[0].attemptId).toBe(firstAttemptId);
+    expect(mocks.savedProgress.lastLocation).toEqual({ kind: 'quiz-results', lessonId: 'lesson-one' });
+
+    await act(() => render(null, container));
+    mocks.getCourseProgress.mockResolvedValue(mocks.savedProgress);
+    await act(() => render(h(CourseQuizHarness, { courseId: 'save-failure-course' }), container));
+    await vi.waitFor(() => expect(courseState.currentStep?.kind).toBe('quiz-results'));
+    expect(container.querySelector('[data-testid="answers-step"]')).not.toBeNull();
+    expect(courseState.quizAttempt.attemptId).toBe(firstAttemptId);
   });
 
   it('rejects quiz persistence when course progress is unavailable', async () => {

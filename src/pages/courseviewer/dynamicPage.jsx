@@ -19,6 +19,7 @@ export default function DynamicPage({
   completed,
   onBack,
   onNext,
+  onQuizResult,
   onSelectStep,
   resolveAsset,
 }) {
@@ -40,6 +41,8 @@ export default function DynamicPage({
       <Quiz
         key={`${step.lesson.id}-${stepIndex}`}
         quizData={step.quiz}
+        lessonId={step.lesson.id}
+        onQuizResult={onQuizResult}
         onBack={onBack}
         onNext={onNext}
         isLastStep={stepIndex === totalSteps - 1}

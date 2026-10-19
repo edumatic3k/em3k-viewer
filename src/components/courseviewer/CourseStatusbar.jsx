@@ -2,12 +2,7 @@ import { Statusmessage } from '../ui/Statusmessage';
 import { Progressbar } from '../ui/Progressbar';
 import { Onlinestatus } from '../ui/Onlinestatus';
 
-export default function CourseStatusbar({ course, currentStep, currentStepIndex, totalSteps, completed }) {
-  const progressPercent = completed
-    ? 100
-    : totalSteps === 0 || currentStepIndex < 0
-      ? 0
-      : Math.max(0, Math.min(99, Math.round((currentStepIndex / totalSteps) * 100)));
+export default function CourseStatusbar({ course, currentStep, completed, progressPercent }) {
   const position = completed
     ? 'Course complete'
     : currentStep

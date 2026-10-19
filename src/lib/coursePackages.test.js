@@ -56,7 +56,17 @@ describe('course package corrections', () => {
 
   it('uninstalls a package without deleting its learner progress', async () => {
     const courseId = `progress-${crypto.randomUUID()}`;
-    const progress = { stepIndex: 2, completed: false, updatedAt: '2026-01-01T00:00:00.000Z' };
+    const progress = {
+      formatVersion: 1,
+      courseId,
+      courseVersion: '1.0.0',
+      lastLocation: { kind: 'page', lessonId: 'lesson-one', pageId: 'page-one' },
+      visitedPages: [{ lessonId: 'lesson-one', pageIds: ['page-one'] }],
+      completedLessons: [],
+      quizResults: [],
+      courseCompletedAt: null,
+      updatedAt: '2026-01-01T00:00:00.000Z',
+    };
     await importCourseArchive(createArchive(courseId));
     await saveCourseProgress(courseId, progress);
 
@@ -64,6 +74,23 @@ describe('course package corrections', () => {
 
     await expect(getInstalledPackage(courseId)).resolves.toBeUndefined();
     await expect(getCourseProgress(courseId)).resolves.toMatchObject(progress);
+
+    await importCourseArchive(createArchive(courseId));
+    await expect(getInstalledPackage(courseId)).resolves.toBeDefined();
+    await expect(getCourseProgress(courseId)).resolves.toMatchObject(progress);
+  });
+
+  it('stores independent progress records for different course IDs', async () => {
+    const firstCourseId = `progress-first-${crypto.randomUUID()}`;
+    const secondCourseId = `progress-second-${crypto.randomUUID()}`;
+    const firstProgress = { formatVersion: 1, courseId: firstCourseId, visitedPages: [] };
+    const secondProgress = { formatVersion: 1, courseId: secondCourseId, visitedPages: [] };
+
+    await saveCourseProgress(firstCourseId, firstProgress);
+    await saveCourseProgress(secondCourseId, secondProgress);
+
+    await expect(getCourseProgress(firstCourseId)).resolves.toMatchObject(firstProgress);
+    await expect(getCourseProgress(secondCourseId)).resolves.toMatchObject(secondProgress);
   });
 
   it('caches imported asset URLs and revokes them when released', () => {

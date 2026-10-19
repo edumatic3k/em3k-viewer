@@ -1,7 +1,17 @@
-import { useCallback, useEffect, useState } from 'preact/hooks';
+import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 import { useLibrary } from '../contexts/LibraryContext';
 import { loadCoursePackage, releasePackageAssets, resolvePackageAsset } from '../lib/coursePackages';
 import { getCourseProgress, saveCourseProgress } from '../lib/courseStorage';
+import {
+  completeCourse,
+  completeLesson,
+  getPageProgressPercent,
+  locationForStep,
+  normalizeCourseProgress,
+  recordPageVisit,
+  recordQuizResult,
+  updateProgressLocation,
+} from '../lib/courseProgress';
 
 /** @typedef {{ id: string, heading: string, subhead?: string, blocks: Array<{ type: string, src?: string, images?: Array<{ src: string }> }> }} CoursePage */
 /** @typedef {{ id: string, title: string, pages: CoursePage[], quiz?: { title: string, passPercent: number, questions: Array<{ id: string }> } }} CourseLesson */
@@ -30,6 +40,9 @@ export function useCourse(courseId) {
   const [coursePackage, setCoursePackage] = useState(/** @type {LoadedCoursePackage | null} */ (null));
   const [packageRegistry, setPackageRegistry] = useState(null);
   const [stepIndex, setStepIndex] = useState(-1);
+  const [progress, setProgress] = useState(null);
+  const progressRef = useRef(null);
+  const openedPageRef = useRef(null);
   const [loadStatus, setLoadStatus] = useState({ courseId: null, registry: null, loading: true, error: '' });
 
   useEffect(() => {
@@ -39,25 +52,40 @@ export function useCourse(courseId) {
       setCoursePackage(null);
       setPackageRegistry(null);
       setStepIndex(-1);
+      setProgress(null);
+      progressRef.current = null;
+      openedPageRef.current = null;
       setLoadStatus({ courseId, registry, loading: true, error: '' });
       if (!courseId || !registry) {
         setLoadStatus({ courseId, registry, loading: false, error: '' });
         return;
       }
       try {
-        const [loadedPackage, progress] = await Promise.all([
+        const [loadedPackage, savedProgress] = await Promise.all([
           loadCoursePackage(courseId, registry),
           getCourseProgress(courseId),
         ]);
         if (cancelled) return;
+        const loadedSteps = buildSteps(loadedPackage.lessons);
+        const normalized = normalizeCourseProgress(
+          savedProgress,
+          loadedPackage.course,
+          loadedPackage.lessons,
+          loadedSteps,
+        );
         setCoursePackage(loadedPackage);
         setPackageRegistry(registry);
-        setStepIndex(progress?.stepIndex ?? -1);
+        setStepIndex(normalized.stepIndex);
+        setProgress(normalized.progress);
+        progressRef.current = normalized.progress;
+        await saveCourseProgress(courseId, normalized.progress);
       } catch (loadError) {
         if (!cancelled) {
           setCoursePackage(null);
           setPackageRegistry(null);
           setStepIndex(-1);
+          setProgress(null);
+          progressRef.current = null;
           setLoadStatus({
             courseId,
             registry,
@@ -89,19 +117,55 @@ export function useCourse(courseId) {
   const steps = currentPackage ? buildSteps(currentPackage.lessons) : [];
   const currentStep = stepIndex < 0 ? null : steps[stepIndex] || null;
 
-  /** @type {(nextIndex: number) => Promise<void>} */
-  const goToStep = useCallback(async (nextIndex) => {
+  const updateProgress = useCallback((update) => {
+    const current = progressRef.current;
+    if (!current || !courseId) return Promise.resolve();
+    const nextProgress = update(current);
+    progressRef.current = nextProgress;
+    setProgress(nextProgress);
+    return saveCourseProgress(courseId, nextProgress);
+  }, [courseId]);
+
+  useEffect(() => {
+    if (currentStep?.kind !== 'page' || !progress) return;
+    const pageKey = `${courseId}:${currentStep.lesson.id}:${currentStep.page.id}`;
+    if (openedPageRef.current === pageKey) return;
+    openedPageRef.current = pageKey;
+    updateProgress((current) => recordPageVisit(current, currentStep));
+  }, [courseId, currentStep?.kind, currentStep?.lesson.id, currentStep?.page?.id, progress, updateProgress]);
+
+  /** @type {(nextIndex: number, completedLessonId?: string|null, completesCourse?: boolean) => Promise<void>} */
+  const moveToStep = useCallback(async (nextIndex, completedLessonId = null, completesCourse = false) => {
     const boundedIndex = Math.max(-1, Math.min(nextIndex, steps.length));
     setStepIndex(boundedIndex);
-    if (courseId) await saveCourseProgress(courseId, {
-      stepIndex: boundedIndex,
-      completed: boundedIndex >= steps.length,
-      updatedAt: new Date().toISOString(),
+    const location = boundedIndex < 0
+      ? { kind: 'intro' }
+      : boundedIndex >= steps.length
+        ? { kind: 'complete' }
+        : locationForStep(steps[boundedIndex]);
+    await updateProgress((current) => {
+      let nextProgress = updateProgressLocation(current, location);
+      if (completedLessonId) nextProgress = completeLesson(nextProgress, completedLessonId);
+      if (completesCourse) nextProgress = completeCourse(nextProgress);
+      return nextProgress;
     });
-  }, [courseId, steps.length]);
+  }, [steps, updateProgress]);
 
-  const next = useCallback(() => goToStep(stepIndex + 1), [goToStep, stepIndex]);
-  const back = useCallback(() => goToStep(stepIndex - 1), [goToStep, stepIndex]);
+  /** @type {(nextIndex: number) => Promise<void>} */
+  const goToStep = useCallback((nextIndex) => moveToStep(nextIndex), [moveToStep]);
+
+  const next = useCallback(() => {
+    const nextStep = steps[stepIndex + 1];
+    const completesLesson = currentStep && nextStep?.lesson.id !== currentStep.lesson.id
+      ? currentStep.lesson.id
+      : null;
+    return moveToStep(stepIndex + 1, completesLesson, stepIndex + 1 >= steps.length);
+  }, [currentStep, moveToStep, stepIndex, steps]);
+  const back = useCallback(() => moveToStep(stepIndex - 1), [moveToStep, stepIndex]);
+
+  const onQuizResult = useCallback((lessonId, result) => (
+    updateProgress((current) => recordQuizResult(current, lessonId, result))
+  ), [updateProgress]);
 
   /** @type {(assetPath: string) => string} */
   const resolveAsset = useCallback((assetPath) => {
@@ -116,11 +180,16 @@ export function useCourse(courseId) {
     steps,
     stepIndex,
     totalSteps: steps.length,
+    progressPercent: progress && currentPackage
+      ? getPageProgressPercent(progress, currentPackage.lessons)
+      : 0,
+    courseCompletedAt: progress?.courseCompletedAt || null,
     isCourseIntro: stepIndex < 0,
     completed: stepIndex >= steps.length && steps.length > 0,
     loading,
     error,
     navigate: { next, back, goToStep },
+    onQuizResult,
     resolveAsset,
   };
 }

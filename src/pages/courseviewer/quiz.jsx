@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 
-export default function Quiz({ quizData, onBack, onNext, isLastStep }) {
+export default function Quiz({ quizData, lessonId, onQuizResult, onBack, onNext, isLastStep }) {
   const [answers, setAnswers] = useState({});
   const [result, setResult] = useState(null);
   const questions = quizData?.questions || [];
@@ -11,7 +11,14 @@ export default function Quiz({ quizData, onBack, onNext, isLastStep }) {
       String(answers[question.id]) === String(question.answer),
     ).length;
     const percent = questions.length ? Math.round((correct / questions.length) * 100) : 0;
-    setResult({ correct, percent, passed: percent >= (quizData.passPercent || 0) });
+    const submittedResult = {
+      correct,
+      total: questions.length,
+      percent,
+      passed: percent >= (quizData.passPercent || 0),
+    };
+    setResult(submittedResult);
+    onQuizResult?.(lessonId, submittedResult);
   };
 
   return (

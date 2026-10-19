@@ -7,7 +7,7 @@ import {
 } from './coursePackages';
 import { getInstalledPackage, getCourseProgress, removePackage, saveCourseProgress } from './courseStorage';
 
-function createArchive(courseId, title = 'Test course') {
+function createArchive(courseId, title = 'Test course', quiz = null) {
   const course = {
     formatVersion: 1,
     id: courseId,
@@ -23,6 +23,7 @@ function createArchive(courseId, title = 'Test course') {
     id: 'lesson-one',
     title: 'Lesson one',
     pages: [{ id: 'page-one', heading: 'Page one', blocks: [] }],
+    ...(quiz ? { quiz } : {}),
   };
   const bytes = zipSync({
     [`${courseId}/course.json`]: strToU8(JSON.stringify(course)),
@@ -54,9 +55,47 @@ describe('course package corrections', () => {
     await expect(getInstalledPackage(courseId)).resolves.toBeUndefined();
   });
 
+  it('validates optional allowRetakes as a boolean and accepts it omitted', async () => {
+    const validId = `retakes-valid-${crypto.randomUUID()}`;
+    const quiz = {
+      title: 'Practice',
+      passPercent: 70,
+      allowRetakes: true,
+      questions: [{
+        id: 'question-one',
+        type: 'multiple-choice',
+        prompt: 'Pick one',
+        options: [{ id: 'a', text: 'A' }, { id: 'b', text: 'B' }],
+        answer: 'a',
+      }],
+    };
+    await importCourseArchive(createArchive(validId, 'Valid retakes', quiz));
+
+    const invalidId = `retakes-invalid-${crypto.randomUUID()}`;
+    await expect(importCourseArchive(createArchive(invalidId, 'Invalid retakes', {
+      ...quiz,
+      allowRetakes: 'yes',
+    }))).rejects.toThrow(/must be boolean|allowRetakes/i);
+
+    const omittedId = `retakes-omitted-${crypto.randomUUID()}`;
+    const { allowRetakes, ...legacyQuiz } = quiz;
+    await importCourseArchive(createArchive(omittedId, 'Omitted retakes', legacyQuiz));
+    expect(allowRetakes).toBe(true);
+  });
+
   it('uninstalls a package without deleting its learner progress', async () => {
     const courseId = `progress-${crypto.randomUUID()}`;
-    const progress = { stepIndex: 2, completed: false, updatedAt: '2026-01-01T00:00:00.000Z' };
+    const progress = {
+      formatVersion: 1,
+      courseId,
+      courseVersion: '1.0.0',
+      lastLocation: { kind: 'page', lessonId: 'lesson-one', pageId: 'page-one' },
+      visitedPages: [{ lessonId: 'lesson-one', pageIds: ['page-one'] }],
+      completedLessons: [],
+      quizResults: [],
+      courseCompletedAt: null,
+      updatedAt: '2026-01-01T00:00:00.000Z',
+    };
     await importCourseArchive(createArchive(courseId));
     await saveCourseProgress(courseId, progress);
 
@@ -64,6 +103,23 @@ describe('course package corrections', () => {
 
     await expect(getInstalledPackage(courseId)).resolves.toBeUndefined();
     await expect(getCourseProgress(courseId)).resolves.toMatchObject(progress);
+
+    await importCourseArchive(createArchive(courseId));
+    await expect(getInstalledPackage(courseId)).resolves.toBeDefined();
+    await expect(getCourseProgress(courseId)).resolves.toMatchObject(progress);
+  });
+
+  it('stores independent progress records for different course IDs', async () => {
+    const firstCourseId = `progress-first-${crypto.randomUUID()}`;
+    const secondCourseId = `progress-second-${crypto.randomUUID()}`;
+    const firstProgress = { formatVersion: 1, courseId: firstCourseId, visitedPages: [] };
+    const secondProgress = { formatVersion: 1, courseId: secondCourseId, visitedPages: [] };
+
+    await saveCourseProgress(firstCourseId, firstProgress);
+    await saveCourseProgress(secondCourseId, secondProgress);
+
+    await expect(getCourseProgress(firstCourseId)).resolves.toMatchObject(firstProgress);
+    await expect(getCourseProgress(secondCourseId)).resolves.toMatchObject(secondProgress);
   });
 
   it('caches imported asset URLs and revokes them when released', () => {

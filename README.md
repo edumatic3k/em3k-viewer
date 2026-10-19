@@ -2,7 +2,7 @@
 
 This is the browser-based learner experience for Edumatic 3000. The viewer is a Vite + Preact app that runs as an offline-first Progressive Web App and is designed to work with portable course packages without requiring the Laravel server to be running.
 
-The current app loads bundled packages from the local content tree, accepts ZIP-based course imports from the Library, validates package structure and asset references, and stores installed course state and learner progress in IndexedDB in the browser.
+The current app loads bundled packages from the local content tree, accepts ZIP-based course imports from the Library, validates package structure and asset references, and stores installed course state and learner progress in IndexedDB in the browser. It also supports course-scoped progress and uninstall persistence.
 
 ## Current state of the app
 
@@ -108,6 +108,14 @@ The Library page can:
 - keep installed packages and course metadata in IndexedDB
 
 Uninstalling an imported course removes its package but intentionally preserves its learner progress on this device. Reinstalling a package with the same course ID resumes that saved progress. Course IDs that are already installed or used by bundled courses are rejected during import rather than overwritten.
+
+## Course progress
+
+Progress is stored in the existing IndexedDB `progress` store, keyed by permanent course ID. Each record has an independent `formatVersion`, the associated course version, a stable-ID last location, unique visited page IDs grouped by lesson, completed lesson IDs, quiz attempts, an explicit course-completion timestamp, and an update timestamp. Existing `stepIndex` records are converted using the currently installed course structure. Migration preserves legacy completion but does not invent page visits or quiz attempts.
+
+Opening a page records it once. A lesson without a quiz is marked complete when the learner advances beyond its final page. A quiz lesson is marked complete only after a passing attempt is saved. Quiz and Answers are separate navigation steps; submitted answers are keyed by question ID and remain available for review. Score-only historical attempts remain readable without fabricated responses. Quiz retakes append attempts; `allowRetakes` optionally permits a new attempt after passing and defaults to `false`, while failed attempts are always retryable. The highest passing percentage is derived from retained attempts. Course completion is recorded only after all lesson completion conditions are met and remains recorded if the learner later reviews earlier content.
+
+The status-bar percentage is the number of unique visited page IDs that still exist in the installed course divided by its current page count. It indicates navigation history, not verified mastery. If future course revisions add pages, the larger denominator can lower the percentage; removed pages no longer count in the numerator or denominator. Historical lesson completion and quiz results remain associated with their stable lesson IDs.
 
 This is intentionally local-first; the app does not rely on a remote catalog or server for core playback.
 

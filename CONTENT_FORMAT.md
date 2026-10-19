@@ -33,6 +33,7 @@ The course and lesson JSON Schemas are in `src/schemas/course.schema.json` and `
 - Pages use a small set of typed blocks. Text content is plain text, not HTML. Block properties are defined by the lesson schema; unknown block shapes should be rejected or reported, not silently interpreted.
 - Image and other bundled asset references are package-relative. A viewer resolves them through its storage adapter rather than assuming a web URL or filesystem path.
 - Quiz answers in a client-readable package are visible to learners. They are suitable for practice and self-study, not secure assessment.
+- A lesson quiz may include `allowRetakes` (boolean). When omitted, the viewer treats it as `false`; it controls optional retakes only after a passing attempt. Failed attempts can always be retried.
 
 ## Compatibility
 

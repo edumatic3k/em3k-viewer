@@ -30,7 +30,9 @@ export default function CourseViewer({ courseSlug }) {
       steps={courseData.steps}
       currentStep={courseData.currentStep}
       currentStepIndex={courseData.stepIndex}
-      completed={courseData.completed}
+      showCompletionScreen={courseData.showCompletionScreen}
+      hasCompletedCourse={courseData.hasCompletedCourse}
+      progressPercent={courseData.progressPercent}
       onSelectStep={courseData.navigate.goToStep}
     >
       <DynamicPage 
@@ -38,9 +40,18 @@ export default function CourseViewer({ courseSlug }) {
         step={courseData.currentStep}
         stepIndex={courseData.stepIndex}
         totalSteps={courseData.totalSteps}
-        completed={courseData.completed}
+        showCompletionScreen={courseData.showCompletionScreen}
+        hasCompletedCourse={courseData.hasCompletedCourse}
         onBack={courseData.navigate.back}
         onNext={courseData.navigate.next}
+        onQuizResult={courseData.onQuizResult}
+        quizAttempt={courseData.quizAttempt}
+        quizAttempts={courseData.quizAttempts}
+        bestPassingScore={courseData.bestPassingScore}
+        isFreshQuiz={courseData.isFreshQuiz}
+        onReviewAnswers={courseData.reviewQuizAnswers}
+        onStartQuizAgain={courseData.startQuizAgain}
+        onSelectStep={courseData.navigate.goToStep}
         resolveAsset={courseData.resolveAsset}
       />
     </CourseShell>

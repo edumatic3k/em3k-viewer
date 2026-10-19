@@ -58,5 +58,5 @@ export async function getCourseProgress(courseId) {
 }
 
 export async function saveCourseProgress(courseId, progress) {
-  return (await database).put('progress', { courseId, ...progress });
+  return (await database).put('progress', { ...progress, courseId });
 }

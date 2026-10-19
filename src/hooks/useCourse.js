@@ -163,9 +163,14 @@ export function useCourse(courseId) {
   }, [currentStep, moveToStep, stepIndex, steps]);
   const back = useCallback(() => moveToStep(stepIndex - 1), [moveToStep, stepIndex]);
 
-  const onQuizResult = useCallback((lessonId, result) => (
-    updateProgress((current) => recordQuizResult(current, lessonId, result))
-  ), [updateProgress]);
+  const onQuizResult = useCallback(async (lessonId, result) => {
+    const current = progressRef.current;
+    if (!current || !courseId) return;
+    const nextProgress = recordQuizResult(current, lessonId, result);
+    await saveCourseProgress(courseId, nextProgress);
+    progressRef.current = nextProgress;
+    setProgress(nextProgress);
+  }, [courseId]);
 
   /** @type {(assetPath: string) => string} */
   const resolveAsset = useCallback((assetPath) => {
@@ -184,8 +189,9 @@ export function useCourse(courseId) {
       ? getPageProgressPercent(progress, currentPackage.lessons)
       : 0,
     courseCompletedAt: progress?.courseCompletedAt || null,
+    hasCompletedCourse: Boolean(progress?.courseCompletedAt),
     isCourseIntro: stepIndex < 0,
-    completed: stepIndex >= steps.length && steps.length > 0,
+    showCompletionScreen: stepIndex >= steps.length && steps.length > 0,
     loading,
     error,
     navigate: { next, back, goToStep },

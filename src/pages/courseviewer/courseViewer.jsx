@@ -30,7 +30,7 @@ export default function CourseViewer({ courseSlug }) {
       steps={courseData.steps}
       currentStep={courseData.currentStep}
       currentStepIndex={courseData.stepIndex}
-      completed={courseData.completed}
+      showCompletionScreen={courseData.showCompletionScreen}
       progressPercent={courseData.progressPercent}
       onSelectStep={courseData.navigate.goToStep}
     >
@@ -39,7 +39,7 @@ export default function CourseViewer({ courseSlug }) {
         step={courseData.currentStep}
         stepIndex={courseData.stepIndex}
         totalSteps={courseData.totalSteps}
-        completed={courseData.completed}
+        showCompletionScreen={courseData.showCompletionScreen}
         onBack={courseData.navigate.back}
         onNext={courseData.navigate.next}
         onQuizResult={courseData.onQuizResult}

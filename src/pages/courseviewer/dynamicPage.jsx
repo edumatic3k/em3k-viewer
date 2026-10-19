@@ -16,7 +16,7 @@ export default function DynamicPage({
   step,
   stepIndex,
   totalSteps,
-  completed,
+  showCompletionScreen,
   onBack,
   onNext,
   onQuizResult,
@@ -24,7 +24,7 @@ export default function DynamicPage({
   resolveAsset,
 }) {
   if (!step) {
-    if (completed) {
+    if (showCompletionScreen) {
       return (
         <div className="mx-auto text-center py-5" style={{ maxWidth: '720px' }}>
           <h1 className="display-5">Course complete</h1>

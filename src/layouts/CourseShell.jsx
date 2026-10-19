@@ -3,7 +3,7 @@ import CourseTopbar from '../components/courseviewer/CourseTopbar';
 import CourseStatusbar from '../components/courseviewer/CourseStatusbar';
 import OffcanvasCourseMenu from '../components/modals/OffcanvasCourseMenu';
 
-export default function CourseShell({ children, course, lessons, steps, currentStep, currentStepIndex, completed, progressPercent, onSelectStep }) {
+export default function CourseShell({ children, course, lessons, steps, currentStep, currentStepIndex, showCompletionScreen, progressPercent, onSelectStep }) {
   useEffect(() => {
     if (course?.title) {
       document.title = `${course.title} - Edumatic 3000`;
@@ -45,7 +45,7 @@ export default function CourseShell({ children, course, lessons, steps, currentS
         </div>
       </main>
 
-      <CourseStatusbar course={course} currentStep={currentStep} completed={completed} progressPercent={progressPercent} />
+      <CourseStatusbar course={course} currentStep={currentStep} showCompletionScreen={showCompletionScreen} progressPercent={progressPercent} />
     </div>
   );
 }

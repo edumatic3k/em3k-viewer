@@ -2,8 +2,8 @@ import { Statusmessage } from '../ui/Statusmessage';
 import { Progressbar } from '../ui/Progressbar';
 import { Onlinestatus } from '../ui/Onlinestatus';
 
-export default function CourseStatusbar({ course, currentStep, completed, progressPercent }) {
-  const position = completed
+export default function CourseStatusbar({ course, currentStep, showCompletionScreen, progressPercent }) {
+  const position = showCompletionScreen
     ? 'Course complete'
     : currentStep
     ? `${currentStep.lesson.title} · ${currentStep.kind === 'quiz' ? 'Quiz' : `Page ${currentStep.pageIndex + 1}`}`

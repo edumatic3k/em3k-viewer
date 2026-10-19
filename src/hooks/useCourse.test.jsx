@@ -164,6 +164,17 @@ describe('useCourse loading state', () => {
     await act(async () => { await courseState.navigate.goToStep(1); });
     await vi.waitFor(() => expect(courseState.stepIndex).toBe(1));
     await vi.waitFor(() => expect(courseState.currentStep?.kind).toBe('quiz'));
+    mocks.saveCourseProgress.mockRejectedValueOnce(new Error('Storage unavailable'));
+    let quizSaveError;
+    await act(async () => {
+      try {
+        await courseState.onQuizResult('lesson-one', { correct: 1, total: 1, percent: 100, passed: true });
+      } catch (error) {
+        quizSaveError = error;
+      }
+    });
+    expect(quizSaveError).toEqual(new Error('Storage unavailable'));
+    expect(mocks.savedProgress.quizResults).toEqual([]);
     await act(async () => {
       await courseState.onQuizResult('lesson-one', { correct: 1, total: 1, percent: 100, passed: true });
     });
@@ -181,13 +192,23 @@ describe('useCourse loading state', () => {
     ]);
 
     await act(async () => { await courseState.navigate.next(); });
-    expect(courseState.completed).toBe(true);
+    expect(courseState.showCompletionScreen).toBe(true);
+    expect(courseState.hasCompletedCourse).toBe(true);
     const completionTime = mocks.savedProgress.courseCompletedAt;
     expect(completionTime).toBeTruthy();
 
     await act(async () => { await courseState.navigate.goToStep(0); });
-    expect(courseState.completed).toBe(false);
+    expect(courseState.showCompletionScreen).toBe(false);
+    expect(courseState.hasCompletedCourse).toBe(true);
     expect(mocks.savedProgress.courseCompletedAt).toBe(completionTime);
     expect(mocks.savedProgress.lastLocation).toEqual({ kind: 'page', lessonId: 'lesson-one', pageId: 'page-one' });
+
+    await act(() => render(null, container));
+    mocks.getCourseProgress.mockResolvedValue(mocks.savedProgress);
+    await act(() => render(h(CourseHarness, { courseId: 'complete-course' }), container));
+    await vi.waitFor(() => expect(courseState.currentStep?.page?.id).toBe('page-one'));
+    expect(courseState.showCompletionScreen).toBe(false);
+    expect(courseState.hasCompletedCourse).toBe(true);
+    expect(courseState.courseCompletedAt).toBe(completionTime);
   });
 });

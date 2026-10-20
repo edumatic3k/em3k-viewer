@@ -7,10 +7,10 @@ import { Statusbar } from '../components/ui/Statusbar.jsx';
  * @param {import('preact').ComponentChildren} props.children
  * @param {string} [props.title='Em3k)']
  */
-export default function DefaultLayout({ children, title = 'EM3K' }) {
+export default function DefaultLayout({ children, title = 'Em3k' }) {
 
   useEffect(() => {
-    document.title = title ? `EM3K: ${title}` : 'EM3K';
+    document.title = title ? `Em3k: ${title}` : 'Em3k';
   }, [title]);
 
   return (

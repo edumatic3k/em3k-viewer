@@ -38,7 +38,7 @@ const AppErrorBoundary = ({ children }) => {
 const AppRoutes = () => {
   const { loading, error } = useLibrary();
 
-  if (loading) return <div className="loading-screen">Initializing EM3K Viewer...</div>;
+  if (loading) return <div className="loading-screen">Initializing Em3k Viewer...</div>;
   if (error) return <div className="error">Error loading config: {error}</div>;
 
   return (

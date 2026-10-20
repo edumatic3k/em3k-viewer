@@ -1,4 +1,4 @@
-# EM3K Viewer
+# Em3k Viewer
 
 This is the browser-based learner experience for Edumatic 3000. The viewer is a Vite + Preact app that runs as an offline-first Progressive Web App and is designed to work with portable course packages without requiring the Laravel server to be running.
 

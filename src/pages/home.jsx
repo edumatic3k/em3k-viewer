@@ -167,7 +167,7 @@ export default function Home() {
                           {course.name || course.slug}
                         </div>
                         <div className="text-secondary small">
-                          Teacher: {course.teacherSlug || 'EM3K System'}
+                          Teacher: {course.teacherSlug || 'Em3k System'}
                         </div>
                         <div className="text-secondary small">
                           Course available offline after the viewer has been cached.

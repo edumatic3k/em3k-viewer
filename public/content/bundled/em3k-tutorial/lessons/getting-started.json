@@ -5,18 +5,18 @@
   "pages": [
     {
       "id": "welcome",
-      "heading": "Welcome to em3k",
+      "heading": "Welcome to Em3k",
       "subhead": "Learn anywhere, even when you are offline.",
       "blocks": [
         {
           "type": "text",
-          "content": "em3k is a course viewer designed around portable course packages. Once a course is available on your device, you can read it without staying connected to the internet."
+          "content": "Em3k is a course viewer designed around portable course packages. Once a course is available on your device, you can read it without staying connected to the internet."
         },
         {
           "type": "callout",
           "variant": "tip",
           "title": "Start here",
-          "content": "This tutorial is available from Help. The Discovering France course is already in your Library so you can try a regular course right away."
+          "content": "This tutorial is available from Help. The Discovering Peru course is already in your Library so you can try a regular course right away."
         }
       ]
     },

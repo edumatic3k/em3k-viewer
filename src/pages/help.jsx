@@ -7,7 +7,7 @@ export default function Help() {
 
     return (
         <DefaultLayout title="Help">
-            <h1 class="display-5 mb-4">EM3K Help</h1>
+            <h1 class="display-5 mb-4">Em3k Help</h1>
             {loading ? (
                 <p>Loading help courses...</p>
             ) : (

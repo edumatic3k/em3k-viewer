@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "org.em3k.system.sample-peru",
+  "version": "1.0.0",
+  "title": "Discovering Peru",
+  "description": "An introductory course about Peru's geography, landmarks, and culture.",
+  "publisherId": "em3k-system",
+  "language": "en-US",
+  "thumbnail": "assets/Machu_Picchu_Peru.jpg",
+  "license": "CC-BY-4.0",
+  "tags": ["geography", "beginner", "peru", "south america"],
+  "lessons": [
+    {
+      "id": "peru-overview",
+      "title": "An Introduction to Peru",
+      "file": "lessons/peru-overview.json"
+    }
+  ]
+}

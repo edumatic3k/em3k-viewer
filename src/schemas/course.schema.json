@@ -53,7 +53,7 @@
     "packagePath": {
       "type": "string",
       "minLength": 1,
-      "pattern": "^(?!/)(?![A-Za-z][A-Za-z0-9+.-]*:)(?!.*(?:^|/)\\.\\.?/)[^\\\\?#]+$"
+      "pattern": "^(?!/)(?![A-Za-z][A-Za-z0-9+.-]*:)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\?#]+$"
     },
     "lessonReference": {
       "type": "object",

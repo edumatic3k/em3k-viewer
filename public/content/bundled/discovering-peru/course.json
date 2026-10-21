@@ -3,8 +3,10 @@
   "id": "org.em3k.system.discovering-peru",
   "version": "1.0.0",
   "title": "Discovering Peru",
-  "description": "An introductory course about Peru's geography, landmarks, and culture.",
+  "shortDescription": "An introduction to the country of Peru",
+  "description": "Peru, officially the Republic of Peru, is a country in western South America, ... \n\nIn this course you will learn all about Peru.",
   "publisherId": "em3k-system",
+  "targetAudience": "general",
   "language": "en-US",
   "thumbnail": "assets/Machu_Picchu_Peru.jpg",
   "license": "CC-BY-4.0",
@@ -14,6 +16,31 @@
       "id": "peru-overview",
       "title": "An Introduction to Peru",
       "file": "lessons/peru-overview.json"
+    },
+    {
+      "id": "peru-history",
+      "title": "The History of Peru",
+      "file": "lessons/peru-history.json"
+    },
+    {
+      "id": "peru-tourism",
+      "title": "Tourism In Peru",
+      "file": "lessons/peru-tourism.json"
+    },
+    {
+      "id": "peru-economy",
+      "title": "The Economy of Peru",
+      "file": "lessons/peru-economy.json"
+    },
+    {
+      "id": "peru-culture",
+      "title": "Peruvian Culture",
+      "file": "lessons/peru-culture.json"
+    },
+    {
+      "id": "peru-regions",
+      "title": "The Regions of Peru",
+      "file": "lessons/peru-regions.json"
     }
   ]
 }

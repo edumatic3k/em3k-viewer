@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "id": "peru-overview",
+  "title": "An Introduction to Peru",
+  "pages": [
+    {
+      "id": "geography",
+      "heading": "Peru at a Glance",
+      "subhead": "Geography and cultural highlights",
+      "blocks": [
+        { "type": "text", "content": "Peru lies on the west coast of South America." },
+        { "type": "heading", "content": "Highlights", "level": 2 },
+        { "type": "image", "src": "assets/Machu_Picchu_Peru.jpg", "alt": "Machu Picchu among the mountains", "caption": "Machu Picchu" },
+        { "type": "list", "style": "unordered", "items": ["Capital: Lima", "Currency: sol"] },
+        { "type": "callout", "variant": "tip", "title": "Remember", "content": "The capital of Peru is Lima." },
+        { "type": "spacer", "size": "medium" },
+        { "type": "slideshow", "images": [
+          { "src": "assets/Machu_Picchu_Peru.jpg", "alt": "Machu Picchu", "caption": "An Inca site" },
+          { "src": "assets/Flag_of_Peru.svg", "alt": "Flag of Peru" }
+        ] }
+      ]
+    },
+    {
+      "id": "landmarks",
+      "heading": "Places and Culture",
+      "blocks": [
+        {
+          "type": "text",
+          "content": "The places most visited by tourists include Lima and its historic center, along with Cusco, which is characterized by its Inca and colonial architecture and its main attractions, the Sacred Valley of the Incas and Machu Picchu. Other notable locations in the Cusco region include Qorikancha, Ollantaytambo, and Písac. Arequipa is also a major tourist destination for its historic center and the Colca Canyon, as is Puno through Lake Titicaca."
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "content": "In the 15th century, the Incas emerged as a powerful state which, in the span of a century, formed the largest empire in the pre-Columbian Americas with their capital in Cusco."
+        }
+      ]
+    }
+  ],
+  "quiz": {
+    "title": "Peru Basics",
+    "passPercent": 70,
+    "questions": [
+      {
+        "id": "capital",
+        "type": "multiple-choice",
+        "prompt": "What is the capital of Peru?",
+        "options": [
+          { "id": "lima", "text": "Lima" },
+          { "id": "cusco", "text": "Cusco" },
+          { "id": "ayacucho", "text": "Ayacucho" }
+        ],
+        "answer": "lima"
+      },
+      {
+        "id": "currency",
+        "type": "true-false",
+        "prompt": "Peru uses the sol as its currency.",
+        "answer": true
+      }
+    ]
+  }
+}

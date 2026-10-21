@@ -6,21 +6,18 @@
     {
       "id": "geography",
       "heading": "Peru at a Glance",
-      "subhead": "A country with many landscapes and a long history.",
+      "subhead": "Geography and cultural highlights",
       "blocks": [
-        {
-          "type": "text",
-          "content": "Peru is in South America."
-        },
-        {
-          "type": "list",
-          "style": "unordered",
-          "items": [
-            "Capital: Lima",
-            "Currency: sol",
-            "Official language: Spanish"
-          ]
-        }
+        { "type": "text", "content": "Peru lies on the west coast of South America." },
+        { "type": "heading", "content": "Highlights", "level": 2 },
+        { "type": "image", "src": "assets/Machu_Picchu_Peru.jpg", "alt": "Machu Picchu among the mountains", "caption": "Machu Picchu" },
+        { "type": "list", "style": "unordered", "items": ["Capital: Lima", "Currency: sol"] },
+        { "type": "callout", "variant": "tip", "title": "Remember", "content": "The capital of Peru is Lima." },
+        { "type": "spacer", "size": "medium" },
+        { "type": "slideshow", "images": [
+          { "src": "assets/Machu_Picchu_Peru.jpg", "alt": "Machu Picchu", "caption": "An Inca site" },
+          { "src": "assets/Flag_of_Peru.svg", "alt": "Flag of Peru" }
+        ] }
       ]
     },
     {

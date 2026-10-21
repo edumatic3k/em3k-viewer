@@ -1,6 +1,17 @@
 {
   "name": "em3k-viewer",
   "version": "1.0.0-beta",
+  "description": "The frontend viewer for students in the Em3k system.",
+  "author": "Ken Dawson",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edumatic3k/em3k-viewer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/edumatic3k/em3k-viewer/issues"
+  },
+  "homepage": "https://em3k.org",
   "private": true,
   "type": "module",
   "scripts": {

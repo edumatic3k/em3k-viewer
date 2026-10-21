@@ -7,8 +7,8 @@
       "placement": "help"
     },
     {
-      "id": "org.em3k.system.sample-peru",
-      "entry": "sample-peru/course.json",
+      "id": "org.em3k.system.discovering-peru",
+      "entry": "discovering-peru/course.json",
       "placement": "library"
     }
   ]

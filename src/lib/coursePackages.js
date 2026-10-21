@@ -167,6 +167,13 @@ async function fetchPackageJson(baseUrl, relativePath, label) {
 
 async function validateCourseContents(course, loadLesson) {
   assertValid(validateCourse, course, `Course ${course?.id || ''}`);
+  const categoryIds = new Set();
+  for (const classification of course.categories || []) {
+    if (categoryIds.has(classification.category)) {
+      throw new Error(`Duplicate course category ID: ${classification.category}`);
+    }
+    categoryIds.add(classification.category);
+  }
   const lessons = [];
   const lessonIds = new Set();
   const packagePaths = [course.thumbnail].filter(Boolean).map(normalizePackagePath);

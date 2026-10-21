@@ -58,8 +58,14 @@ Example `course.json`:
   "id": "org.em3k.system.sample-peru",
   "version": "1.0.0",
   "title": "Discovering Peru",
+  "shortDescription": "A compact introduction to the country of Peru.",
   "description": "A brief introduction to Peru.",
   "publisherId": "em3k-system",
+  "targetAudience": "general",
+  "categories": [
+    { "category": "geography", "subcategory": "regional-geography" },
+    { "category": "history" }
+  ],
   "language": "en-US",
   "license": "CC-BY-4.0",
   "thumbnail": "assets/Machu_Picchu_Peru.jpg",
@@ -80,8 +86,11 @@ Example `course.json`:
 | `id` | Yes | At least 3 characters; lowercase letters/digits, `.`, `_`, `:`, `-` | Stable course ID; publisher qualification is a convention, not checked against `publisherId` |
 | `version` | Yes | Semantic-version-like `major.minor.patch`, optional prerelease | Revision of this course |
 | `title` | Yes | Nonempty string | Human-readable title |
+| `shortDescription` | No | String, at most 160 characters; may be empty | Plain-text summary for compact catalog listings; an empty value supports unfinished drafts |
 | `description` | No | String | Course introduction |
 | `publisherId` | Yes | Nonempty string using the allowed ID characters | Publisher reference |
+| `targetAudience` | No | `preschool`, `elementary`, `middle-school`, `high-school`, `college`, or `general` | Intended learner audience |
+| `categories` | No | Array of 1–3 category classifications | Discovery classifications in priority order; the first entry is primary |
 | `language` | Yes | 2–3 lowercase letters, optionally followed by `-` and two uppercase country letters | For example, `en`, `en-US`, `es-PE` |
 | `license` | Yes | Nonempty string | Licensing identifier or label |
 | `thumbnail` | No | Package-relative path | Course intro artwork |
@@ -89,6 +98,8 @@ Example `course.json`:
 | `lessons` | Yes | Array with at least one `{id,title,file}` entry | Ordered lesson references |
 
 All lesson reference fields (`id`, `title`, `file`) are required. Lesson IDs use lowercase letters, digits, and hyphens and must match the referenced lesson file's `id`. Additional keys are rejected.
+
+Each `categories` entry requires a nonempty `category` string and may include a nonempty `subcategory` string. Category IDs are publisher-extensible: the Viewer validates the structure but does not restrict IDs to the taxonomy in `em3k-data/categories.json`. Do not repeat a category ID within one course, even with a different subcategory.
 
 Increment `version` when publishing a changed package. Use `formatVersion` only when the package contract itself changes.
 

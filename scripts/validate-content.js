@@ -59,6 +59,13 @@ for (const entry of registry.courses) {
   const coursePath = resolvePackageFile(packageRoot, entry.entry);
   const course = readJson(coursePath);
   assertValid(validateCourse, course, coursePath);
+  const categoryIds = new Set();
+  for (const classification of course.categories || []) {
+    if (categoryIds.has(classification.category)) {
+      throw new Error(`${coursePath}: duplicate category ID ${classification.category}`);
+    }
+    categoryIds.add(classification.category);
+  }
   if (course.id !== entry.id) throw new Error(`${coursePath}: registry and package IDs differ`);
 
   const packageDir = path.dirname(coursePath);

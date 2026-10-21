@@ -7,7 +7,7 @@ import {
 } from './coursePackages';
 import { getInstalledPackage, getCourseProgress, removePackage, saveCourseProgress } from './courseStorage';
 
-function createArchive(courseId, title = 'Test course', quiz = null, pathOverrides = {}) {
+function createArchive(courseId, title = 'Test course', quiz = null, pathOverrides = {}, metadata = {}) {
   const course = {
     formatVersion: 1,
     id: courseId,
@@ -16,6 +16,7 @@ function createArchive(courseId, title = 'Test course', quiz = null, pathOverrid
     publisherId: 'test-publisher',
     language: 'en',
     license: 'CC0-1.0',
+    ...metadata,
     ...(pathOverrides.coursePath ? { thumbnail: pathOverrides.coursePath } : {}),
     lessons: [{ id: 'lesson-one', title: 'Lesson one', file: 'lesson.json' }],
   };
@@ -103,6 +104,35 @@ describe('course package corrections', () => {
     const { allowRetakes, ...legacyQuiz } = quiz;
     await importCourseArchive(createArchive(omittedId, 'Omitted retakes', legacyQuiz));
     expect(allowRetakes).toBe(true);
+  });
+
+  it('accepts valid course metadata during import', async () => {
+    const courseId = `metadata-valid-${crypto.randomUUID()}`;
+    const result = await importCourseArchive(createArchive(courseId, 'Valid metadata', null, {}, {
+      shortDescription: 'A compact course summary.',
+      targetAudience: 'college',
+      categories: [
+        { category: 'technology', subcategory: 'software-development' },
+        { category: 'publisher-defined' },
+      ],
+    }));
+
+    expect(result.course).toMatchObject({
+      shortDescription: 'A compact course summary.',
+      targetAudience: 'college',
+    });
+  });
+
+  it('rejects repeated category IDs even when their subcategories differ', async () => {
+    const courseId = `metadata-duplicate-${crypto.randomUUID()}`;
+    const archive = createArchive(courseId, 'Duplicate category', null, {}, {
+      categories: [
+        { category: 'history', subcategory: 'ancient-history' },
+        { category: 'history', subcategory: 'modern-history' },
+      ],
+    });
+
+    await expect(importCourseArchive(archive)).rejects.toThrow('Duplicate course category ID: history');
   });
 
   it('uninstalls a package without deleting its learner progress', async () => {

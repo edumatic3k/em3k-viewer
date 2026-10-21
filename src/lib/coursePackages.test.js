@@ -7,7 +7,7 @@ import {
 } from './coursePackages';
 import { getInstalledPackage, getCourseProgress, removePackage, saveCourseProgress } from './courseStorage';
 
-function createArchive(courseId, title = 'Test course', quiz = null) {
+function createArchive(courseId, title = 'Test course', quiz = null, pathOverrides = {}) {
   const course = {
     formatVersion: 1,
     id: courseId,
@@ -16,13 +16,20 @@ function createArchive(courseId, title = 'Test course', quiz = null) {
     publisherId: 'test-publisher',
     language: 'en',
     license: 'CC0-1.0',
+    ...(pathOverrides.coursePath ? { thumbnail: pathOverrides.coursePath } : {}),
     lessons: [{ id: 'lesson-one', title: 'Lesson one', file: 'lesson.json' }],
   };
   const lesson = {
     formatVersion: 1,
     id: 'lesson-one',
     title: 'Lesson one',
-    pages: [{ id: 'page-one', heading: 'Page one', blocks: [] }],
+    pages: [{
+      id: 'page-one',
+      heading: 'Page one',
+      blocks: pathOverrides.lessonPath
+        ? [{ type: 'image', src: pathOverrides.lessonPath, alt: 'Image' }]
+        : [],
+    }],
     ...(quiz ? { quiz } : {}),
   };
   const bytes = zipSync({
@@ -36,6 +43,21 @@ function createArchive(courseId, title = 'Test course', quiz = null) {
 }
 
 describe('course package corrections', () => {
+  it.each([
+    ['course', 'assets/.'],
+    ['course', 'assets/..'],
+    ['lesson', 'assets/.'],
+    ['lesson', 'assets/..'],
+  ])('rejects a terminal %s path component %s', async (schema, invalidPath) => {
+    const courseId = `invalid-path-${crypto.randomUUID()}`;
+    const pathOverrides = schema === 'course'
+      ? { coursePath: invalidPath }
+      : { lessonPath: invalidPath };
+
+    await expect(importCourseArchive(createArchive(courseId, 'Invalid path', null, pathOverrides)))
+      .rejects.toThrow(/does not match the em3k format/);
+  });
+
   it('rejects duplicate imports without replacing the installed package', async () => {
     const courseId = `duplicate-${crypto.randomUUID()}`;
     await importCourseArchive(createArchive(courseId, 'Original course'));

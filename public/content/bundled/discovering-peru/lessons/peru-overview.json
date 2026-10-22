@@ -6,38 +6,85 @@
     {
       "id": "geography",
       "heading": "Peru at a Glance",
-      "subhead": "Geography and cultural highlights",
+      "subhead": "Geography and country overview",
       "blocks": [
-        { "type": "text", "content": "Peru lies on the west coast of South America." },
-        { "type": "heading", "content": "Highlights", "level": 2 },
-        { "type": "image", "src": "assets/Machu_Picchu_Peru.jpg", "alt": "Machu Picchu among the mountains", "caption": "Machu Picchu" },
-        { "type": "list", "style": "unordered", "items": ["Capital: Lima", "Currency: sol"] },
-        { "type": "callout", "variant": "tip", "title": "Remember", "content": "The capital of Peru is Lima." },
-        { "type": "spacer", "size": "medium" },
-        { "type": "slideshow", "images": [
-          { "src": "assets/Machu_Picchu_Peru.jpg", "alt": "Machu Picchu", "caption": "An Inca site" },
-          { "src": "assets/Flag_of_Peru.svg", "alt": "Flag of Peru" }
-        ] }
+        { "type": "text", "content": "Peru, officially the Republic of Peru, is a country in western South America, bordered by the Pacific Ocean to the west and nations including Brazil, Colombia, Ecuador, Bolivia, and Chile.  As the continent's third-largest country, it spans 496,224.67 square miles and features three distinct geographic regions: the arid coast, the towering Andes Mountains, and the eastern Amazon rainforest." },
+        { "type": "text", "content": "The population of Peru exceeds 32 million people, with Lima serving as the capital and largest city.  Spanish is the official language, but Peru has a multicultural heritage that blends Indigenous, Spanish, African, and Asian influences. This diversity is globally recognized in Peru's vibrant food, textiles, and music."},
+        { "type": "image", "src": "assets/peru-world-map.svg", "alt": "The location of Peru on a world map", "caption": "The location of Peru on a world map" },
+        { "type": "text", "content": "Peru was the center of the Inca Empire before being conquered by the Spanish in the 16th century, gaining independence in 1821.  Today, it operates as a presidential democratic republic with a mixed economy driven by mining, agriculture, fishing, and tourism, attracting millions of visitors annually to sites like Machu Picchu and the Nazca Lines."},
+        { "type": "heading", "content": "At A Glance", "level": 4 },
+        { "type": "list", "style": "unordered", "items": [
+          "Capital city: Lima", 
+          "Language: Spanish",
+          "Name of currency: Sol (plural is Soles)",
+          "Has a population of over 32 million people",
+          "Is the 19th largest country in the world",
+          "Is the third largest country in South America",
+          "Main economic activities include mining, manufacturing, agriculture, tourism and fishing"
+          ] 
+        },
+        { "type": "heading", "content": "The Flag of Peru", "level": 5 },
+        { "type": "text", "content": "The flag of Peru is a vertical triband with red outer bands and a single white middle band. Red represents the blood that was spilled by the fallen freedom fighters that fought for the independence of the country. White represents purity and peace."},
+        { "type": "image", "src": "assets/Flag_of_Peru.svg", "alt": "The Flag of Peru", "caption": "The Flag of Peru" }
       ]
     },
     {
       "id": "landmarks",
-      "heading": "Places and Culture",
+      "heading": "Places and Incan history",
       "blocks": [
         {
           "type": "text",
-          "content": "The places most visited by tourists include Lima and its historic center, along with Cusco, which is characterized by its Inca and colonial architecture and its main attractions, the Sacred Valley of the Incas and Machu Picchu. Other notable locations in the Cusco region include Qorikancha, Ollantaytambo, and Písac. Arequipa is also a major tourist destination for its historic center and the Colca Canyon, as is Puno through Lake Titicaca."
+          "content": "The places most visited by tourists include the capital, Lima, and its historic center, along with Cusco, which is characterized by its Inca and colonial architecture and its main attractions, the Sacred Valley of the Incas and Machu Picchu. Other notable locations in the Cusco region include Qorikancha, Ollantaytambo, and Písac. Arequipa is also a major tourist destination for its historic center and the Colca Canyon, as is Puno through Lake Titicaca."
         },
+        { "type": "image", "src": "assets/lima-peru.jpg", "alt": "Modern day photo of the capital Lima, Peru", "caption": "Modern day photo of the capital Lima, Peru" },
+        { "type": "heading", "content": "The Incas", "level": 5 },
+        { "type": "text", "content": "The Inca Empire, officially known as \"the Realm of the Four Parts\", was the largest empire in pre-Columbian America. The administrative, political, and military center of the empire was in the city of Cusco. The Inca civilisation rose from the Peruvian highlands sometime in the early 13th century. From 1438 to 1533, the Incas incorporated a large portion of western South America, centered on the Andean Mountains, using conquest and peaceful assimilation. At its largest, the empire joined modern-day Peru with what are now western Ecuador, western and south-central Bolivia, northwest Argentina, the southwesternmost tip of Colombia and a large portion of modern-day Chile." },
         {
           "type": "callout",
           "variant": "info",
           "content": "In the 15th century, the Incas emerged as a powerful state which, in the span of a century, formed the largest empire in the pre-Columbian Americas with their capital in Cusco."
-        }
+        },
+        { "type": "image", "src": "assets/Incan-empire.svg", "alt": "The Inca Empire at its greatest extent", "caption": "The Inca Empire at its greatest extent" },
+        { "type": "heading", "content": "Machu Picchu", "level": 5 },
+        { "type": "text", "content": "Machu Picchu is a 15th-century Inca citadel located in southern Peru on a mountain ridge at 7,970 ft high. It is situated in the Machupicchu District of Urubamba Province about 50 miles northwest of Cusco, above the Sacred Valley and along the Urubamba River, which forms a deep canyon with a subtropical mountain climate. It is often referred to as the \"Lost City of the Incas\". Machu Picchu is one of the most iconic symbols of the Inca civilization and a major archaeological site in the Americas. Estimated to be built around 1450, it is believed to have served as an estate for the Inca emperor Pachacuti, though no contemporary written records exist to confirm this."},
+        { "type": "image", "src": "assets/Machu_Picchu_Peru.jpg", "alt": "Machu Picchu among the mountains", "caption": "Machu Picchu" },
+        { "type": "heading", "content": "Lake Titicaca", "level": 5 },
+        { "type": "text", "content": "Lake Titicaca is a large lake in the Andes mountains on the border of Bolivia and Peru. It is often called the highest navigable lake in the world. It is the largest lake in South America, both in terms of the volume of water and surface area and is the 18th largest lake in the world."},
+        { "type": "text", "content": "The \"floating islands\" of Lake Titicaca are small, human-made islands constructed by the Uros (or Uru) people from layers of cut totora (a thick, buoyant sedge) that grows abundantly in the shallows edges of the lake. The Uros harvest the sedges to make the floating islands. According to legend, the Uru people originated in the Amazon and migrated to Lake Titicaca in the pre-Columbian era, where they were oppressed by the local population and were unable to secure land of their own. They built the sedge islands, which could be moved into deep water or to different parts of the lake, as necessary, for greater safety from their hostile neighbors on land."},
+        { "type": "text", "content": "The floating islands are golden in color, and measure about 50 by 50 ft. The largest islands are roughly half the size of a football field. Each island contains several thatched houses, typically belonging to members of a single extended family.Some of the islands have watchtowers and other buildings, also constructed of sedges. The floating islands have become one of Peru's tourist attractions, allowing the Uros to supplement their hunting and fishing by conveying visitors to the islands by motorboat for tours and selling handicrafts."},
+        { "type": "image", "src": "assets/lake-titicaca.png", "alt": "An Uros floating island in Lake Titicaca. Peru", "caption": "An Uros floating island in Lake Titicaca. Peru" }
+      ]
+    },
+    {
+      "id": "spanish",
+      "heading": "Spanish conquest of the Inca empire",
+      "blocks": [
+          { "type": "text", "content": "When the Spanish arrived at the borders of the Inca Empire in 1528, it spanned a considerable area and was by far the largest of the four grand pre-Columbian civilizations. In less than a century, the Inca had expanded their empire from about 150,000 sq mi in 1448 to 690,000 sq mi in 1528. Scholars estimate that the population of the Inca Empire was between 12 and 16 million people."},
+          { "type": "text", "content": "Spanish conquistador, Francisco Pizarro and his brothers were attracted to Peru by the rumors of a rich and fabulous kingdom. In 1529, Francisco Pizarro obtained permission from the Spanish Monarchy to conquer the land they called Peru. When Pizarro arrived in Peru in 1532, he found it vastly different from when he had been there just five years before. Pizarro learned about a civil war that had broken out among the Incans and also of diseases (like smallpox) that was destroying the Inca Empire. After four long expeditions, Pizarro established the first Spanish settlement in northern Peru, calling it San Miguel de Piura."},
+          { "type": "image", "src": "assets/spanish-conquistadors.jpg", "alt": "Spanish conquistadors arrive in Peru", "caption": "Spanish conquistadors arrive in Peru" },
+          { "type": "text", "content": "In December 1532, a party of conquistadors led by Francisco Pizarro (supported by many local indigenous tribes) defeated and captured the Inca Emperor Atahualpa in the Battle of Cajamarca. After years of preliminary exploration and military conflicts, it was the first step in a long campaign that took decades of fighting but ended in Spanish victory and colonization of the region known as the Viceroyalty of Peru with its capital at Lima. The last Inca resistance was suppressed when the Spaniards annihilated the Neo-Inca State in Vilcabamba in 1572."},
+          { "type": "heading", "content": "Chronology of the last years of the Inca Empire", "level": 5 },
+          { "type": "list", "style": "unordered", "items": [
+              "1528 - Francisco Pizarro and Diego de Almagro make first contact with the Inca Empire at Tumbes, the northernmost Inca stronghold along the coast. The Inca Emperor Huayna Capac died from European-introduced smallpox. Death sets off a civil war between his sons: Atahualpa and Huáscar", 
+              "1528-1529 - Pizarro returns to Spain where the Queen of Spain grants him the license to conquer Peru",
+              "1531-1532 - Pizarro's third voyage to Peru. Spaniards form a bond with the Natives (Huancas, Chankas, Cañaris and Chachapoyas) who were under the oppression of the Inca Empire, and Pizarro includes them among his troops to face the Incas. Atahualpa is captured by Spanish.", 
+              "1533 - Pizarro subdues Cuzco and installs seventeen-year-old Manco Inca as new Inca Emperor",
+              "1535 - Pizarro founds the city of Lima", 
+              "1539 - Gonzalo Pizarro invades and sacks Vilcabamba",
+              "1572 - Viceroy of Peru, Francisco Toledo, declares war on the Neo-Inca State; Vilcabamba is sacked again and Túpac Amaru, the last Inca Emperor, is captured and executed in Cuzco. " 
+            ] 
+          },
+          { "type": "text", "content": "Viceroy Francisco de Toledo reorganized the country in the 1570s with gold and silver mining as its main economic activity and Amerindian forced labor as its primary workforce. With the discovery of the great silver and gold lodes at Potosí (present-day Bolivia) and Huancavelica, the viceroyalty flourished as an important provider of mineral resources. Peruvian bullion provided revenue for the Spanish Crown and fueled a complex trade network that extended as far as Europe and the Philippines. "},
+          { "type": "image", "src": "assets/spanish-colonial-lima.jpg", "alt": "Historic Spanish colonial buildings in Lima, Peru", "caption": "Historic Spanish colonial buildings in Lima, Peru" },
+          { "type": "text", "content": "The population decline for the Inca Empire from 1520 to 1571 is roughly estimated at from 10 to 15 million in 1520 to less than 3 million in 1570 with the population still declining after 1570. The single greatest cause of the decimation of native populations was Old World infectious diseases, carried by colonists and conquistadors. As these were new to the natives, they had no acquired immunity and suffered very high rates of death. More died of disease than any army or armed conflict."},
+          { "type": "text", "content": "With the conquest started the spread of Christianity in South America; most people were forcefully converted to Catholicism, with Spanish clerics believing that the Native Peoples \"had been corrupted by the Devil\". It only took a generation to convert the population. They built churches in every city and replaced some of the Inca temples with churches, such as the Coricancha in the city of Cusco."},
+          { "type": "text", "content": "By the 18th century, declining silver production and economic diversification greatly diminished royal income.Eventually, the viceroyalty would dissolve, as with much of the Spanish empire, when challenged by national independence movements at the beginning of the nineteenth century. These movements led to the formation of the majority of modern-day countries of South America in the territories that at one point or another had constituted the Viceroyalty of Peru. Peruvian independence from Spain was achieved by the military campaigns of José de San Martín and Simón Bolívar in the early 19th century. Spain renounced all their continental American territories in 1836 leaving very little of its vast empire intact."}, 
+          { "type": "image", "src": "assets/peruvian-independence.jpg", "alt": "San Martín proclaims the independence of Peru.", "caption": "San Martín proclaims the independence of Peru." }
       ]
     }
   ],
   "quiz": {
-    "title": "Peru Basics",
+    "title": "A Quiz About Peru",
     "passPercent": 70,
     "questions": [
       {
@@ -47,7 +94,8 @@
         "options": [
           { "id": "lima", "text": "Lima" },
           { "id": "cusco", "text": "Cusco" },
-          { "id": "ayacucho", "text": "Ayacucho" }
+          { "id": "arequipa", "text": "Arequipa" },
+          { "id": "callao", "text": "Callao" }
         ],
         "answer": "lima"
       },
@@ -56,6 +104,30 @@
         "type": "true-false",
         "prompt": "Peru uses the sol as its currency.",
         "answer": true
+      },
+      {
+        "id": "location",
+        "type": "multiple-choice",
+        "prompt": "Where is Peru located?",
+        "options": [
+          { "id": "north-america", "text": "North America" },
+          { "id": "europe", "text": "Europe" },
+          { "id": "south-america", "text": "South America" },
+          { "id": "asia", "text": "Asia" }
+        ],
+        "answer": "south-america"
+      },
+      {
+        "id": "empire",
+        "type": "multiple-choice",
+        "prompt": "Peru was home to what great empire in the past?",
+        "options": [
+          { "id": "aztec", "text": "Aztec" },
+          { "id": "mayan", "text": "Mayan" },
+          { "id": "inca", "text": "Inca" },
+          { "id": "anasazi", "text": "Anasazi" }
+        ],
+        "answer": "inca"
       }
     ]
   }

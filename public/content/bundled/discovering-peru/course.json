@@ -23,14 +23,9 @@
       "file": "lessons/peru-history.json"
     },
     {
-      "id": "peru-tourism",
-      "title": "Tourism In Peru",
-      "file": "lessons/peru-tourism.json"
-    },
-    {
-      "id": "peru-economy",
-      "title": "The Economy of Peru",
-      "file": "lessons/peru-economy.json"
+      "id": "peru-regions",
+      "title": "The Regions of Peru",
+      "file": "lessons/peru-regions.json"
     },
     {
       "id": "peru-culture",
@@ -38,9 +33,14 @@
       "file": "lessons/peru-culture.json"
     },
     {
-      "id": "peru-regions",
-      "title": "The Regions of Peru",
-      "file": "lessons/peru-regions.json"
+      "id": "peru-economy",
+      "title": "The Economy of Peru",
+      "file": "lessons/peru-economy.json"
+    },
+    {
+      "id": "peru-tourism",
+      "title": "Tourism In Peru",
+      "file": "lessons/peru-tourism.json"
     }
   ]
 }

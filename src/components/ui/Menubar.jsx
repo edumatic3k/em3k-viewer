@@ -69,6 +69,7 @@ export function Menubar() {
                                 <li><a className="dropdown-item" href="#">Share Lesson</a></li>
                                 <li><a className="dropdown-item" href="#">Backup Library</a></li>
                                 <hr/>
+                                {/* <!-- These would be state-dependent and only one would show at a time --> */}
                                 <li><a className="dropdown-item" href="#">🔴 Go Online</a></li>
                                 <li><a className="dropdown-item" href="#">🟢 Work Offline</a></li>
                                 <hr/>

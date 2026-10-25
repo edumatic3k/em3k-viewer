@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="800"
+   height="800"
+   viewBox="0 0 800 800"
+   role="img"
+   version="1.1"
+   id="svg12"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs12" />
+  <title
+     id="title1">EM3K student robot icon</title>
+  <g
+     transform="translate(130 90) scale(1.45)"
+     id="g12">
+    <g
+       stroke="#062642"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       id="g7">
+      <!-- torso -->
+      <rect
+         x="83"
+         y="211"
+         width="205"
+         height="159"
+         rx="77"
+         fill="#FFF5E4"
+         stroke-width="13"
+         id="rect1" />
+      <rect
+         x="45"
+         y="228"
+         width="87"
+         height="119"
+         rx="42"
+         fill="#FFF5E4"
+         stroke-width="12"
+         id="rect2" />
+      <rect
+         x="244"
+         y="228"
+         width="87"
+         height="119"
+         rx="42"
+         fill="#FFF5E4"
+         stroke-width="12"
+         id="rect3" />
+      <!-- head / ears -->
+      <rect
+         x="61"
+         y="27"
+         width="272"
+         height="214"
+         rx="95"
+         fill="#FFF5E4"
+         stroke-width="14"
+         id="rect4" />
+      <rect
+         x="33"
+         y="95"
+         width="61"
+         height="94"
+         rx="30"
+         fill="#FFF5E4"
+         stroke-width="12"
+         id="rect5" />
+      <ellipse
+         cx="52"
+         cy="142"
+         rx="22"
+         ry="34"
+         fill="#279CD6"
+         stroke-width="7"
+         id="ellipse5" />
+      <rect
+         x="109"
+         y="73"
+         width="199"
+         height="130"
+         rx="56"
+         fill="#062642"
+         stroke="#062642"
+         stroke-width="7"
+         id="rect6" />
+      <!-- eyes and mouth -->
+      <path
+         d="M151 144 Q168 116 185 144 M227 144 Q244 116 261 144"
+         stroke="#FFF5E4"
+         stroke-width="12"
+         fill="none"
+         id="path6" />
+      <path
+         d="M185 167 Q206 188 225 167"
+         stroke="#FFF5E4"
+         stroke-width="9"
+         fill="none"
+         id="path7" />
+    </g>
+    <g
+       stroke="#062642"
+       stroke-linejoin="round"
+       stroke-linecap="round"
+       id="g11">
+      <path
+         d="M91 277 Q151 269 190 302 Q235 269 303 260 L291 390 Q227 377 190 408 Q138 383 83 390 Z"
+         fill="#F4511E"
+         stroke-width="12"
+         id="path8" />
+      <path
+         d="M90 270 Q155 262 190 296 Q235 262 301 253"
+         fill="none"
+         stroke="#FFF5E4"
+         stroke-width="10"
+         id="path9" />
+      <path
+         d="M190 304 L190 403"
+         stroke-width="8"
+         fill="none"
+         id="path10" />
+      <rect
+         x="56"
+         y="304"
+         width="68"
+         height="66"
+         rx="32"
+         fill="#FFF5E4"
+         stroke-width="12"
+         id="rect10" />
+      <rect
+         x="279"
+         y="295"
+         width="65"
+         height="69"
+         rx="32"
+         fill="#FFF5E4"
+         stroke-width="12"
+         id="rect11" />
+    </g>
+  </g>
+</svg>
